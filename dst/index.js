@@ -1,12 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// filename: index 
 var mct1_version = '1.2';
 var magik = magikcraft.io;
 var say = function (msg) {
     magik.dixit(msg, magik.getSender().getName());
 };
-var Promise = require("./promise");
 var setupBars_1 = require("./setupBars");
 var setupState_1 = require("./setupState");
 var gameloop_1 = require("./gameloop");
