@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/Purpsta/mct1/issues"
   },
-  "homepage": "https://github.com/Purpsta/mct1#readme"
+  "homepage": "https://github.com/Purpsta/mct1#readme",
+  "dependencies": {
+    "typescript": "^2.4.1"
+  }
 }
