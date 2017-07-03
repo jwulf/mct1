@@ -5,6 +5,7 @@ var magik = magikcraft.io;
 var say = function (msg) {
     magik.dixit(msg, magik.getSender().getName());
 };
+require('./promise');
 var setupBars_1 = require("./setupBars");
 var setupState_1 = require("./setupState");
 var gameloop_1 = require("./gameloop");

@@ -1,11 +1,11 @@
 // filename: index 
-declare const Promise: any;
+declare const Promise: any, require: any;
 const mct1_version = '1.2';
 const magik = magikcraft.io;
 const say = (msg) => {
     magik.dixit(msg, magik.getSender().getName());
 }
-import * as P from './promise';
+require('./promise');
 import { setupBars } from './setupBars';
 import { setupState } from './setupState';
 import { gameloop } from './gameloop';
