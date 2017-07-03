@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var magik = magikcraft.io;
 var player = magik.getSender();
 var setBGL_1 = require("./setBGL");
-var say = function (msg) { return magik.dixit(msg, player.getName()); };
+var say = function (msg) { return magikcraft.io.dixit(msg, player.getName()); };
 function gameloop() {
     var mct1 = magik.global('mct1');
     // say(mct1);

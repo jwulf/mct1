@@ -2,7 +2,7 @@ const magik = magikcraft.io;
 import { effects } from './effects';
 const player = magik.getSender();
 import { setBGL } from './setBGL';
-const say = (msg) => magik.dixit(msg, player.getName());
+const say = (msg) => magikcraft.io.dixit(msg, player.getName());
 
 export function gameloop() {
     const mct1 = magik.global('mct1') as any;
