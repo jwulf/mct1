@@ -4,7 +4,7 @@ import { effects } from './effects';
 export function setBGL(bgl, insulinAbsorptionRate = 0) {
     const magik = magikcraft.io;
 
-    const mct1 = magik.global('mct1') as any;
+    const mct1 = magikcraft.io.global('mct1') as any;
     const say = magik.dixit;
 
     mct1.state.bgl = bgl;

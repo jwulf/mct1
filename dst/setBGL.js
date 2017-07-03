@@ -4,7 +4,7 @@ var effects_1 = require("./effects");
 function setBGL(bgl, insulinAbsorptionRate) {
     if (insulinAbsorptionRate === void 0) { insulinAbsorptionRate = 0; }
     var magik = magikcraft.io;
-    var mct1 = magik.global('mct1');
+    var mct1 = magikcraft.io.global('mct1');
     var say = magik.dixit;
     mct1.state.bgl = bgl;
     say(bgl);

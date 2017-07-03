@@ -40,7 +40,7 @@ var Insulin = (function () {
         var _this = this;
         var elapsedTime = this.onsetDelay;
         var magik = magikcraft.io;
-        var mct1 = magik.global('mct1');
+        var mct1 = magikcraft.io.global('mct1');
         magik.setTimeout(function () {
             // the insulin starts to act
             var _loop = magik.setInterval(function () {

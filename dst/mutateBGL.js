@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var magik = magikcraft.io;
-var mct1 = magik.global('mct1');
+var mct1 = magikcraft.io.global('mct1');
 var say = magik.dixit;
 var effects_1 = require("./effects");
 function mutateBGL(bgl) {

@@ -1,6 +1,6 @@
 declare const Promise: any;
 const magik = magikcraft.io;
-const mct1 = magik.global('mct1') as any;
+const mct1 = magikcraft.io.global('mct1') as any;
 
 export function setupBars() {
     const Bars = magik.Bars;

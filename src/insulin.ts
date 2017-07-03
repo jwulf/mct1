@@ -42,7 +42,7 @@ class Insulin {
     take(amount: number) {
         let elapsedTime = this.onsetDelay;
         const magik = magikcraft.io
-        const mct1 = magik.global('mct1') as any;
+        const mct1 = magikcraft.io.global('mct1') as any;
 
         magik.setTimeout(() => {
             // the insulin starts to act

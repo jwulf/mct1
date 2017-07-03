@@ -14,7 +14,7 @@ import { setInsulin } from './setInsulin';
 
 export function index() {
     return new Promise((resolve, reject) => {
-        const mct1 = magik.global('mct1') as any;
+        const mct1 = magikcraft.io.global('mct1') as any;
         if (mct1.initialised) {
             say('Resolving promise...');
             return resolve(mct1);

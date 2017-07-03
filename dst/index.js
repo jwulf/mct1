@@ -15,7 +15,7 @@ var setBGL_1 = require("./setBGL");
 var setInsulin_1 = require("./setInsulin");
 function index() {
     return new Promise(function (resolve, reject) {
-        var mct1 = magik.global('mct1');
+        var mct1 = magikcraft.io.global('mct1');
         if (mct1.initialised) {
             say('Resolving promise...');
             return resolve(mct1);
