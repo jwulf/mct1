@@ -2,7 +2,7 @@
   "name": "mct1",
   "version": "1.0.0",
   "description": "Repo for mct1 ",
-  "main": "index.js",
+  "main": "dst/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/Purpsta/mct1#readme",
   "dependencies": {
+    "magikcraft.io": "^0.9.1",
+    "only": "0.0.2",
     "typescript": "^2.4.1"
   }
 }
