@@ -1,5 +1,5 @@
 const magik = magikcraft.io;
-const mct1 = magikcraft.io.global('mct1') as any;
+const mct1 = magik.global('mct1') as MCT1;
 
 export function setupBars(callback) {
     const Bars = magik.Bars;
@@ -9,14 +9,14 @@ export function setupBars(callback) {
         return;
     }
     const insulin = Bars.addBar(magik.getSender(),
-        new TextComponent("Insulin"),
+        magik.TextComponent("Insulin"),
         Bars.Color.BLUE,
         Bars.Style.NOTCHED_20,
         0.0, // Progress (0.0 - 1.0)
     );
 
     const bgl = Bars.addBar(magik.getSender(),
-        new TextComponent("BGL"),
+        magik.TextComponent("BGL"),
         Bars.Color.RED,
         Bars.Style.NOTCHED_20,
         0.0 // Progress (0.0 - 1.0)

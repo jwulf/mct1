@@ -1,7 +1,7 @@
 /**
  * This is the Insulin class
  * Create a new instance of this class for basal and fast-acting insulins.
- * 
+ *
  *  param {number} onsetDelay - the number of seconds before the insulin effect kicks instance.
  *  param {number} duration - the number of seconds of the total effective duration of this insulin.
  *  param {number} peak - the number of seconds to the peak action of the insulin. Set to 0 for a flat (consistent) effect. Is modelled as a bell curve centered on the peak.
