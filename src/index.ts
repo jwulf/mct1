@@ -1,5 +1,5 @@
 // filename: index 
-const mct1_version = '1.2';
+const mct1_version = '1.2.1';
 const magik = magikcraft.io;
 const say = (msg) => {
     magik.dixit(msg, magik.getSender().getName());

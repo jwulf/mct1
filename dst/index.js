@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 // filename: index 
-var mct1_version = '1.2';
+var mct1_version = '1.2.1';
 var magik = magikcraft.io;
 var say = function (msg) {
     magik.dixit(msg, magik.getSender().getName());
