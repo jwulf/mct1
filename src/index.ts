@@ -5,16 +5,18 @@ import { gameloop } from './gameloop';
 import { setBGL } from './setBGL';
 import { setInsulin } from './setInsulin';
 
-const mct1_version = '1.2.1';
+const mct1_version = '1.2.2';
 const say = (msg) => {
     magik.dixit(msg, magik.getSender().getName());
 }
 say(`MCT version ${mct1_version}`);
 
-export function index(callback) {
+export function controller(cmd = 'default') {
     const mct1 = magik.global('mct1') as MCT1;
-    if (mct1.initialised) {
-        return callback(mct1);
+    if (!mct1.initialised) {
+        initialise(() => processCmd(cmd));
+    } else {
+        processCmd(cmd);
     }
 
     const cancelGameLoop = () => {
@@ -24,30 +26,50 @@ export function index(callback) {
         }
     };
 
-    mct1.version = mct1_version;
-    setupBars(
-        (bars) => {
-            mct1.bars = bars;
-            setupState();
+    function processCmd(cmd: string) {
+        say(`Yo, mct1 executing ${cmd}`);
+        const controlr = mct1.controller;
+        if (cmd === 'default') {
+            (mct1.running) ? controlr.stop() : controlr.start();
+            return;
+        }
+        if (cmd === 'start') {
+            return controlr.start();
+        }
+        if (cmd === 'stop') {
+            return controlr.stop();
+        }
+        if (cmd === 'reset') {
+            return controlr.reset();
+        }
+    }
 
-            mct1.initialised = true;
-            mct1.running = false;
+    function initialise(callback: (mct1: MCT1) => void) {
+        mct1.version = mct1_version;
+        setupBars(
+            (bars) => {
+                mct1.bars = bars;
+                setupState();
 
-            mct1.controller = {
-                start: () => {
-                    cancelGameLoop();
-                    say('Initiating MCT1 Game Loop');
-                    mct1.loop = magik.setInterval(gameloop, 1000);
-                    mct1.running = true;
-                },
-                stop: () => {
-                    cancelGameLoop();
-                },
-                reset: () => {
-                    setBGL(0.4);
-                    mct1.state.insulinOnBoard = 0.2;
+                mct1.initialised = true;
+                mct1.running = false;
+
+                mct1.controller = {
+                    start: () => {
+                        cancelGameLoop();
+                        say('Initiating MCT1 Game Loop');
+                        mct1.loop = magik.setInterval(gameloop, 1000);
+                        mct1.running = true;
+                    },
+                    stop: () => {
+                        cancelGameLoop();
+                    },
+                    reset: () => {
+                        setBGL(0.4);
+                        mct1.state.insulinOnBoard = 0.2;
+                    }
                 }
-            }
-            callback(mct1);
-        });
+                callback(mct1);
+            });
+    }
 }
