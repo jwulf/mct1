@@ -1,5 +1,7 @@
 const magik = magikcraft.io;
-const mct1 = magikcraft.io.global('mct1') as any;
+
+
+const mct1 = magik.global('mct1') as MCT1;
 const say = magik.dixit;
 import { effects } from './effects';
 

@@ -2,9 +2,13 @@
 # yarn lockfile v1
 
 
-magikcraft.io@^0.9.1:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/magikcraft.io/-/magikcraft.io-0.9.1.tgz#d5480844de71854ce78ff16e72231eb4b7ad2989"
+"@types/jest@^20.0.2":
+  version "20.0.2"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-20.0.2.tgz#86c751121fb53dbd39bb1a08c45083da13f2dc67"
+
+magikcraft.io@^0.9.7:
+  version "0.9.7"
+  resolved "https://registry.yarnpkg.com/magikcraft.io/-/magikcraft.io-0.9.7.tgz#3f3165a9918147e978cd59deda7fe6de5462003a"
 
 only@0.0.2:
   version "0.0.2"

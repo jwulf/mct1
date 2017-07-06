@@ -1,8 +1,10 @@
 const magik = magikcraft.io;
+import { setBGL } from './setBGL';
+import { setInsulin } from './setInsulin';
 
 export function setupState() {
-    const mct1 = magikcraft.io.global('mct1') as any;
-    mct1.state = {};
-    mct1.setBGL(0.4);
-    mct1.setInsulin(0.2);
+    const mct1 = magik.global('mct1') as MCT1;
+    mct1.state = {} as any;
+    setBGL(0.4);
+    setInsulin(0.2);
 }
