@@ -4,7 +4,8 @@ var magik = magikcraft.io;
 var setupBars_1 = require("./setupBars");
 var setupState_1 = require("./setupState");
 var gameloop_1 = require("./gameloop");
-var setBGL_1 = require("./setBGL");
+var setBGLLevel_1 = require("./setBGLLevel");
+var setInsulinLevel_1 = require("./setInsulinLevel");
 var mct1_version = '1.2.3';
 var say = function (msg) {
     magik.dixit(msg, magik.getSender().getName());
@@ -61,8 +62,8 @@ function controller(cmd) {
                     cancelGameLoop();
                 },
                 reset: function () {
-                    setBGL_1.setBGL(0.4);
-                    mct1.state.insulinOnBoard = 0.2;
+                    setBGLLevel_1.setBGLLevel(0.4);
+                    setInsulinLevel_1.setInsulinLevel(0.2);
                 },
                 version: function () {
                     magik.dixit(mct1.version);

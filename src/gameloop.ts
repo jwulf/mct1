@@ -1,6 +1,7 @@
 const magik = magikcraft.io;
 import { effects } from './effects';
-import { setBGL } from './setBGL';
+import { setBGLLevel } from './setBGLLevel';
+import { setInsulinLevel } from './setInsulinLevel';
 
 const player = magik.getSender();
 const say = (msg) => magikcraft.io.dixit(msg, player.getName());
@@ -25,7 +26,7 @@ export function gameloop() {
         const newInsulin = insulinOnBoard - insulinAbsorptionRate;
         const food = player.getFoodLevel();
         player.setFoodLevel(food - 1);
-        setInsulin(Math.max(newInsulin, 0));
+        setInsulinLevel(Math.max(newInsulin, 0));
 
         // do BGL Absorption
         if (bgl > 0) {
@@ -44,5 +45,5 @@ export function gameloop() {
         newBGL += 0.7;
     }
 
-    setBGL(bgl);
+    setBGLLevel(bgl);
 }

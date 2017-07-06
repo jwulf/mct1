@@ -2,8 +2,8 @@ const magik = magikcraft.io;
 import { setupBars } from './setupBars';
 import { setupState } from './setupState';
 import { gameloop } from './gameloop';
-import { setBGL } from './setBGL';
-import { setInsulinLevel } from './setInsulin';
+import { setBGLLevel } from './setBGLLevel';
+import { setInsulinLevel } from './setInsulinLevel';
 
 const mct1_version = '1.2.3';
 const say = (msg) => {
@@ -67,8 +67,8 @@ export function controller(cmd = 'default') {
                         cancelGameLoop();
                     },
                     reset: () => {
-                        setBGL(0.4);
-                        mct1.state.insulinOnBoard = 0.2;
+                        setBGLLevel(0.4);
+                        setInsulinLevel(0.2);
                     },
                     version: () => {
                         magik.dixit(mct1.version);
