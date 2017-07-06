@@ -5,7 +5,7 @@ var setupBars_1 = require("./setupBars");
 var setupState_1 = require("./setupState");
 var gameloop_1 = require("./gameloop");
 var setBGL_1 = require("./setBGL");
-var mct1_version = '1.2.2';
+var mct1_version = '1.2.3';
 var say = function (msg) {
     magik.dixit(msg, magik.getSender().getName());
 };
@@ -19,12 +19,6 @@ function controller(cmd) {
     else {
         processCmd(cmd);
     }
-    var cancelGameLoop = function () {
-        mct1.running = false;
-        if (mct1.loop) {
-            magik.clearInterval(mct1.loop);
-        }
-    };
     function processCmd(cmd) {
         say("Yo, mct1 executing " + cmd);
         var controlr = mct1.controller;
@@ -43,6 +37,12 @@ function controller(cmd) {
         }
     }
     function initialise(callback) {
+        var cancelGameLoop = function () {
+            mct1.running = false;
+            if (mct1.loop) {
+                magik.clearInterval(mct1.loop);
+            }
+        };
         mct1.version = mct1_version;
         say('Initialising...');
         setupBars_1.setupBars(function (bars) {
@@ -63,6 +63,9 @@ function controller(cmd) {
                 reset: function () {
                     setBGL_1.setBGL(0.4);
                     mct1.state.insulinOnBoard = 0.2;
+                },
+                version: function () {
+                    magik.dixit(mct1.version);
                 }
             };
             callback(mct1);

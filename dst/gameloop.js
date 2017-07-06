@@ -1,14 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var magik = magikcraft.io;
-var player = magik.getSender();
 var setBGL_1 = require("./setBGL");
+var player = magik.getSender();
 var say = function (msg) { return magikcraft.io.dixit(msg, player.getName()); };
 function gameloop() {
     var mct1 = magik.global('mct1');
-    // say(mct1);
     var state = mct1.state;
-    // say(state.bgl);
     var bgl = state.bgl;
     var newBGL;
     var insulinOnBoard = state.insulinOnBoard;
@@ -22,7 +20,7 @@ function gameloop() {
         var newInsulin = insulinOnBoard - insulinAbsorptionRate;
         var food = player.getFoodLevel();
         player.setFoodLevel(food - 1);
-        mct1.setInsulin(Math.max(newInsulin, 0));
+        setInsulin(Math.max(newInsulin, 0));
         // do BGL Absorption
         if (bgl > 0) {
             var bglAbsorbed = insulinAbsorptionRate * 0.8;

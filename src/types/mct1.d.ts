@@ -13,5 +13,6 @@ interface MCT1 {
         start: () => void;
         stop: () => void;
         reset: () => void;
+        version: () => void;
     }
 }

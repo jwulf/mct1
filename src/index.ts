@@ -5,7 +5,7 @@ import { gameloop } from './gameloop';
 import { setBGL } from './setBGL';
 import { setInsulinLevel } from './setInsulin';
 
-const mct1_version = '1.2.2';
+const mct1_version = '1.2.3';
 const say = (msg) => {
     magik.dixit(msg, magik.getSender().getName());
 }
@@ -45,7 +45,7 @@ export function controller(cmd = 'default') {
                 magik.clearInterval(mct1.loop);
             }
         };
-        
+
         mct1.version = mct1_version;
         say('Initialising...');
         setupBars(
@@ -69,6 +69,9 @@ export function controller(cmd = 'default') {
                     reset: () => {
                         setBGL(0.4);
                         mct1.state.insulinOnBoard = 0.2;
+                    },
+                    version: () => {
+                        magik.dixit(mct1.version);
                     }
                 }
                 callback(mct1);

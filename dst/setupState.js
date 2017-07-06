@@ -7,6 +7,6 @@ function setupState() {
     var mct1 = magik.global('mct1');
     mct1.state = {};
     setBGL_1.setBGL(0.4);
-    setInsulin_1.setInsulin(0.2);
+    setInsulin_1.setInsulinLevel(0.2);
 }
 exports.setupState = setupState;

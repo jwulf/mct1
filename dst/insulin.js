@@ -1,4 +1,7 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var mutateBGL_1 = require("./mutateBGL");
+var magik = magikcraft.io;
 /**
  * This is the Insulin class
  * Create a new instance of this class for basal and fast-acting insulins.
@@ -39,8 +42,7 @@ var Insulin = (function () {
     Insulin.prototype.take = function (amount) {
         var _this = this;
         var elapsedTime = this.onsetDelay;
-        var magik = magikcraft.io;
-        var mct1 = magikcraft.io.global('mct1');
+        // This timeout is the onset Delay of taking the insulin
         magik.setTimeout(function () {
             // the insulin starts to act
             var _loop = magik.setInterval(function () {
@@ -51,8 +53,8 @@ var Insulin = (function () {
                 }
                 // == Do Insulin effect ==
                 // calculate insulin power
-                var effect = _this.calculateInsulinEffect(elapsedTime);
-                mct1.mutateBGL(effect);
+                var bglDelta = _this.calculateInsulinEffect(elapsedTime);
+                mutateBGL_1.mutateBGL(bglDelta);
                 elapsedTime += secondsPerTick;
             }, secondsPerTick);
         }, this.onsetDelay);
