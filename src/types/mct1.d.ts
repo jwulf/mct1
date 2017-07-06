@@ -5,4 +5,12 @@ interface MCT1 {
     },
     initialised: boolean;
     bars: any;
+    loop: any;
+    version: string;
+    running: boolean;
+    controller: {
+        start: () => void;
+        stop: () => void;
+        reset: () => void;
+    }
 }
