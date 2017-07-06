@@ -6,6 +6,7 @@ interface MCT1 {
     },
     initialised: boolean;
     bars: any;
+    effect: {},
     loop: any;
     version: string;
     running: boolean;

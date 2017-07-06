@@ -7,7 +7,9 @@ const mct1 = magik.global('mct1') as MCT1;
 const say = magik.dixit;
 
 export function setBGLLevel(bgl, bglDelta = 0) {
-    mct1.state.bgl = bgl;
+    // The following line keeps newBGL 0 - 0.99
+    const newBGL = (bgl => Math.min(bgl, 0.99))(Math.max(bgl, 0));
+    mct1.state.bgl = newBGL;
     // say(bgl);
     mct1.bars.bgl.setProgress(bgl);
     if (BGLFallingFast(bglDelta)) {
@@ -23,12 +25,15 @@ export function setBGLLevel(bgl, bglDelta = 0) {
         }
     } else {
         makeBarRed();
-        if  (BGLIsLow(bgl)) {
+        if (BGLIsLow(bgl)) {
             effects('CONFUSION');
         }
         if (BGLIsHigh(bgl)) {
             effects('BLINDNESS');
         }
+    }
+    if (newBGL === 0) {
+        say("Aaaarrrggh!"); // kill player
     }
 }
 

@@ -7,7 +7,9 @@ var mct1 = magik.global('mct1');
 var say = magik.dixit;
 function setBGLLevel(bgl, bglDelta) {
     if (bglDelta === void 0) { bglDelta = 0; }
-    mct1.state.bgl = bgl;
+    // The following line keeps newBGL 0 - 0.99
+    var newBGL = (function (bgl) { return Math.min(bgl, 0.99); })(Math.max(bgl, 0));
+    mct1.state.bgl = newBGL;
     // say(bgl);
     mct1.bars.bgl.setProgress(bgl);
     if (BGLFallingFast(bglDelta)) {
@@ -30,6 +32,9 @@ function setBGLLevel(bgl, bglDelta) {
         if (BGLIsHigh(bgl)) {
             effects_1.effects('BLINDNESS');
         }
+    }
+    if (newBGL === 0) {
+        say("Aaaarrrggh!"); // kill player
     }
 }
 exports.setBGLLevel = setBGLLevel;
