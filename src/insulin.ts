@@ -1,3 +1,7 @@
+import { mutateBGL } from './mutateBGL';
+
+const magik = magikcraft.io
+
 /**
  * This is the Insulin class
  * Create a new instance of this class for basal and fast-acting insulins.
@@ -41,9 +45,7 @@ class Insulin {
 
     take(amount: number) {
         let elapsedTime = this.onsetDelay;
-        const magik = magikcraft.io
-        const mct1 = magikcraft.io.global('mct1') as any;
-
+        // This timeout is the onset Delay of taking the insulin
         magik.setTimeout(() => {
             // the insulin starts to act
             let _loop = magik.setInterval(
@@ -55,13 +57,12 @@ class Insulin {
                     }
                     // == Do Insulin effect ==
                     // calculate insulin power
-                    const effect = this.calculateInsulinEffect(elapsedTime);
-                    mct1.mutateBGL(effect);
+                    const bglDelta = this.calculateInsulinEffect(elapsedTime);
+                    mutateBGL(bglDelta);
                     elapsedTime += secondsPerTick;
                 },
                 secondsPerTick
             );
         }, this.onsetDelay);
     }
-
 }

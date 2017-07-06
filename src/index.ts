@@ -3,7 +3,7 @@ import { setupBars } from './setupBars';
 import { setupState } from './setupState';
 import { gameloop } from './gameloop';
 import { setBGL } from './setBGL';
-import { setInsulin } from './setInsulin';
+import { setInsulinLevel } from './setInsulin';
 
 const mct1_version = '1.2.2';
 const say = (msg) => {
@@ -18,13 +18,6 @@ export function controller(cmd = 'default') {
     } else {
         processCmd(cmd);
     }
-
-    const cancelGameLoop = () => {
-        mct1.running = false;
-        if (mct1.loop) {
-            magik.clearInterval(mct1.loop);
-        }
-    };
 
     function processCmd(cmd: string) {
         say(`Yo, mct1 executing ${cmd}`);
@@ -45,6 +38,14 @@ export function controller(cmd = 'default') {
     }
 
     function initialise(callback: (mct1: MCT1) => void) {
+
+        const cancelGameLoop = () => {
+            mct1.running = false;
+            if (mct1.loop) {
+                magik.clearInterval(mct1.loop);
+            }
+        };
+        
         mct1.version = mct1_version;
         say('Initialising...');
         setupBars(

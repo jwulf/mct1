@@ -1,7 +1,8 @@
 interface MCT1 {
     state: {
         bgl: number;
-        insulinOnBoard: number,
+        insulinOnBoard: number;
+        carbsOnBoard: number;
     },
     initialised: boolean;
     bars: any;
