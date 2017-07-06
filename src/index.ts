@@ -46,6 +46,7 @@ export function controller(cmd = 'default') {
 
     function initialise(callback: (mct1: MCT1) => void) {
         mct1.version = mct1_version;
+        say('Initialising...');
         setupBars(
             (bars) => {
                 mct1.bars = bars;

@@ -44,6 +44,7 @@ function controller(cmd) {
     }
     function initialise(callback) {
         mct1.version = mct1_version;
+        say('Initialising...');
         setupBars_1.setupBars(function (bars) {
             mct1.bars = bars;
             setupState_1.setupState();
