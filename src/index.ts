@@ -5,10 +5,9 @@ import { gameloop } from './gameloop';
 import { setBGLLevel } from './setBGLLevel';
 import { setInsulinLevel } from './setInsulinLevel';
 
-const mct1_version = '1.2.3';
-const say = (msg) => {
-    magik.dixit(msg, magik.getSender().getName());
-}
+const mct1_version = '1.2.4';
+const say = magik.dixit;
+
 say(`MCT version ${mct1_version}`);
 
 export function controller(cmd = 'default') {

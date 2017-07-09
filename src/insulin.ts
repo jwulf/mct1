@@ -43,6 +43,8 @@ class Insulin {
         const effect = e * a;
     }
 
+    // When you take insulin, it sets up a timer loop that applies the effect of the insulin
+    // until it runs out.
     take(amount: number) {
         let elapsedTime = this.onsetDelay;
         // This timeout is the onset Delay of taking the insulin

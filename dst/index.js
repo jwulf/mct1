@@ -6,10 +6,8 @@ var setupState_1 = require("./setupState");
 var gameloop_1 = require("./gameloop");
 var setBGLLevel_1 = require("./setBGLLevel");
 var setInsulinLevel_1 = require("./setInsulinLevel");
-var mct1_version = '1.2.3';
-var say = function (msg) {
-    magik.dixit(msg, magik.getSender().getName());
-};
+var mct1_version = '1.2.4';
+var say = magik.dixit;
 say("MCT version " + mct1_version);
 function controller(cmd) {
     if (cmd === void 0) { cmd = 'default'; }

@@ -39,6 +39,8 @@ var Insulin = (function () {
         var e = getE();
         var effect = e * a;
     };
+    // When you take insulin, it sets up a timer loop that applies the effect of the insulin
+    // until it runs out.
     Insulin.prototype.take = function (amount) {
         var _this = this;
         var elapsedTime = this.onsetDelay;
