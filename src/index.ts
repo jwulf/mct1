@@ -8,7 +8,7 @@ import { setInsulinLevel } from './setInsulinLevel';
 const mct1_version = '1.2.4';
 const say = magik.dixit;
 
-say(`MCT version ${mct1_version}`);
+say(`MCT1 version ${mct1_version}`);
 
 export function controller(cmd = 'default') {
     const mct1 = magik.global('mct1') as MCT1;

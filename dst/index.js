@@ -8,7 +8,7 @@ var setBGLLevel_1 = require("./setBGLLevel");
 var setInsulinLevel_1 = require("./setInsulinLevel");
 var mct1_version = '1.2.4';
 var say = magik.dixit;
-say("MCT version " + mct1_version);
+say("MCT1 version " + mct1_version);
 function controller(cmd) {
     if (cmd === void 0) { cmd = 'default'; }
     var mct1 = magik.global('mct1');
