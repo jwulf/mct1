@@ -1,10 +1,12 @@
 interface MCT1 {
     state: {
         bgl: number;
-        insulinOnBoard: number,
+        insulinOnBoard: number;
+        carbsOnBoard: number;
     },
     initialised: boolean;
     bars: any;
+    effect: {},
     loop: any;
     version: string;
     running: boolean;
@@ -12,5 +14,6 @@ interface MCT1 {
         start: () => void;
         stop: () => void;
         reset: () => void;
+        version: () => void;
     }
 }
