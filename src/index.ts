@@ -2,14 +2,13 @@ const magik = magikcraft.io;
 import { setupBars } from './setupBars';
 import { setupState } from './setupState';
 import { gameloop } from './gameloop';
-import { setBGL } from './setBGL';
-import { setInsulin } from './setInsulin';
+import { setBGLLevel } from './setBGLLevel';
+import { setInsulinLevel } from './setInsulinLevel';
 
-const mct1_version = '1.2.2';
-const say = (msg) => {
-    magik.dixit(msg, magik.getSender().getName());
-}
-say(`MCT version ${mct1_version}`);
+const mct1_version = '1.2.4';
+const say = magik.dixit;
+
+say(`MCT1 version ${mct1_version}`);
 
 export function controller(cmd = 'default') {
     const mct1 = magik.global('mct1') as MCT1;
@@ -18,13 +17,6 @@ export function controller(cmd = 'default') {
     } else {
         processCmd(cmd);
     }
-
-    const cancelGameLoop = () => {
-        mct1.running = false;
-        if (mct1.loop) {
-            magik.clearInterval(mct1.loop);
-        }
-    };
 
     function processCmd(cmd: string) {
         say(`Yo, mct1 executing ${cmd}`);
@@ -45,6 +37,14 @@ export function controller(cmd = 'default') {
     }
 
     function initialise(callback: (mct1: MCT1) => void) {
+
+        const cancelGameLoop = () => {
+            mct1.running = false;
+            if (mct1.loop) {
+                magik.clearInterval(mct1.loop);
+            }
+        };
+
         mct1.version = mct1_version;
         say('Initialising...');
         setupBars(
@@ -66,8 +66,11 @@ export function controller(cmd = 'default') {
                         cancelGameLoop();
                     },
                     reset: () => {
-                        setBGL(0.4);
-                        mct1.state.insulinOnBoard = 0.2;
+                        setBGLLevel(0.4);
+                        setInsulinLevel(0.2);
+                    },
+                    version: () => {
+                        magik.dixit(mct1.version);
                     }
                 }
                 callback(mct1);
