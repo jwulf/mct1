@@ -4,7 +4,7 @@
 
 ## What is _Type 1 Diabetes_?
 
-_Type 1 Diabetes_ occurs when the body’s immune system attacks its own pancreas and is irreversible. This attack is known as autoimmune disease. Because of the pancreas being attacked **Insulin** production is halted. **Insulin** is the hormone that serves as a key to open your cells to allow the glucose to enter and allow the use of glucose for energy. Without **Insulin** the glucose stays and builds up in the blood and this starves the cells. 
+_Type 1 Diabetes_ occurs when the body’s immune system attacks its own pancreas and is irreversible. This attack is known as autoimmune disease. Because of the pancreas being attacked **Insulin** production is halted. **Insulin** is the hormone that serves as a key to open your cells to allow the glucose to enter and allow the use of glucose for energy. Without **Insulin** the glucose stays and builds up in the blood and this starves the cells.
 
 _Type 1 diabetes_ is distinct from _Type 2 Diabetes_. Unlike _Type 2 Diabetes_, _Type 1 Diabetes_ is not a life style disease and is irreversible.
 
@@ -13,21 +13,23 @@ _Type 1 diabetes_ is distinct from _Type 2 Diabetes_. Unlike _Type 2 Diabetes_, 
 
 ## Supported **Minecraft** versions
 
-**MC-T1** can run on the:
+MC-T1 is a _server-side mod_. It uses a modified version of the Spigot Minecraft Server. At the moment, the only clients that can connect to this server are the Mac and PC Java client.
+
+**MC-T1** can run with:
 
 * PC version
 * Mac version
 
-**MC-T1** does not run on:
+**MC-T1** does not run with:
 
 * Xbox version
 * PS4 version
 * IOS version
 * Android version
-* Windows 10 version, you get off the windows store 
+* Windows 10 version, you get off the windows store
 
 ## Before you start
- 
+
  Before you start using **MC-T1** you will need a few things set up:
 
 * You need a **Minecraft** account from Mojang. You can get this from [www.minecraft.net](www.minecraft.net). If you have an Australian credit card you might not be able to pay for an account. You can use PayPal or buy a gift card from your local supermarket or 7/11.
@@ -95,7 +97,7 @@ This will start MC-T1.
 
 # How to develop MC-T1
 
-To develop MC-T1, fork the [MC-T1 repository](https://github.com/mc-t1/mct1). 
+To develop MC-T1, fork the [MC-T1 repository](https://github.com/mc-t1/mct1).
 
 Branch from develop.
 
