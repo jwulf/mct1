@@ -4,6 +4,7 @@ import { setupState } from './setupState';
 import { gameloop } from './gameloop';
 import { setBGLLevel } from './setBGLLevel';
 import { setInsulinLevel } from './setInsulinLevel';
+import { T1Player } from './T1Player';
 
 const mct1_version = '1.2.4';
 const say = magik.dixit;
@@ -44,7 +45,7 @@ export function controller(cmd = 'default') {
                 magik.clearInterval(mct1.loop);
             }
         };
-
+        mct1.T1Player = new T1Player();
         mct1.version = mct1_version;
         say('Initialising...');
         setupBars(

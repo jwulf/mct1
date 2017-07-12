@@ -1,3 +1,6 @@
+import { controller } from '../';
+import { T1Player } from '../T1Player';
+
 interface MCT1 {
     state: {
         bgl: number;
@@ -10,6 +13,7 @@ interface MCT1 {
     loop: any;
     version: string;
     running: boolean;
+    T1Player: T1Player;
     controller: {
         start: () => void;
         stop: () => void;

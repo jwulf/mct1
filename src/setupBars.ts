@@ -15,12 +15,5 @@ export function setupBars(callback) {
         0.0, // Progress (0.0 - 1.0)
     );
 
-    const bgl = Bars.addBar(magik.getSender(),
-        magik.TextComponent("BGL"),
-        Bars.Color.RED,
-        Bars.Style.NOTCHED_20,
-        0.0 // Progress (0.0 - 1.0)
-    );
-
-    callback({ insulin, bgl });
+    callback({ insulin });
 }
