@@ -6,6 +6,7 @@ var setupState_1 = require("./setupState");
 var gameloop_1 = require("./gameloop");
 var setBGLLevel_1 = require("./setBGLLevel");
 var setInsulinLevel_1 = require("./setInsulinLevel");
+var T1Player_1 = require("./T1Player");
 var mct1_version = '1.2.4';
 var say = magik.dixit;
 say("MCT1 version " + mct1_version);
@@ -43,6 +44,7 @@ function controller(cmd) {
                 magik.clearInterval(mct1.loop);
             }
         };
+        mct1.T1Player = new T1Player_1.T1Player();
         mct1.version = mct1_version;
         say('Initialising...');
         setupBars_1.setupBars(function (bars) {

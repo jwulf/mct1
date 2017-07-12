@@ -9,8 +9,6 @@ function setupBars(callback) {
         return;
     }
     var insulin = Bars.addBar(magik.getSender(), magik.TextComponent("Insulin"), Bars.Color.BLUE, Bars.Style.NOTCHED_20, 0.0);
-    var bgl = Bars.addBar(magik.getSender(), magik.TextComponent("BGL"), Bars.Color.RED, Bars.Style.NOTCHED_20, 0.0 // Progress (0.0 - 1.0)
-    );
-    callback({ insulin: insulin, bgl: bgl });
+    callback({ insulin: insulin });
 }
 exports.setupBars = setupBars;
