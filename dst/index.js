@@ -11,6 +11,7 @@ var say = magik.dixit;
 say("MCT1 version " + mct1_version);
 function controller(cmd) {
     if (cmd === void 0) { cmd = 'default'; }
+    var magik = magikcraft.io;
     var mct1 = magik.global('mct1');
     if (!mct1.initialised) {
         initialise(function () { return processCmd(cmd); });
