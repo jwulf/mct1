@@ -68,6 +68,7 @@ You can find MC-T1 developers in the #mct1 channel of the School of Magik Slack.
 * Paste the following code into the spell, replacing the existing text:
 
 ```
+const magik = magikcraft.io;
 const MCT1 = require('mct1').controller;
 
 function mct1(command) {
