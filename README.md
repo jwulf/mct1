@@ -13,6 +13,8 @@ _Type 1 diabetes_ is distinct from _Type 2 Diabetes_. Unlike _Type 2 Diabetes_, 
 
 ## Supported **Minecraft** versions
 
+MC-T1 is a _server-side mod_. It uses a modified version of the Spigot Minecraft Server.
+
 **MC-T1** can run on the:
 
 * PC version
