@@ -1,4 +1,5 @@
 import { BGL } from './BGL';
+import { T1Player } from './T1Player';
 
 export interface IDependencies {
     Bars: BossBarAPI;
@@ -17,26 +18,26 @@ export interface IDependencies {
  *
  * @class BGLBar
  */
-export class BGLBar {
+export class Insulin {
 
     public updateInterval: number;
     public bar: BossBar;
     public Bars: BossBarAPI;
-    private BGL: BGL;
+    private player: T1Player;
     private updateLoop: any;
 
-    constructor(updateInterval: number, BGL: BGL, deps: IDependencies) {
+    constructor(updateInterval: number, player: T1Player, deps: IDependencies) {
         const { Bars, sender, textcomponent } = deps;
         // Max 0.5s - 2s update interval
         this.updateInterval = Math.min(Math.max(2000, updateInterval), 500);
-        this.BGL = BGL;
+        this.player = player;
         this.bar = Bars.addBar(sender,
-            textcomponent("BGL"),
-            Bars.Color.RED,
+            textcomponent("Insulin"),
+            Bars.Color.BLUE,
             Bars.Style.NOTCHED_20,
             0.0 // Progress (0.0 - 1.0)
         );
-        this.updateLoop = magikcraft.io.setInterval(()=> {
+        this.updateLoop = magikcraft.io.setInterval(() => {
             this.update();
         }, updateInterval);
     }
@@ -50,9 +51,9 @@ export class BGLBar {
     }
 
     update() {
-        const bgl = this.BGL.getBGL();
+        const bgl = this.player.insulin;
         // Bar progress is 0 - 0.99
-        const scaledBGL = Math.max(bgl/30, 0.99);
+        const scaledBGL = Math.max(bgl / 30, 0.99);
         this.bar.setProgress(scaledBGL);
         if (this.BGL.BGLinRange) {
             this.makeBarGreen();

@@ -1,7 +1,7 @@
 import { controller } from '../';
 import { T1Player } from '../T1Player';
 
-interface MCT1 {
+export interface MCT1 {
     state: {
         bgl: number;
         insulinOnBoard: number;

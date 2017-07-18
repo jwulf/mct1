@@ -1,11 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var magik = magikcraft.io;
-var setupBars_1 = require("./setupBars");
-var setupState_1 = require("./setupState");
-var gameloop_1 = require("./gameloop");
-var setBGLLevel_1 = require("./setBGLLevel");
-var setInsulinLevel_1 = require("./setInsulinLevel");
 var T1Player_1 = require("./T1Player");
 var mct1_version = '1.2.4';
 var say = magik.dixit;
@@ -15,10 +10,10 @@ function controller(cmd) {
     var magik = magikcraft.io;
     var mct1 = magik.global('mct1');
     if (!mct1.initialised) {
-        initialise(function () { return processCmd(cmd); });
+        return initialise(function () { return processCmd(cmd); });
     }
     else {
-        processCmd(cmd);
+        return processCmd(cmd);
     }
     function processCmd(cmd) {
         say("Yo, mct1 executing " + cmd);
@@ -44,34 +39,13 @@ function controller(cmd) {
                 magik.clearInterval(mct1.loop);
             }
         };
-        mct1.T1Player = new T1Player_1.T1Player();
-        mct1.version = mct1_version;
         say('Initialising...');
-        setupBars_1.setupBars(function (bars) {
-            mct1.bars = bars;
-            setupState_1.setupState();
-            mct1.initialised = true;
-            mct1.running = false;
-            mct1.controller = {
-                start: function () {
-                    cancelGameLoop();
-                    say('Initiating MCT1 Game Loop');
-                    mct1.loop = magik.setInterval(gameloop_1.gameloop, 1000);
-                    mct1.running = true;
-                },
-                stop: function () {
-                    cancelGameLoop();
-                },
-                reset: function () {
-                    setBGLLevel_1.setBGLLevel(0.4);
-                    setInsulinLevel_1.setInsulinLevel(0.2);
-                },
-                version: function () {
-                    magik.dixit(mct1.version);
-                }
-            };
-            callback(mct1);
-        });
+        var player = new T1Player_1.T1Player();
+        mct1.T1Player = player;
+        mct1.version = mct1_version;
+        mct1.bars = {};
+        mct1.initialised = true;
+        mct1.running = false;
     }
 }
 exports.controller = controller;

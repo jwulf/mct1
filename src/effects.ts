@@ -1,3 +1,5 @@
+import { MCT1 } from './types/mct1';
+
 const magik = magikcraft.io;
 const PotionEffect = magik.type("potion.PotionEffect");
 const PotionEffectType = magik.type("potion.PotionEffectType");

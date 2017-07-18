@@ -36,9 +36,15 @@ var BGL = (function () {
     BGL.prototype.getBGLmgdl = function () {
         return Math.round(this.bgl * 18);
     };
+    BGL.mmolL2mgdl = function (bgl) {
+        return Math.round(bgl * 18);
+    };
+    BGL.mgdl2mmolL = function (bgl) {
+        return Math.round(bgl / 18);
+    };
     BGL.prototype.applyBGLchange = function (delta) {
-        // The following keeps newBGL 0 - 0.99
-        var newBGL = (function (bgl) { return Math.min(bgl, 0.99); })(Math.max(this.bgl + delta, 0));
+        // The following keeps newBGL 0 - 30
+        var newBGL = (function (bgl) { return Math.min(bgl, 30); })(Math.max(this.bgl + delta, 0));
         this.bgl = newBGL;
         this.bglDelta = delta;
         // Should alerts be moved out to a glucose monitor?

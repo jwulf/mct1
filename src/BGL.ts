@@ -49,10 +49,18 @@ export class BGL {
         return Math.round(this.bgl * 18);
     }
 
+    static mmolL2mgdl(bgl: number) {
+        return Math.round(bgl * 18);
+    }
+
+    static mgdl2mmolL(bgl: number) {
+        return Math.round(bgl / 18);
+    }
+
     applyBGLchange(delta: number) {
 
-        // The following keeps newBGL 0 - 0.99
-        const newBGL = (bgl => Math.min(bgl, 0.99))(Math.max(this.bgl + delta, 0));
+        // The following keeps newBGL 0 - 30
+        const newBGL = (bgl => Math.min(bgl, 30))(Math.max(this.bgl + delta, 0));
         this.bgl = newBGL;
         this.bglDelta = delta;
 

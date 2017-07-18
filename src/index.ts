@@ -1,10 +1,9 @@
 const magik = magikcraft.io;
-import { setupBars } from './setupBars';
-import { setupState } from './setupState';
+
+import { BGLBar, IDependencies } from './BGLBar';
 import { gameloop } from './gameloop';
-import { setBGLLevel } from './setBGLLevel';
-import { setInsulinLevel } from './setInsulinLevel';
 import { T1Player } from './T1Player';
+import { MCT1 } from './types/mct1';
 
 const mct1_version = '1.2.4';
 const say = magik.dixit;
@@ -14,9 +13,9 @@ export function controller(cmd = 'default') {
     const magik = magikcraft.io;
     const mct1 = magik.global('mct1') as MCT1;
     if (!mct1.initialised) {
-        initialise(() => processCmd(cmd));
+        return initialise(() => processCmd(cmd));
     } else {
-        processCmd(cmd);
+        return processCmd(cmd);
     }
 
     function processCmd(cmd: string) {
@@ -45,36 +44,14 @@ export function controller(cmd = 'default') {
                 magik.clearInterval(mct1.loop);
             }
         };
-        mct1.T1Player = new T1Player();
-        mct1.version = mct1_version;
         say('Initialising...');
-        setupBars(
-            (bars) => {
-                mct1.bars = bars;
-                setupState();
 
-                mct1.initialised = true;
-                mct1.running = false;
+        const player = new T1Player();
+        mct1.T1Player = player;
+        mct1.version = mct1_version;
+        mct1.bars = {};
 
-                mct1.controller = {
-                    start: () => {
-                        cancelGameLoop();
-                        say('Initiating MCT1 Game Loop');
-                        mct1.loop = magik.setInterval(gameloop, 1000);
-                        mct1.running = true;
-                    },
-                    stop: () => {
-                        cancelGameLoop();
-                    },
-                    reset: () => {
-                        setBGLLevel(0.4);
-                        setInsulinLevel(0.2);
-                    },
-                    version: () => {
-                        magik.dixit(mct1.version);
-                    }
-                }
-                callback(mct1);
-            });
+        mct1.initialised = true;
+        mct1.running = false;
     }
 }
