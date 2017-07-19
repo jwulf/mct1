@@ -1,4 +1,4 @@
-export const globals = {
+export const thresholds = {
     FALL_RATE_ALERT_THRESHOLD: -0.05,
     RISE_ALERT_WARN_THRESHOLD: 0.05,
     LOW_ALERT_THRESHOLD: 0.3,

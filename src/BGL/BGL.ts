@@ -1,3 +1,7 @@
+import { effects } from '../Effects/effects';
+import * as env from '../env';
+import { thresholds } from './bgl-alerts';
+
 enum BGLunits {
     'mmolL',
     'mgdl'
@@ -15,23 +19,20 @@ enum BGLunits {
  */
 export class BGL {
 
-    private bgl: number;
+    private _bgl: number;
     private bglDelta: number;
     private static InitialLevel = 5;
     private say: (msg: string) => void;
     private effects: (effect: string) => void;
-    public RISE_ALERT_WARN_THRESHOLD: number;
-    public FALL_RATE_ALERT_THRESHOLD: number;
-    public HIGH_EVENT_THRESHOLD: number;
-    public LOW_EVENT_THRESHOLD: number;
-    public LOW_ALERT_THRESHOLD: number;
-    public HIGH_ALERT_THRESHOLD: number;
 
-    constructor(say: (msg: string) => void, effects: (effect: string) => void) {
-        this.bgl = BGL.InitialLevel;
-        this.say = say;
-        this.effects = effects;
+    constructor() {
+        this._bgl = BGL.InitialLevel;
+        this.say = (env.isNode) ? console.log
+            : magikcraft.io.dixit;
+        this.effects = (env.isNode) ? console.log
+            : effects;
     }
+
     getBGL(units: BGLunits = BGLunits.mmolL): number {
         switch (units) {
             case BGLunits.mmolL:
@@ -42,11 +43,11 @@ export class BGL {
     }
 
     getBGLmmolL() {
-        return this.bgl;
+        return this._bgl;
     }
 
     getBGLmgdl() {
-        return Math.round(this.bgl * 18);
+        return Math.round(this._bgl * 18);
     }
 
     static mmolL2mgdl(bgl: number) {
@@ -60,8 +61,8 @@ export class BGL {
     applyBGLchange(delta: number) {
 
         // The following keeps newBGL 0 - 30
-        const newBGL = (bgl => Math.min(bgl, 30))(Math.max(this.bgl + delta, 0));
-        this.bgl = newBGL;
+        const newBGL = (bgl => Math.min(bgl, 30))(Math.max(this._bgl + delta, 0));
+        this._bgl = newBGL;
         this.bglDelta = delta;
 
         // Should alerts be moved out to a glucose monitor?
@@ -92,27 +93,27 @@ export class BGL {
     }
 
     BGLRisingFast() {
-        return (this.bglDelta >= this.RISE_ALERT_WARN_THRESHOLD);
+        return (this.bglDelta >= thresholds.RISE_ALERT_WARN_THRESHOLD);
     }
 
     BGLFallingFast() {
-        return (this.bglDelta <= this.FALL_RATE_ALERT_THRESHOLD);
+        return (this.bglDelta <= thresholds.FALL_RATE_ALERT_THRESHOLD);
     }
 
     BGLIsHigh() {
-        return (this.bgl > this.HIGH_EVENT_THRESHOLD);
+        return (this._bgl > thresholds.HIGH_EVENT_THRESHOLD);
     }
 
     BGLIsLow() {
-        return (this.bgl < this.LOW_EVENT_THRESHOLD);
+        return (this._bgl < thresholds.LOW_EVENT_THRESHOLD);
     }
 
     BGLGoingLow() {
-        return (this.bgl < this.LOW_ALERT_THRESHOLD && this.bglDelta < 0);
+        return (this._bgl < thresholds.LOW_ALERT_THRESHOLD && this.bglDelta < 0);
     }
 
     BGLinRange(): boolean {
-        return (this.bgl > this.LOW_ALERT_THRESHOLD && this.bgl < this.HIGH_ALERT_THRESHOLD);
+        return (this._bgl > thresholds.LOW_ALERT_THRESHOLD && this._bgl < thresholds.HIGH_ALERT_THRESHOLD);
     }
 }
 

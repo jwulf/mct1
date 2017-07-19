@@ -1,11 +1,11 @@
+import { BGLBarGlucoseMonitor } from './GlucoseMonitor/BGLBarGlucoseMonitor/BGLBarGlucoseMonitor';
 const magik = magikcraft.io;
 
-import { BGLBar, IDependencies } from './BGLBar';
 import { gameloop } from './gameloop';
-import { T1Player } from './T1Player';
+import { T1Player } from './Player/T1Player';
 import { MCT1 } from './types/mct1';
 
-const mct1_version = '1.2.4';
+const mct1_version = '1.3.0';
 const say = magik.dixit;
 say(`MCT1 version ${mct1_version}`);
 
@@ -47,9 +47,9 @@ export function controller(cmd = 'default') {
         say('Initialising...');
 
         const player = new T1Player();
+        mct1.BGLBar = new BGLBarGlucoseMonitor(player, 1000);
         mct1.T1Player = player;
         mct1.version = mct1_version;
-        mct1.bars = {};
 
         mct1.initialised = true;
         mct1.running = false;

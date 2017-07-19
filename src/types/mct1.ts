@@ -1,4 +1,3 @@
-import { controller } from '../';
 import { T1Player } from '../T1Player';
 
 export interface MCT1 {

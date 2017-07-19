@@ -1,16 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var BGL_1 = require("./BGL");
-var BGLBar_1 = require("./BGLBar");
 var effects_1 = require("./effects");
 var T1Player = (function () {
-    function T1Player() {
-        this.BGL = new BGL_1.BGL(magikcraft.io.dixit, effects_1.effects);
-        this.BGLBar = new BGLBar_1.BGLBar(1000, this.BGL, {
-            Bars: magikcraft.io.Bars,
-            sender: magikcraft.io.getSender(),
-            textcomponent: magikcraft.io.TextComponent
-        });
+    function T1Player(name) {
+        if (name === void 0) { name = "test-player"; }
+        // Use an optional name via params (for testing), or get it from Bukkit
+        this.name = (typeof magikcraft === "undefined") ? name : magikcraft.io.getSender().getName();
+        var log = (typeof magikcraft === "undefined") ? console.log : magikcraft.io.dixit;
+        this.BGL = new BGL_1.BGL(log, effects_1.effects);
     }
     return T1Player;
 }());

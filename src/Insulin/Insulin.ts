@@ -1,4 +1,4 @@
-import { T1Player } from './T1Player';
+import { T1Player } from '../Player/T1Player';
 
 const magik = magikcraft.io
 
@@ -14,13 +14,22 @@ const magik = magikcraft.io
 // const magik = magikcraft.io;
 const secondsPerTick = 1;
 
-class Insulin {
+export class Insulin {
     public onsetDelay: number;
     public duration: number;
     public peak: boolean;
     public power: number;
 
-    constructor(onsetDelay = 0, duration: number, power: number, peak = false) {
+
+    /**
+     * Creates an instance of Insulin.
+     * @param {any} onsetDelay - millisecond delay till insulin effect starts
+     * @param {number} duration - milliseconds of action
+     * @param {number} power - power factor (don't know the units yet)
+     * @param {boolean} [peak=false] set to true for a saw-tooth, false for flat response
+     * @memberof Insulin
+     */
+    constructor(onsetDelay, duration: number, power: number, peak = false) {
         this.onsetDelay = onsetDelay;
         this.duration = duration;
         this.peak = false; // Set to true for a saw-tooth acting insulin, false for a flat basal one
@@ -30,7 +39,7 @@ class Insulin {
     // If peak is true, this applies the effect of the insulin in a saw-tooth curve,
     // peaking at its maximum mid-way through the duration.
     // the curve looks like this:  /\
-    // If peak is false, the insulin absorption curve is flat, like a long-acting basal 
+    // If peak is false, the insulin absorption curve is flat, like a long-acting basal
     // insulin
     calculateInsulinEffect(elapsedTime: number) {
         if (!this.peak) {
