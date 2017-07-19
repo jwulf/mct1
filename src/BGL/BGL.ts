@@ -1,5 +1,5 @@
 import { effects } from '../Effects/effects';
-import * as env from '../env';
+import * as env from '../util/env';
 import { thresholds } from './bgl-alerts';
 
 enum BGLunits {

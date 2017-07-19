@@ -4,8 +4,9 @@ import { GlucoseMonitor } from './GlucoseMonitor';
 
 export class ConnectGlucoseMonitor extends GlucoseMonitor {
 
-        constructor(player: T1Player, sampleRate: number, autostart = true) {
-            super(player, sampleRate);
+        constructor(player: T1Player, sampleRate: number, autostart?) {
+            super(player, sampleRate, autostart);
+            console.log(this.enabled);
         }
 
         /**

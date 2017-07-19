@@ -1,6 +1,6 @@
-import { T1Player } from '../Player/T1Player';
-import { Interval } from '../util/timer';
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var timer_1 = require("../util/timer");
 /**
  * This is the Insulin class
  * Create a new instance of this class for basal and fast-acting insulins.
@@ -11,15 +11,8 @@ import { Interval } from '../util/timer';
  * param {number} power - the effect of the insulin. This is the peak power for insulins with a peak response.
  */
 // const magik = magikcraft.io;
-const secondsPerTick = 1;
-
-export class Insulin {
-    public onsetDelay: number;
-    public duration: number;
-    public peak: boolean;
-    public power: number;
-
-
+var secondsPerTick = 1;
+var Insulin = (function () {
     /**
      * Creates an instance of Insulin.
      * @param {any} onsetDelay - millisecond delay till insulin effect starts
@@ -28,58 +21,58 @@ export class Insulin {
      * @param {boolean} [peak=false] set to true for a saw-tooth, false for flat response
      * @memberof Insulin
      */
-    constructor(onsetDelay, duration: number, power: number, peak = false) {
+    function Insulin(onsetDelay, duration, power, peak) {
+        if (peak === void 0) { peak = false; }
         this.onsetDelay = onsetDelay;
         this.duration = duration;
         this.peak = false; // Set to true for a saw-tooth acting insulin, false for a flat basal one
         this.power = power;
     }
-
     // If peak is true, this applies the effect of the insulin in a saw-tooth curve,
     // peaking at its maximum mid-way through the duration.
     // the curve looks like this:  /\
     // If peak is false, the insulin absorption curve is flat, like a long-acting basal
     // insulin
-    calculateInsulinEffect(elapsedTime: number) {
+    Insulin.prototype.calculateInsulinEffect = function (elapsedTime) {
+        var _this = this;
         if (!this.peak) {
             return this.power;
         }
-        const a = Math.atan(this.power / (this.duration * 0.5));
-        const getE = () => {
-            if (elapsedTime <= this.duration / 2) {
+        var a = Math.atan(this.power / (this.duration * 0.5));
+        var getE = function () {
+            if (elapsedTime <= _this.duration / 2) {
                 return a * elapsedTime;
-            } else {
-                return a * this.duration - elapsedTime;
+            }
+            else {
+                return a * _this.duration - elapsedTime;
             }
         };
-        const e = getE();
-        const effect = e * a;
+        var e = getE();
+        var effect = e * a;
         return effect;
-    }
-
+    };
     // When you take insulin, it sets up a timer loop that applies the effect of the insulin
     // until it runs out.
-
-    take(amount: number, player: T1Player) {
+    Insulin.prototype.take = function (amount, player) {
+        var _this = this;
         // This timeout is the onset Delay of taking the insulin
-        Interval.setTimeout(() => this.doInsulinAbsorption(this.onsetDelay, amount, player), this.onsetDelay);
-    }
-
-    doInsulinAbsorption(elapsedTime: number, amount: number, player: T1Player) {
-        let _loop = Interval.setInterval(
-            () => {
-                if (elapsedTime >= this.duration - this.onsetDelay) {
-                    // insulin effect exhausted
-                    Interval.clearInterval(_loop);
-                    return;
-                }
-                // == Do Insulin effect ==
-                // TODO: calculate insulin power
-                const bglDelta = this.calculateInsulinEffect(elapsedTime) * amount;
-                player.BGL.applyBGLchange(bglDelta);
-                elapsedTime += secondsPerTick;
-            },
-            secondsPerTick
-        );
-    }
-}
+        timer_1.Interval.setTimeout(function () { return _this.doInsulinAbsorption(_this.onsetDelay, amount, player); }, this.onsetDelay);
+    };
+    Insulin.prototype.doInsulinAbsorption = function (elapsedTime, amount, player) {
+        var _this = this;
+        var _loop = timer_1.Interval.setInterval(function () {
+            if (elapsedTime >= _this.duration - _this.onsetDelay) {
+                // insulin effect exhausted
+                timer_1.Interval.clearInterval(_loop);
+                return;
+            }
+            // == Do Insulin effect ==
+            // TODO: calculate insulin power
+            var bglDelta = _this.calculateInsulinEffect(elapsedTime) * amount;
+            player.BGL.applyBGLchange(bglDelta);
+            elapsedTime += secondsPerTick;
+        }, secondsPerTick);
+    };
+    return Insulin;
+}());
+exports.Insulin = Insulin;

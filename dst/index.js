@@ -1,25 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var magik = magikcraft.io;
-var T1Player_1 = require("./T1Player");
-var mct1_version = '1.2.4';
-var say = magik.dixit;
-say("MCT1 version " + mct1_version);
+var env_1 = require("./util/env");
+var BGLBarGlucoseMonitor_1 = require("./GlucoseMonitor/BGLBarGlucoseMonitor/BGLBarGlucoseMonitor");
+var mct1_1 = require("./util/mct1");
+var T1Player_1 = require("./Player/T1Player");
+mct1_1.mct1.version = '1.3.0';
+env_1.log("MCT1 version " + mct1_1.mct1.version);
 function controller(cmd) {
     if (cmd === void 0) { cmd = 'default'; }
-    var magik = magikcraft.io;
-    var mct1 = magik.global('mct1');
-    if (!mct1.initialised) {
+    if (!mct1_1.mct1.initialised) {
         return initialise(function () { return processCmd(cmd); });
     }
     else {
         return processCmd(cmd);
     }
     function processCmd(cmd) {
-        say("Yo, mct1 executing " + cmd);
-        var controlr = mct1.controller;
+        env_1.log("Yo, mct1 executing " + cmd);
+        var controlr = mct1_1.mct1.controller;
         if (cmd === 'default') {
-            (mct1.running) ? controlr.stop() : controlr.start();
+            (mct1_1.mct1.running) ? controlr.stop() : controlr.start();
             return;
         }
         if (cmd === 'start') {
@@ -33,19 +32,13 @@ function controller(cmd) {
         }
     }
     function initialise(callback) {
-        var cancelGameLoop = function () {
-            mct1.running = false;
-            if (mct1.loop) {
-                magik.clearInterval(mct1.loop);
-            }
-        };
-        say('Initialising...');
+        env_1.log('Initialising...');
         var player = new T1Player_1.T1Player();
-        mct1.T1Player = player;
-        mct1.version = mct1_version;
-        mct1.bars = {};
-        mct1.initialised = true;
-        mct1.running = false;
+        mct1_1.mct1.BGLBar = new BGLBarGlucoseMonitor_1.BGLBarGlucoseMonitor(player, 1000);
+        mct1_1.mct1.T1Player = player;
+        mct1_1.mct1.initialised = true;
+        mct1_1.mct1.running = false;
+        callback && callback();
     }
 }
 exports.controller = controller;

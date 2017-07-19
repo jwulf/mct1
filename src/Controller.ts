@@ -1,22 +1,20 @@
-
+import { Interval } from './util/timer';
+import { log } from './util/env';
+import { mct1 } from './util/mct1';
 
 export class Controller {
     constructor() {
     }
     start() {
-        cancelGameLoop();
-        say('Initiating MCT1 Game Loop');
-        mct1.loop = magik.setInterval(gameloop, 1000);
+        log('Initiating MCT1 Game Loop');
         mct1.running = true;
     }
     stop() {
-        cancelGameLoop();
     }
     reset() {
-        mct1.(0.4);
-        setInsulinLevel(0.2);
+
     }
     version() {
-        magik.dixit(mct1.version);
+        log(mct1.version);
     }
 }

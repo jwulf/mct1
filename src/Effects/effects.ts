@@ -1,5 +1,5 @@
 import { MCT1 } from '../types/mct1';
-import * as env from '../env';
+import * as env from '../util/env';
 
 export function effects(type: string, opts: any = {}) {
     if (env.isNode) {

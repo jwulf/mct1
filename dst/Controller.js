@@ -1,23 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var env_1 = require("./util/env");
+var mct1_1 = require("./util/mct1");
 var Controller = (function () {
     function Controller() {
     }
     Controller.prototype.start = function () {
-        cancelGameLoop();
-        say('Initiating MCT1 Game Loop');
-        mct1.loop = magik.setInterval(gameloop, 1000);
-        mct1.running = true;
+        env_1.log('Initiating MCT1 Game Loop');
+        mct1_1.mct1.running = true;
     };
     Controller.prototype.stop = function () {
-        cancelGameLoop();
     };
     Controller.prototype.reset = function () {
-        mct1.(0.4);
-        setInsulinLevel(0.2);
     };
     Controller.prototype.version = function () {
-        magik.dixit(mct1.version);
+        env_1.log(mct1_1.mct1.version);
     };
     return Controller;
 }());

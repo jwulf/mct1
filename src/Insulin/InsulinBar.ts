@@ -51,7 +51,7 @@ export class Insulin {
     }
 
     update() {
-        const bgl = this.player.insulin;
+        const bgl = this.player.BGL.getBGL();
         // Bar progress is 0 - 0.99
         const scaledBGL = Math.max(bgl / 30, 0.99);
         this.bar.setProgress(scaledBGL);
