@@ -1,5 +1,5 @@
 import { Interval } from './util/timer';
-import { log } from './util/env';
+import { log } from './util/log';
 import { mct1 } from './util/mct1';
 
 export class Controller {

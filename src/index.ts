@@ -1,4 +1,4 @@
-import { log } from './util/env';
+import { log } from './util/log';
 import { Interval } from './util/timer';
 import { BGLBarGlucoseMonitor } from './GlucoseMonitor/BGLBarGlucoseMonitor/BGLBarGlucoseMonitor';
 import { mct1 } from './util/mct1';
