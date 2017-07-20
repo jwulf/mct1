@@ -4,7 +4,9 @@
   "description": "Repo for mct1 ",
   "main": "dst/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "npm run clean && jest",
+    "clean": "rm -rf dst/*",
+    "precommit": "tsc"
   },
   "repository": {
     "type": "git",
@@ -38,6 +40,7 @@
   },
   "homepage": "https://www.mct1.io",
   "dependencies": {
+    "husky": "^0.14.3",
     "magikcraft.io": "^0.9.8",
     "only": "0.0.2",
     "typescript": "^2.4.1"

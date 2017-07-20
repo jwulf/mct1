@@ -4,9 +4,8 @@ import { GlucoseMonitor } from './GlucoseMonitor';
 
 export class ConnectGlucoseMonitor extends GlucoseMonitor {
 
-        constructor(player: T1Player, sampleRate: number, autostart?) {
+        constructor(player: T1Player, sampleRate: number, autostart?: boolean) {
             super(player, sampleRate, autostart);
-            console.log(this.enabled);
         }
 
         /**
@@ -16,6 +15,7 @@ export class ConnectGlucoseMonitor extends GlucoseMonitor {
          * @memberof ConnectGlucoseMonitor
          */
         monitor(BGL: BGL) {
+
             const minecraftPlayername = this.player.name;
 
             // The current BGL Value in mmol/L:

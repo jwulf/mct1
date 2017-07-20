@@ -12,8 +12,8 @@ test('the monitor does not start when autostart is false', () => {
 });
 
 test('the monitor starts and functions', done => {
-    function callback(){
-        // expect(testMonitor.count).toBeGreaterThan(4);
+    function callback() {
+        expect(testConnectMonitor.enabled).toBe(true);
         done();
     }
     testConnectMonitor.start();
