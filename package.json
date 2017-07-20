@@ -4,7 +4,7 @@
   "description": "Repo for mct1 ",
   "main": "dst/index.js",
   "scripts": {
-    "test": "npm run clean && jest",
+    "test": "jest",
     "clean": "rm -rf dst/*",
     "precommit": "tsc"
   },
