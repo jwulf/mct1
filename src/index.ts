@@ -1,79 +1,37 @@
-const magik = magikcraft.io;
-import { setupBars } from './setupBars';
-import { setupState } from './setupState';
-import { gameloop } from './gameloop';
-import { setBGLLevel } from './setBGLLevel';
-import { setInsulinLevel } from './setInsulinLevel';
+magikcraft.io.dixit('MCT1 loading...');
+import { log } from './util/log';
+import { BGLBarGlucoseMonitor } from './GlucoseMonitor/BGLBarGlucoseMonitor/BGLBarGlucoseMonitor';
+import { mct1 } from './util/mct1';
+import { T1Player } from './Player/T1Player';
 
-const mct1_version = '1.2.4';
-const say = magik.dixit;
-say(`MCT1 version ${mct1_version}`);
+mct1.version = '1.3.0';
+log(`MCT1 version ${mct1.version}`);
 
-export function controller(cmd = 'default') {
-    const magik = magikcraft.io;
-    const mct1 = magik.global('mct1') as MCT1;
+function _default() {
     if (!mct1.initialised) {
-        initialise(() => processCmd(cmd));
-    } else {
-        processCmd(cmd);
+        initialise();
     }
+}
 
-    function processCmd(cmd: string) {
-        say(`Yo, mct1 executing ${cmd}`);
-        const controlr = mct1.controller;
-        if (cmd === 'default') {
-            (mct1.running) ? controlr.stop() : controlr.start();
-            return;
-        }
-        if (cmd === 'start') {
-            return controlr.start();
-        }
-        if (cmd === 'stop') {
-            return controlr.stop();
-        }
-        if (cmd === 'reset') {
-            return controlr.reset();
-        }
-    }
+/**
+ * MGK-006-compliant interface
+ * See: https://github.com/Magikcraft/product-board/issues/6
+ */
+export const spells = {
+    _default,
+    query
+}
 
-    function initialise(callback: (mct1: MCT1) => void) {
+function query() {
+    log(`BGL: ${mct1.T1Player.BGL.getBGL}`);
+}
 
-        const cancelGameLoop = () => {
-            mct1.running = false;
-            if (mct1.loop) {
-                magik.clearInterval(mct1.loop);
-            }
-        };
-
-        mct1.version = mct1_version;
-        say('Initialising...');
-        setupBars(
-            (bars) => {
-                mct1.bars = bars;
-                setupState();
-
-                mct1.initialised = true;
-                mct1.running = false;
-
-                mct1.controller = {
-                    start: () => {
-                        cancelGameLoop();
-                        say('Initiating MCT1 Game Loop');
-                        mct1.loop = magik.setInterval(gameloop, 1000);
-                        mct1.running = true;
-                    },
-                    stop: () => {
-                        cancelGameLoop();
-                    },
-                    reset: () => {
-                        setBGLLevel(0.4);
-                        setInsulinLevel(0.2);
-                    },
-                    version: () => {
-                        magik.dixit(mct1.version);
-                    }
-                }
-                callback(mct1);
-            });
-    }
+function initialise(callback?: () => void) {
+    log('Initialising...');
+    const player = new T1Player();
+    mct1.BGLBar = new BGLBarGlucoseMonitor(player, 1000);
+    mct1.T1Player = player;
+    mct1.initialised = true;
+    mct1.running = false;
+    callback && callback();
 }

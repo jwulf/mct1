@@ -68,11 +68,16 @@ You can find MC-T1 developers in the #mct1 channel of the School of Magik Slack.
 * Paste the following code into the spell, replacing the existing text:
 
 ```
-const magik = magikcraft.io;
-const MCT1 = require('mct1').controller;
-
-function mct1(command) {
-    MCT1(command);
+function call(module, spell = '_default') {
+    let char;
+    [':', '.'].forEach(_char => {
+        if (module.indexOf(_char) != -1) {
+            const _args = module.split(char);
+            module = _args[0];
+            spell = _args[1];
+        }
+    });
+    require(module).spells[spell]();
 }
 ```
 
@@ -94,7 +99,7 @@ OK, now you're ready to run MC-T1!
 
 Press the 'T' key on your keyboard, then type in:
 
-`/cast mct1 start`
+`/cast call mct1`
 
 This will start MC-T1.
 
