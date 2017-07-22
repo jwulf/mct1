@@ -12,9 +12,17 @@ function _default() {
         initialise();
     }
 }
+/**
+ * MGK-006-compliant interface
+ * See: https://github.com/Magikcraft/product-board/issues/6
+ */
 exports.spells = {
-    _default: _default
+    _default: _default,
+    query: query
 };
+function query() {
+    log_1.log("BGL: " + mct1_1.mct1.T1Player.BGL.getBGL);
+}
 function initialise(callback) {
     log_1.log('Initialising...');
     var player = new T1Player_1.T1Player();

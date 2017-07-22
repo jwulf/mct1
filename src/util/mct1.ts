@@ -19,4 +19,4 @@ if (isNode) {
     _mct1 = magikcraft.io.global('mct1') as MCT1;
 }
 
-export const mct1 = _mct1;
+export const mct1 = _mct1 as MCT1;

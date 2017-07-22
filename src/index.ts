@@ -13,8 +13,17 @@ function _default() {
     }
 }
 
+/**
+ * MGK-006-compliant interface
+ * See: https://github.com/Magikcraft/product-board/issues/6
+ */
 export const spells = {
-    _default
+    _default,
+    query
+}
+
+function query() {
+    log(`BGL: ${mct1.T1Player.BGL.getBGL}`);
 }
 
 function initialise(callback?: () => void) {
