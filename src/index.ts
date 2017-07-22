@@ -14,7 +14,7 @@ function _default() {
 }
 
 export const spells = {
-    "default": _default
+    _default
 }
 
 function initialise(callback?: () => void) {
