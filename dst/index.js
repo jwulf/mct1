@@ -13,7 +13,7 @@ function _default() {
     }
 }
 exports.spells = {
-    "default": _default
+    _default: _default
 };
 function initialise(callback) {
     log_1.log('Initialising...');
