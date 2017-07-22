@@ -16,6 +16,7 @@ var BGLBarGlucoseMonitor = (function (_super) {
     __extends(BGLBarGlucoseMonitor, _super);
     function BGLBarGlucoseMonitor(player, sampleRate) {
         var _this = _super.call(this, player, sampleRate) || this;
+        // Pass the player's BGL in to the bar, so the bar has access to its range alerts.
         _this.BGLBar = new BGLBar_1.BGLBar(_this.player.BGL, {
             Bars: magikcraft.io.Bars,
             sender: magikcraft.io.getSender(),
@@ -24,6 +25,7 @@ var BGLBarGlucoseMonitor = (function (_super) {
         return _this;
     }
     BGLBarGlucoseMonitor.prototype.monitor = function () {
+        // We don't need to pass in the BGL value, because the bar has a reference to the player's BGL
         this.BGLBar.update();
     };
     return BGLBarGlucoseMonitor;
