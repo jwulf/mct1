@@ -1,3 +1,4 @@
+magikcraft.io.dixit('MCT1 loading...');
 import { log } from './util/log';
 import { BGLBarGlucoseMonitor } from './GlucoseMonitor/BGLBarGlucoseMonitor/BGLBarGlucoseMonitor';
 import { mct1 } from './util/mct1';

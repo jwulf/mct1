@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+magikcraft.io.dixit('MCT1 loading...');
 var log_1 = require("./util/log");
 var BGLBarGlucoseMonitor_1 = require("./GlucoseMonitor/BGLBarGlucoseMonitor/BGLBarGlucoseMonitor");
 var mct1_1 = require("./util/mct1");
