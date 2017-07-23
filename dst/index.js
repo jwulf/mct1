@@ -34,7 +34,7 @@ function takeInsulin() {
     rapid_insulin_1.rapid.take(5, mct1_1.mct1.T1Player);
 }
 function query() {
-    log_1.log("BGL: " + mct1_1.mct1.T1Player.BGL.getBGL);
+    log_1.log("BGL: " + mct1_1.mct1.T1Player.BGL.getBGL());
 }
 function initialise(callback) {
     log_1.log('Initialising...');

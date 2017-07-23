@@ -38,7 +38,7 @@ function takeInsulin() {
 }
 
 function query() {
-    log(`BGL: ${mct1.T1Player.BGL.getBGL}`);
+    log(`BGL: ${mct1.T1Player.BGL.getBGL()}`);
 }
 
 function initialise(callback?: () => void) {
