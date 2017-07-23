@@ -1,3 +1,5 @@
+import { rapid } from './Insulin/rapid-insulin';
+import { Carbohydrate } from './Carbs/Carbohydrate';
 import { effects } from './Effects/effects';
 magikcraft.io.dixit('MCT1 loading...');
 import { log } from './util/log';
@@ -21,7 +23,18 @@ function _default() {
 export const spells = {
     _default,
     query,
-    effects
+    effects,
+    eatCarbs,
+    takeInsulin
+}
+
+function eatCarbs() {
+    const apple = new Carbohydrate(15,5,5);
+    apple.eat(mct1.T1Player);
+}
+
+function takeInsulin() {
+    rapid.take(5, mct1.T1Player);
 }
 
 function query() {

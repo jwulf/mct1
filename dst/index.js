@@ -1,5 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var rapid_insulin_1 = require("./Insulin/rapid-insulin");
+var Carbohydrate_1 = require("./Carbs/Carbohydrate");
 var effects_1 = require("./Effects/effects");
 magikcraft.io.dixit('MCT1 loading...');
 var log_1 = require("./util/log");
@@ -20,8 +22,17 @@ function _default() {
 exports.spells = {
     _default: _default,
     query: query,
-    effects: effects_1.effects
+    effects: effects_1.effects,
+    eatCarbs: eatCarbs,
+    takeInsulin: takeInsulin
 };
+function eatCarbs() {
+    var apple = new Carbohydrate_1.Carbohydrate(15, 5, 5);
+    apple.eat(mct1_1.mct1.T1Player);
+}
+function takeInsulin() {
+    rapid_insulin_1.rapid.take(5, mct1_1.mct1.T1Player);
+}
 function query() {
     log_1.log("BGL: " + mct1_1.mct1.T1Player.BGL.getBGL);
 }

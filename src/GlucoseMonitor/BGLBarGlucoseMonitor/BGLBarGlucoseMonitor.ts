@@ -1,3 +1,4 @@
+import { log } from '../../util/log';
 import { BGLBar } from './BGLBar';
 import { T1Player } from '../../Player/T1Player';
 import { GlucoseMonitor } from '../GlucoseMonitor';
@@ -17,6 +18,7 @@ export class BGLBarGlucoseMonitor extends GlucoseMonitor {
 
     monitor() {
         // We don't need to pass in the BGL value, because the bar has a reference to the player's BGL
+        log('Monitor called');
         this.BGLBar.update();
     }
 }

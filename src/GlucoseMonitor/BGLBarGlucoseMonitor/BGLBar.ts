@@ -1,3 +1,4 @@
+import { log } from '../../util/log';
 import { BGL } from '../../BGL/BGL';
 
 export interface IDependencies {
@@ -44,6 +45,7 @@ export class BGLBar {
 
     update() {
         const bgl = this.BGL.getBGL();
+        log(`Current BGL is ${bgl}`)
         // Bar progress is 0 - 0.99
         const scaledBGL = Math.max(bgl/30, 0.99);
         this.bar.setProgress(scaledBGL);
