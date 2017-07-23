@@ -14,16 +14,19 @@ var log_1 = require("../../util/log");
  */
 var BGLBar = (function () {
     function BGLBar(BGL, deps) {
+        var _this = this;
+        this.makeBarRed = function () {
+            _this.bar.setColor(_this.Bars.Color.RED);
+        };
         var Bars = deps.Bars, sender = deps.sender, textcomponent = deps.textcomponent;
         this.BGL = BGL;
         this.bar = Bars.addBar(sender, textcomponent("BGL"), Bars.Color.RED, Bars.Style.NOTCHED_20, 0.0 // Progress (0.0 - 1.0)
         );
     }
     BGLBar.prototype.makeBarGreen = function () {
+        log_1.log(this.Bars.toString());
+        log_1.log(Object.keys(this.Bars));
         this.bar.setColor(this.Bars.Color.GREEN);
-    };
-    BGLBar.prototype.makeBarRed = function () {
-        this.bar.setColor(this.Bars.Color.RED);
     };
     BGLBar.prototype.update = function () {
         var bgl = this.BGL.getBGL();

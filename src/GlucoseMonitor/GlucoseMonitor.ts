@@ -12,7 +12,7 @@ export abstract class GlucoseMonitor {
     constructor(player: T1Player, sampleRate: number = 1000, autostart = true) {
         this.player = player;
         this.sampleRate = sampleRate;
-        this._enabled = autostart;
+        this.enabled = autostart;
     }
 
     /**

@@ -7,7 +7,7 @@ var GlucoseMonitor = (function () {
         if (autostart === void 0) { autostart = true; }
         this.player = player;
         this.sampleRate = sampleRate;
-        this._enabled = autostart;
+        this.enabled = autostart;
     }
     Object.defineProperty(GlucoseMonitor.prototype, "enabled", {
         get: function () {

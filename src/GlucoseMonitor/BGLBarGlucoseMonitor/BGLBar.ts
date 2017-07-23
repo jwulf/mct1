@@ -35,11 +35,13 @@ export class BGLBar {
         );
     }
 
-    makeBarGreen() {
+    makeBarGreen () {
+        log(this.Bars.toString());
+        log(Object.keys(this.Bars));
         this.bar.setColor(this.Bars.Color.GREEN);
     }
 
-    makeBarRed() {
+    makeBarRed = () => {
         this.bar.setColor(this.Bars.Color.RED);
     }
 
