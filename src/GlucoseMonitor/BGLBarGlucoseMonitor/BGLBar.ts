@@ -1,12 +1,6 @@
 import { log } from '../../util/log';
 import { BGL } from '../../BGL/BGL';
 
-export interface IDependencies {
-    Bars: BossBarAPI;
-    sender: BukkitPlayer;
-    textcomponent: TextComponent;
-}
-
 /**
  *
  * BGLBar creates a UI Bar to display the user's Blood Glucose Level
@@ -24,32 +18,30 @@ export class BGLBar {
     public Bars: BossBarAPI;
     private BGL: BGL;
 
-    constructor(BGL: BGL, deps: IDependencies) {
-        const { Bars, sender, textcomponent } = deps;
+    constructor(BGL: BGL) {
         this.BGL = BGL;
-        this.bar = Bars.addBar(sender,
-            textcomponent("BGL"),
-            Bars.Color.RED,
-            Bars.Style.NOTCHED_20,
+        const magik = magikcraft.io;
+        this.bar = magik.Bars.addBar(magik.getSender(),
+            magik.TextComponent("BGL"),
+            magik.Bars.Color.RED,
+            magik.Bars.Style.NOTCHED_20,
             0.0 // Progress (0.0 - 1.0)
         );
     }
 
-    makeBarGreen () {
-        log(this.Bars.toString());
-        log(Object.keys(this.Bars));
-        this.bar.setColor(this.Bars.Color.GREEN);
+    makeBarGreen() {
+        this.bar.setColor(magikcraft.io.Bars.Color.GREEN);
     }
 
-    makeBarRed = () => {
-        this.bar.setColor(this.Bars.Color.RED);
+    makeBarRed() {
+        this.bar.setColor(magikcraft.io.Bars.Color.RED);
     }
 
     update() {
         const bgl = this.BGL.getBGL();
         log(`Current BGL is ${bgl}`)
         // Bar progress is 0 - 0.99
-        const scaledBGL = Math.max(bgl/30, 0.99);
+        const scaledBGL = Math.max(bgl / 30, 0.99);
         this.bar.setProgress(scaledBGL);
         if (this.BGL.BGLinRange) {
             this.makeBarGreen();
