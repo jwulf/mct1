@@ -1,6 +1,4 @@
-# Useful links for the MC-T1 Hack Day
-
-* This Wiki. See the pages to the right, and especially the "Unresolved mysteries".
+# MC-T1 Resource Links and References
 
 * The [Magikcraft Getting Started Guide](https://start.magikcraft.io).
 
@@ -12,20 +10,8 @@
 
 * The [Magikcraft API docs](http://apidoc.magikcraft.io).
 
-* The [Bukkit API docs](https://bukkit.magikcraft.io).
+* The Minecraft [Bukkit API docs](https://bukkit.magikcraft.io).
 
 * The [T1D Fact Sheet](http://www.mct1.io/Type1_diabetes_info.html).
 
 * For reference: [the web app from the first MC-T1 Hackathon](http://app.mct1.io/)
-
-Magikcraft servers you can use:
-
-Use a profile with 1.11.2 for Magikcraft.
-
-* au.open.magikcraft.io
-* develop.magikcraft.io
-* no.open.magikcraft.io
-* mct1.magikcraft.io
-* purpsta.magikcraft.io
-* mct2.magikcraft.io
-
