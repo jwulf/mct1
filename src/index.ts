@@ -1,3 +1,4 @@
+import { effects } from './Effects/effects';
 magikcraft.io.dixit('MCT1 loading...');
 import { log } from './util/log';
 import { BGLBarGlucoseMonitor } from './GlucoseMonitor/BGLBarGlucoseMonitor/BGLBarGlucoseMonitor';
@@ -19,7 +20,8 @@ function _default() {
  */
 export const spells = {
     _default,
-    query
+    query,
+    effects
 }
 
 function query() {

@@ -14,8 +14,6 @@ var BGLunits;
  * Internally it stores the BGL in mmol/L, and provides a getter that
  * can return the value in mg/dl.
  *
- * say and effects are injected to facilitate unit testing
- *
  * @class BGL
  */
 var BGL = (function () {

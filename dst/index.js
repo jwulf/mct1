@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var effects_1 = require("./Effects/effects");
 magikcraft.io.dixit('MCT1 loading...');
 var log_1 = require("./util/log");
 var BGLBarGlucoseMonitor_1 = require("./GlucoseMonitor/BGLBarGlucoseMonitor/BGLBarGlucoseMonitor");
@@ -18,7 +19,8 @@ function _default() {
  */
 exports.spells = {
     _default: _default,
-    query: query
+    query: query,
+    effects: effects_1.effects
 };
 function query() {
     log_1.log("BGL: " + mct1_1.mct1.T1Player.BGL.getBGL);
