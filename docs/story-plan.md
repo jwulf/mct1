@@ -34,6 +34,8 @@ If it’s in a healthy range it should be green.
 
 ## Tutorial (Level 1)
 
+Want to help? This task is tracked in https://github.com/mc-t1/mct1/issues/44
+
 **Theme** Intro to Minecraft
 
 1. Learn how to move around.
@@ -43,6 +45,8 @@ If it’s in a healthy range it should be green.
 Finish the level by going through a warp portal.
 
 ## Level 2 - Get the T1 Feeling
+
+Want to help? This task is tracked in https://github.com/mc-t1/mct1/issues/45
 
 **Theme** Getting the T1 condition
 
@@ -57,6 +61,8 @@ Quest Ideas:
 * Gather a set of items
 
 ## Level 3 - Cakemageddon
+
+Want to help? This task is tracked in https://github.com/mc-t1/mct1/issues/46
 
 **Theme** Start managing T1D
 
