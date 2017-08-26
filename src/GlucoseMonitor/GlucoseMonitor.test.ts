@@ -1,3 +1,5 @@
+declare const setTimeout: any;
+
 import { T1Player } from '../Player/T1Player';
 import { GlucoseMonitor } from './GlucoseMonitor';
 

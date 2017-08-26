@@ -1,12 +1,10 @@
 import { isNode } from './env';
 import { T1Player } from '../Player/T1Player';
-import { BGLBarGlucoseMonitor } from '../GlucoseMonitor/BGLBarGlucoseMonitor/BGLBarGlucoseMonitor';
 
 interface MCT1 {
     initialised: boolean;
     running: boolean;
     controller: any;
-    BGLBar: BGLBarGlucoseMonitor;
     T1Player: T1Player;
     version: string;
 }

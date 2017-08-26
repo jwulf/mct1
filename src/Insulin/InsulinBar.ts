@@ -1,64 +1,34 @@
-import { BGL } from '../BGL/BGL';
-import { T1Player } from '../Player/T1Player';
+import * as Bar from 'magikcraft-lore-ui-bar';
+import * as MCT1State from '../State';
 
-export interface IDependencies {
-    Bars: BossBarAPI;
-    sender: BukkitPlayer;
-    textcomponent: TextComponent;
-}
+const initialState = MCT1State.getState();
+const textComponent = getBasalMessage(initialState.basalInsulinOnBoard);
+const amount = Math.max(initialState.rapidInsulinOnBoard, 20);
 
-/**
- *
- * BGLBar creates a UI Bar to display the user's Blood Glucose Level
- *
- * Dependencies are injected to facilitate unit testing with mock objects
- *
- * The Bar progress is between 0 and 0.99, so it needs to be scaled wrt
- * the BGL, which is represented internally as mmol/L
- *
- * @class BGLBar
- */
-export class Insulin {
+export const bar = Bar.bar()
+    .textComponent(textComponent)
+    .color(Bar.color.BLUE)
+    .style(Bar.style.NOTCHED_20)
+    .progress(amount)
+    .show();
 
-    public updateInterval: number;
-    public bar: BossBar;
-    public Bars: BossBarAPI;
-    private player: T1Player;
-    private updateLoop: any;
-
-    constructor(updateInterval: number, player: T1Player, deps: IDependencies) {
-        const { Bars, sender, textcomponent } = deps;
-        // Max 0.5s - 2s update interval
-        this.updateInterval = Math.min(Math.max(2000, updateInterval), 500);
-        this.player = player;
-        this.bar = Bars.addBar(sender,
-            textcomponent("Insulin"),
-            Bars.Color.BLUE,
-            Bars.Style.NOTCHED_20,
-            0.0 // Progress (0.0 - 1.0)
-        );
-        this.updateLoop = magikcraft.io.setInterval(() => {
-            this.update();
-        }, updateInterval);
-    }
-
-    makeBarGreen() {
-        this.bar.setColor(this.Bars.Color.GREEN);
-    }
-
-    makeBarRed() {
-        this.bar.setColor(this.Bars.Color.RED);
-    }
-
-    update() {
-        const bgl = this.player.BGL.getBGL();
-        // Bar progress is 0 - 0.99
-        const scaledBGL = Math.max(bgl / 30, 0.99);
-        this.bar.setProgress(scaledBGL);
-        if (this.player.BGL.BGLinRange) {
-            this.makeBarGreen();
-        } else {
-            this.makeBarRed();
-        }
+function getBasalMessage(basalInsulinOnBoard: number) {
+    if (basalInsulinOnBoard > 0) {
+        return Bar.ComponentBuilder("Insulin | ").append("Basal: Active").color(Bar.ChatColor.GREEN).create();
+    } else {
+        return Bar.ComponentBuilder("Insulin | ").append("Basal: Empty").color(Bar.ChatColor.RED).create();
     }
 }
+
+let previousState = initialState;
+const subscription = MCT1State.fusionStore.subscribe(this, function (state) {
+    if (previousState.basalInsulinOnBoard !== state.basalInsulinOnBoard) {
+        const text = getBasalMessage(state.basalInsulinOnBoard);
+        bar.textComponent(text);
+    }
+    if (previousState.rapidInsulinOnBoard !== state.rapidInsulinOnBoard) {
+        const amount = Math.max(state.rapidInsulinOnBoard, 20);
+        bar.progress(amount);
+    }
+    previousState = state;
+});

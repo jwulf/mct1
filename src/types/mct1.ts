@@ -1,4 +1,3 @@
-import { BGLBarGlucoseMonitor } from '../GlucoseMonitor/BGLBarGlucoseMonitor/BGLBarGlucoseMonitor';
 import { T1Player } from '../Player/T1Player';
 
 export interface MCT1 {
@@ -14,7 +13,6 @@ export interface MCT1 {
     version: string;
     running: boolean;
     T1Player: T1Player;
-    BGLBar: BGLBarGlucoseMonitor;
     controller: {
         start: () => void;
         stop: () => void;

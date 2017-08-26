@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var log_1 = require("../util/log");
 var effects_1 = require("../Effects/effects");
 var env = require("../util/env");
 var bgl_alerts_1 = require("./bgl-alerts");
@@ -19,9 +20,7 @@ var BGLunits;
 var BGL = (function () {
     function BGL() {
         this._bgl = BGL.InitialLevel;
-        this.say = (env.isNode) ? console.log
-            : magikcraft.io.dixit;
-        this.effects = (env.isNode) ? console.log
+        this.effects = (env.isNode) ? log_1.log
             : effects_1.effects;
     }
     BGL.prototype.getBGL = function (units) {

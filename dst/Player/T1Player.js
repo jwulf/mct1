@@ -12,11 +12,11 @@ var T1Player = (function () {
     T1Player.prototype.eatFood = function (food, portions) {
         if (portions === void 0) { portions = 1; }
         for (var i = 0; i < portions; i++) {
-            food.eat(this);
+            food.eat();
         }
     };
     T1Player.prototype.takeInsulin = function (insulin, amount) {
-        insulin.take(amount, this);
+        insulin.take(amount);
     };
     return T1Player;
 }());

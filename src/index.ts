@@ -1,52 +1,41 @@
 import { rapid } from './Insulin/rapid-insulin';
 import { Carbohydrate } from './Carbs/Carbohydrate';
 import { effects } from './Effects/effects';
-magikcraft.io.dixit('MCT1 loading...');
+import * as MCT1State from './State/'
 import { log } from './util/log';
-import { BGLBarGlucoseMonitor } from './GlucoseMonitor/BGLBarGlucoseMonitor/BGLBarGlucoseMonitor';
-import { mct1 } from './util/mct1';
-import { T1Player } from './Player/T1Player';
+import * as InsulinBar from './Insulin/InsulinBar';
+import * as BGLBar from './GlucoseMonitor/BGLBar';
+log('MCT1 loading...');
 
-mct1.version = '1.3.0';
-log(`MCT1 version ${mct1.version}`);
+import { EventEmitter } from 'events';
 
-function _default() {
-    if (!mct1.initialised) {
-        initialise();
-    }
+function createGame() {
+
+    /**
+     * MGK-006-compliant interface
+     * See: https://github.com/Magikcraft/product-board/issues/6
+     */
 }
 
-/**
- * MGK-006-compliant interface
- * See: https://github.com/Magikcraft/product-board/issues/6
- */
+function eatCarbs() {
+    const apple = new Carbohydrate(15,5,5);
+    apple.eat();
+}
+
+function takeInsulin() {
+    rapid.take(5);
+}
+
+function query() {
+    log(MCT1State.getState());
+}
+
+const _default = createGame;
+
 export const spells = {
     _default,
     query,
     effects,
     eatCarbs,
     takeInsulin
-}
-
-function eatCarbs() {
-    const apple = new Carbohydrate(15,5,5);
-    apple.eat(mct1.T1Player);
-}
-
-function takeInsulin() {
-    rapid.take(5, mct1.T1Player);
-}
-
-function query() {
-    log(`BGL: ${mct1.T1Player.BGL.getBGL()}`);
-}
-
-function initialise(callback?: () => void) {
-    log('Initialising...');
-    const player = new T1Player();
-    mct1.BGLBar = new BGLBarGlucoseMonitor(player, 1000);
-    mct1.T1Player = player;
-    mct1.initialised = true;
-    mct1.running = false;
-    callback && callback();
 }

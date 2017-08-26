@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var State_1 = require("../State");
 var timer_1 = require("../util/timer");
 /**
  * This is the Insulin class
@@ -53,12 +54,12 @@ var Insulin = (function () {
     };
     // When you take insulin, it sets up a timer loop that applies the effect of the insulin
     // until it runs out.
-    Insulin.prototype.take = function (amount, player) {
+    Insulin.prototype.take = function (amount) {
         var _this = this;
         // This timeout is the onset Delay of taking the insulin
-        timer_1.Interval.setTimeout(function () { return _this.doInsulinAbsorption(_this.onsetDelay, amount, player); }, this.onsetDelay);
+        timer_1.Interval.setTimeout(function () { return _this.doInsulinAbsorption(_this.onsetDelay, amount); }, this.onsetDelay);
     };
-    Insulin.prototype.doInsulinAbsorption = function (elapsedTime, amount, player) {
+    Insulin.prototype.doInsulinAbsorption = function (elapsedTime, amount) {
         var _this = this;
         var _loop = timer_1.Interval.setInterval(function () {
             if (elapsedTime >= _this.duration - _this.onsetDelay) {
@@ -69,7 +70,7 @@ var Insulin = (function () {
             // == Do Insulin effect ==
             // TODO: calculate insulin power
             var bglDelta = _this.calculateInsulinEffect(elapsedTime) * amount;
-            player.BGL.applyBGLchange(bglDelta);
+            State_1.changeBGL(bglDelta);
             elapsedTime += secondsPerTick;
         }, secondsPerTick);
     };

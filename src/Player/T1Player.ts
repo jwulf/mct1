@@ -18,11 +18,11 @@ export class T1Player {
 
     eatFood(food: Carbohydrate, portions = 1) {
         for (let i = 0; i < portions; i++) {
-            food.eat(this);
+            food.eat();
         }
     }
 
     takeInsulin(insulin: Insulin, amount: number) {
-        insulin.take(amount, this);
+        insulin.take(amount);
     }
 }

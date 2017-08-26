@@ -1,4 +1,4 @@
-import { T1Player } from '../Player/T1Player';
+import { changeBGL } from '../State';
 import { Interval } from '../util/timer';
 
 export class Carbohydrate {
@@ -7,7 +7,6 @@ export class Carbohydrate {
     glycemicLoad: number;
     digestionLoop: number;
     Interval: any;
-    player: T1Player;
 
     constructor (grams: number, glycemicIndex: number, glycemicLoad: number) {
         this.grams = grams;
@@ -20,16 +19,16 @@ export class Carbohydrate {
         // Convert some grams to bgl
         const digestedGlucose = Math.min(1 * this.grams * this.glycemicIndex);
         // decrement grams
+        this.grams -= 1; // 1gm/sec
         // impact player BGL
-        this.player.BGL.applyBGLchange(digestedGlucose);
+        changeBGL(digestedGlucose);
         // if grams <= 0; stop digestion
         if (this.grams <= 0) {
-            clearInterval(this.digestionLoop);
+            Interval.clearInterval(this.digestionLoop);
         }
     }
 
-    eat(player: T1Player) {
-        this.player = player;
-        this.digestionLoop = Interval.setInterval(this.digest, 1000);
+    eat() {
+        this.digestionLoop = Interval.setInterval(() => this.digest(), 1000);
     }
 }

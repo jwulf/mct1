@@ -1,4 +1,4 @@
-import { T1Player } from '../Player/T1Player';
+import { changeBGL } from '../State';
 import { Interval } from '../util/timer';
 
 /**
@@ -60,12 +60,12 @@ export class Insulin {
     // When you take insulin, it sets up a timer loop that applies the effect of the insulin
     // until it runs out.
 
-    take(amount: number, player: T1Player) {
+    take(amount: number) {
         // This timeout is the onset Delay of taking the insulin
-        Interval.setTimeout(() => this.doInsulinAbsorption(this.onsetDelay, amount, player), this.onsetDelay);
+        Interval.setTimeout(() => this.doInsulinAbsorption(this.onsetDelay, amount), this.onsetDelay);
     }
 
-    doInsulinAbsorption(elapsedTime: number, amount: number, player: T1Player) {
+    doInsulinAbsorption(elapsedTime: number, amount: number) {
         let _loop = Interval.setInterval(
             () => {
                 if (elapsedTime >= this.duration - this.onsetDelay) {
@@ -76,7 +76,7 @@ export class Insulin {
                 // == Do Insulin effect ==
                 // TODO: calculate insulin power
                 const bglDelta = this.calculateInsulinEffect(elapsedTime) * amount;
-                player.BGL.applyBGLchange(bglDelta);
+                changeBGL(bglDelta);
                 elapsedTime += secondsPerTick;
             },
             secondsPerTick

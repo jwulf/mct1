@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var State_1 = require("../State");
 var timer_1 = require("../util/timer");
 var Carbohydrate = (function () {
     function Carbohydrate(grams, glycemicIndex, glycemicLoad) {
@@ -12,16 +13,17 @@ var Carbohydrate = (function () {
         // Convert some grams to bgl
         var digestedGlucose = Math.min(1 * this.grams * this.glycemicIndex);
         // decrement grams
+        this.grams -= 1; // 1gm/sec
         // impact player BGL
-        this.player.BGL.applyBGLchange(digestedGlucose);
+        State_1.changeBGL(digestedGlucose);
         // if grams <= 0; stop digestion
         if (this.grams <= 0) {
-            clearInterval(this.digestionLoop);
+            timer_1.Interval.clearInterval(this.digestionLoop);
         }
     };
-    Carbohydrate.prototype.eat = function (player) {
-        this.player = player;
-        this.digestionLoop = timer_1.Interval.setInterval(this.digest, 1000);
+    Carbohydrate.prototype.eat = function () {
+        var _this = this;
+        this.digestionLoop = timer_1.Interval.setInterval(function () { return _this.digest(); }, 1000);
     };
     return Carbohydrate;
 }());
