@@ -73,6 +73,8 @@ export class Insulin {
         log('Absorption started');
         let _loop = Interval.setInterval(
             () => {
+                log(`Elapsed time: ${elapsedTime}`);
+                log(`Duration: ${this.duration - this.onsetDelay}`);
                 if (elapsedTime >= this.duration - this.onsetDelay) {
                     // insulin effect exhausted
                     Interval.clearInterval(_loop);

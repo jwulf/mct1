@@ -68,6 +68,8 @@ var Insulin = (function () {
         var _this = this;
         log_1.log('Absorption started');
         var _loop = timer_1.Interval.setInterval(function () {
+            log_1.log("Elapsed time: " + elapsedTime);
+            log_1.log("Duration: " + (_this.duration - _this.onsetDelay));
             if (elapsedTime >= _this.duration - _this.onsetDelay) {
                 // insulin effect exhausted
                 timer_1.Interval.clearInterval(_loop);
