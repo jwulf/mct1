@@ -10,7 +10,7 @@ log('MCT1 loading...');
 import { EventEmitter } from 'events';
 
 function createGame() {
-
+    log('MCT1 starting');
     /**
      * MGK-006-compliant interface
      * See: https://github.com/Magikcraft/product-board/issues/6

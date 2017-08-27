@@ -7,6 +7,7 @@ var effects_1 = require("./Effects/effects");
 var log_1 = require("./util/log");
 log_1.log('MCT1 loading...');
 function createGame() {
+    log_1.log('MCT1 starting');
     /**
      * MGK-006-compliant interface
      * See: https://github.com/Magikcraft/product-board/issues/6
