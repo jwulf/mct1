@@ -18,7 +18,7 @@ export class Carbohydrate {
         const singleGramPerSecond = 1;
         // do Digestion
         // Convert some grams to bgl
-        const digestedGlucose = Math.min(singleGramPerSecond, 1 * this.grams * this.glycemicIndex);
+        const digestedGlucose = Math.min(singleGramPerSecond, 0.1 * this.grams * this.glycemicIndex);
         // decrement grams
         this.grams -= singleGramPerSecond; // 1gm/sec
         // impact player BGL
