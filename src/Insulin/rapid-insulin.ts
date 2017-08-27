@@ -6,4 +6,4 @@ import { Insulin } from './Insulin';
  * 5 power
  * true = saw-tooth response profile
  */
-export const rapid = new Insulin(5000, 120000, 5, true);
+export const rapid = new Insulin(5000, 120000, 50, true);

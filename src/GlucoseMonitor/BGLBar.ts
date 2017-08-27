@@ -20,10 +20,10 @@ export function show() {
 
         subscription = MCT1State.fusionStore.subscribe(this, function (state) {
             if (previousState.BGL !== state.BGL) {
-                const bgl = Math.max(20, state.BGL);
+                const bgl = Math.max(20, state.BGL).toFixed(1);
                 previousState = state;
                 bar.progress(bgl);
-                bar.text(`BGL: ${state.BGL}`);
+                bar.text(`BGL: ${bgl}`);
             }
         });
     }

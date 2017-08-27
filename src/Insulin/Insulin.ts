@@ -88,7 +88,7 @@ export class Insulin {
                 log('Doing insulin effect');
                 const bglDelta = calculateInsulinEffect(elapsedTime) * amount;
                 log(`Insulin bglDelta ${bglDelta}`);
-                changeBGL(bglDelta);
+                changeBGL(-bglDelta);
                 elapsedTime += secondsPerTick;
             },
             secondsPerTick * 1000

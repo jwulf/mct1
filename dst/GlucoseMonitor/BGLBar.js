@@ -16,10 +16,10 @@ function show() {
         var previousState_1 = initialState;
         exports.subscription = MCT1State.fusionStore.subscribe(this, function (state) {
             if (previousState_1.BGL !== state.BGL) {
-                var bgl = Math.max(20, state.BGL);
+                var bgl = Math.max(20, state.BGL).toFixed(1);
                 previousState_1 = state;
                 exports.bar.progress(bgl);
-                exports.bar.text("BGL: " + state.BGL);
+                exports.bar.text("BGL: " + bgl);
             }
         });
     }
