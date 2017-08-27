@@ -15,11 +15,12 @@ export class Carbohydrate {
     }
 
     digest(){
+        const singleGramPerSecond = 1;
         // do Digestion
         // Convert some grams to bgl
-        const digestedGlucose = Math.min(1 * this.grams * this.glycemicIndex);
+        const digestedGlucose = Math.min(singleGramPerSecond, 1 * this.grams * this.glycemicIndex);
         // decrement grams
-        this.grams -= 1; // 1gm/sec
+        this.grams -= singleGramPerSecond; // 1gm/sec
         // impact player BGL
         changeBGL(digestedGlucose);
         // if grams <= 0; stop digestion
