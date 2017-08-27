@@ -79,7 +79,7 @@ var Insulin = (function () {
             log_1.log('Insulin bglDelta', bglDelta);
             State_1.changeBGL(bglDelta);
             elapsedTime += secondsPerTick;
-        }, secondsPerTick);
+        }, secondsPerTick * 1000);
     };
     return Insulin;
 }());

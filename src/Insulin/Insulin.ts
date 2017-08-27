@@ -85,7 +85,7 @@ export class Insulin {
                 changeBGL(bglDelta);
                 elapsedTime += secondsPerTick;
             },
-            secondsPerTick
+            secondsPerTick * 1000
         );
     }
 }
