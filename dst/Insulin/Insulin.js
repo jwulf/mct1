@@ -78,7 +78,8 @@ var Insulin = (function () {
             // == Do Insulin effect ==
             // TODO: calculate insulin power
             log_1.log('Doing insulin effect');
-            var bglDelta = calculateInsulinEffect(elapsedTime) * amount;
+            // const bglDelta = calculateInsulinEffect(elapsedTime) * amount;
+            var bglDelta = -0.1;
             log_1.log('Insulin bglDelta', bglDelta);
             State_1.changeBGL(bglDelta);
             elapsedTime += secondsPerTick;
