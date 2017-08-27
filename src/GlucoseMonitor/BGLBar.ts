@@ -6,12 +6,28 @@ log('BGL Bar loading...');
 
 const initialState = MCT1State.getState();
 
-export const bar = Bar.bar()
+export let bar, subscription;
+
+export function show() {
+    bar = Bar.bar()
     .text(`BGL: ${initialState.BGL}`)
     .color(Bar.color.GREEN)
     .style(Bar.style.NOTCHED_20)
     .progress(initialState.BGL)
     .show();
+    if (!subscription){
+        let previousState = initialState;
+
+        subscription = MCT1State.fusionStore.subscribe(this, function (state) {
+            if (previousState.BGL !== state.BGL) {
+                const bgl = Math.max(20, state.BGL);
+                previousState = state;
+                bar.progress(bgl);
+                bar.text(`BGL: ${state.BGL}`);
+            }
+        });
+    }
+}
 
 function getBGLColor(bgl: number) {
     if (bgl < 4 || bgl > 8) {
@@ -20,12 +36,3 @@ function getBGLColor(bgl: number) {
     return Bar.color.GREEN;
 }
 
-let previousState = initialState;
-const subscription = MCT1State.fusionStore.subscribe(this, function (state) {
-    if (previousState.BGL !== state.BGL) {
-        const bgl = Math.max(20, state.BGL);
-        previousState = state;
-        bar.progress(bgl);
-        bar.text(`BGL: ${state.BGL}`);
-    }
-});

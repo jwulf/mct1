@@ -11,6 +11,8 @@ import { EventEmitter } from 'events';
 
 function createGame() {
     log('MCT1 starting');
+    BGLBar.show();
+    InsulinBar.show();
     /**
      * MGK-006-compliant interface
      * See: https://github.com/Magikcraft/product-board/issues/6
