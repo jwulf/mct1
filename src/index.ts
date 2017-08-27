@@ -25,6 +25,7 @@ function eatCarbs() {
 }
 
 function takeInsulin() {
+    log('Taking 5u of rapid insulin');
     rapid.take(5);
 }
 

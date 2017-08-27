@@ -22,6 +22,7 @@ function eatCarbs() {
     apple.eat();
 }
 function takeInsulin() {
+    log_1.log('Taking 5u of rapid insulin');
     rapid_insulin_1.rapid.take(5);
 }
 function query() {
