@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var log_1 = require("../util/log");
 var State_1 = require("../State");
 var timer_1 = require("../util/timer");
 /**
@@ -70,6 +71,7 @@ var Insulin = (function () {
             // == Do Insulin effect ==
             // TODO: calculate insulin power
             var bglDelta = _this.calculateInsulinEffect(elapsedTime) * amount;
+            log_1.log('Insulin bglDelta', bglDelta);
             State_1.changeBGL(bglDelta);
             elapsedTime += secondsPerTick;
         }, secondsPerTick);

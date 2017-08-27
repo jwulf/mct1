@@ -1,3 +1,4 @@
+import { log } from '../util/log';
 import { changeBGL } from '../State';
 import { Interval } from '../util/timer';
 
@@ -18,7 +19,6 @@ export class Insulin {
     public duration: number;
     public peak: boolean;
     public power: number;
-
 
     /**
      * Creates an instance of Insulin.
@@ -76,6 +76,7 @@ export class Insulin {
                 // == Do Insulin effect ==
                 // TODO: calculate insulin power
                 const bglDelta = this.calculateInsulinEffect(elapsedTime) * amount;
+                log('Insulin bglDelta', bglDelta);
                 changeBGL(bglDelta);
                 elapsedTime += secondsPerTick;
             },
