@@ -16,7 +16,7 @@ function show() {
         var previousState_1 = initialState;
         exports.subscription = MCT1State.fusionStore.subscribe(this, function (state) {
             if (previousState_1.BGL !== state.BGL) {
-                var bglNum = Math.max(20, state.BGL);
+                var bglNum = Math.min(20, state.BGL);
                 var bglString = bglNum.toFixed(1);
                 previousState_1 = state;
                 exports.bar.progress(bglNum * 5);
