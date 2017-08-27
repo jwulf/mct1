@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var log_1 = require("../util/log");
 var State_1 = require("../State");
 var timer_1 = require("../util/timer");
+var debug = log_1.log;
 /**
  * This is the Insulin class
  * Create a new instance of this class for basal and fast-acting insulins.
@@ -35,15 +36,15 @@ var Insulin = (function () {
     Insulin.prototype.take = function (amount) {
         var _this = this;
         // This timeout is the onset Delay of taking the insulin
-        log_1.log("Taking " + amount + " rapid");
+        debug("Taking " + amount + " rapid");
         timer_1.Interval.setTimeout(function () {
-            log_1.log('Starting absorption');
+            debug('Starting absorption');
             _this.doInsulinAbsorption(_this.onsetDelay, amount);
         }, this.onsetDelay);
     };
     Insulin.prototype.doInsulinAbsorption = function (elapsedTime, amount) {
         var _this = this;
-        log_1.log('Absorption started');
+        debug('Absorption started');
         // If peak is true, this applies the effect of the insulin in a saw-tooth curve,
         // peaking at its maximum mid-way through the duration.
         // the curve looks like this:  /\
@@ -67,8 +68,8 @@ var Insulin = (function () {
             return effect;
         }; })(this.power, this.duration, this.peak);
         var _loop = timer_1.Interval.setInterval(function () {
-            log_1.log("Elapsed time: " + elapsedTime);
-            log_1.log("Duration: " + (_this.duration - _this.onsetDelay));
+            debug("Elapsed time: " + elapsedTime);
+            debug("Duration: " + (_this.duration - _this.onsetDelay));
             if (elapsedTime >= _this.duration - _this.onsetDelay) {
                 // insulin effect exhausted
                 timer_1.Interval.clearInterval(_loop);
@@ -77,9 +78,9 @@ var Insulin = (function () {
             }
             // == Do Insulin effect ==
             // TODO: calculate insulin power
-            log_1.log('Doing insulin effect');
+            debug('Doing insulin effect');
             var bglDelta = calculateInsulinEffect(elapsedTime) * amount;
-            log_1.log("Insulin bglDelta " + bglDelta);
+            debug("Insulin bglDelta " + bglDelta);
             State_1.changeBGL(0 - bglDelta);
             elapsedTime += secondsPerTick;
         }, secondsPerTick * 1000);

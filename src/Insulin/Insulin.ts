@@ -2,6 +2,7 @@ import { log } from '../util/log';
 import { changeBGL } from '../State';
 import { Interval } from '../util/timer';
 
+const debug = log;
 /**
  * This is the Insulin class
  * Create a new instance of this class for basal and fast-acting insulins.
@@ -42,15 +43,15 @@ export class Insulin {
 
     take(amount: number) {
         // This timeout is the onset Delay of taking the insulin
-        log(`Taking ${amount} rapid`);
+        debug(`Taking ${amount} rapid`);
         Interval.setTimeout(() => {
-            log('Starting absorption');
+            debug('Starting absorption');
             this.doInsulinAbsorption(this.onsetDelay, amount);
         }, this.onsetDelay);
     }
 
     doInsulinAbsorption(elapsedTime: number, amount: number) {
-        log('Absorption started');
+        debug('Absorption started');
         // If peak is true, this applies the effect of the insulin in a saw-tooth curve,
         // peaking at its maximum mid-way through the duration.
         // the curve looks like this:  /\
@@ -75,8 +76,8 @@ export class Insulin {
 
         let _loop = Interval.setInterval(
             () => {
-                log(`Elapsed time: ${elapsedTime}`);
-                log(`Duration: ${this.duration - this.onsetDelay}`);
+                debug(`Elapsed time: ${elapsedTime}`);
+                debug(`Duration: ${this.duration - this.onsetDelay}`);
                 if (elapsedTime >= this.duration - this.onsetDelay) {
                     // insulin effect exhausted
                     Interval.clearInterval(_loop);
@@ -85,9 +86,9 @@ export class Insulin {
                 }
                 // == Do Insulin effect ==
                 // TODO: calculate insulin power
-                log('Doing insulin effect');
+                debug('Doing insulin effect');
                 const bglDelta = calculateInsulinEffect(elapsedTime) * amount;
-                log(`Insulin bglDelta ${bglDelta}`);
+                debug(`Insulin bglDelta ${bglDelta}`);
                 changeBGL(0-bglDelta);
                 elapsedTime += secondsPerTick;
             },
