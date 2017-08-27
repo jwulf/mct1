@@ -70,6 +70,7 @@ export class Insulin {
     }
 
     doInsulinAbsorption(elapsedTime: number, amount: number) {
+        log('Absorption started');
         let _loop = Interval.setInterval(
             () => {
                 if (elapsedTime >= this.duration - this.onsetDelay) {

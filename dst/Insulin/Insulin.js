@@ -66,6 +66,7 @@ var Insulin = (function () {
     };
     Insulin.prototype.doInsulinAbsorption = function (elapsedTime, amount) {
         var _this = this;
+        log_1.log('Absorption started');
         var _loop = timer_1.Interval.setInterval(function () {
             if (elapsedTime >= _this.duration - _this.onsetDelay) {
                 // insulin effect exhausted
