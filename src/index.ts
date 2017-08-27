@@ -1,7 +1,7 @@
+import * as MCT1State from './State/'
 import { rapid } from './Insulin/rapid-insulin';
 import { Carbohydrate } from './Carbs/Carbohydrate';
 import { effects } from './Effects/effects';
-import * as MCT1State from './State/'
 import { log } from './util/log';
 import * as InsulinBar from './Insulin/InsulinBar';
 import * as BGLBar from './GlucoseMonitor/BGLBar';

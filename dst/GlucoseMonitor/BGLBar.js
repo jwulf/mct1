@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var log_1 = require("../util/log");
 var Bar = require("magikcraft-lore-ui-bar");
 var MCT1State = require("../State");
+log_1.log('BGL Bar loading...');
 var initialState = MCT1State.getState();
 exports.bar = Bar.bar()
     .text("BGL: " + initialState.BGL)

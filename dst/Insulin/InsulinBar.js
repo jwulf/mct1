@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var log_1 = require("../util/log");
 var Bar = require("magikcraft-lore-ui-bar");
 var MCT1State = require("../State");
+log_1.log('Loading Insulin Bar...');
 var initialState = MCT1State.getState();
 var textComponent = getBasalMessage(initialState.basalInsulinOnBoard);
 var amount = Math.max(initialState.rapidInsulinOnBoard, 20);

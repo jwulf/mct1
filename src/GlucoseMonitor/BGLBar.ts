@@ -1,5 +1,8 @@
+import { log } from '../util/log';
 import * as Bar from 'magikcraft-lore-ui-bar';
 import * as MCT1State from '../State';
+
+log('BGL Bar loading...');
 
 const initialState = MCT1State.getState();
 
@@ -16,6 +19,7 @@ function getBGLColor(bgl: number) {
     }
     return Bar.color.GREEN;
 }
+
 let previousState = initialState;
 const subscription = MCT1State.fusionStore.subscribe(this, function (state) {
     if (previousState.BGL !== state.BGL) {

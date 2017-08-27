@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var MCT1State = require("./State/");
 var rapid_insulin_1 = require("./Insulin/rapid-insulin");
 var Carbohydrate_1 = require("./Carbs/Carbohydrate");
 var effects_1 = require("./Effects/effects");
-var MCT1State = require("./State/");
 var log_1 = require("./util/log");
 log_1.log('MCT1 loading...');
 function createGame() {

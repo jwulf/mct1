@@ -1,5 +1,8 @@
+import { log } from '../util/log';
 import * as Bar from 'magikcraft-lore-ui-bar';
 import * as MCT1State from '../State';
+
+log('Loading Insulin Bar...');
 
 const initialState = MCT1State.getState();
 const textComponent = getBasalMessage(initialState.basalInsulinOnBoard);
