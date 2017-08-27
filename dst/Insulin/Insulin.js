@@ -80,7 +80,7 @@ var Insulin = (function () {
             log_1.log('Doing insulin effect');
             var bglDelta = calculateInsulinEffect(elapsedTime) * amount;
             log_1.log("Insulin bglDelta " + bglDelta);
-            State_1.changeBGL(-bglDelta);
+            State_1.changeBGL(0 - bglDelta);
             elapsedTime += secondsPerTick;
         }, secondsPerTick * 1000);
     };
