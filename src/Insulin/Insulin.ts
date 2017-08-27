@@ -62,7 +62,11 @@ export class Insulin {
 
     take(amount: number) {
         // This timeout is the onset Delay of taking the insulin
-        Interval.setTimeout(() => this.doInsulinAbsorption(this.onsetDelay, amount), this.onsetDelay);
+        log(`Taking ${amount} rapid`);
+        Interval.setTimeout(() => {
+            log('Starting absorption');
+            this.doInsulinAbsorption(this.onsetDelay, amount);
+        }, this.onsetDelay);
     }
 
     doInsulinAbsorption(elapsedTime: number, amount: number) {
@@ -71,6 +75,7 @@ export class Insulin {
                 if (elapsedTime >= this.duration - this.onsetDelay) {
                     // insulin effect exhausted
                     Interval.clearInterval(_loop);
+                    log('Insulin effect exhausted');
                     return;
                 }
                 // == Do Insulin effect ==

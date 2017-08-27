@@ -58,7 +58,11 @@ var Insulin = (function () {
     Insulin.prototype.take = function (amount) {
         var _this = this;
         // This timeout is the onset Delay of taking the insulin
-        timer_1.Interval.setTimeout(function () { return _this.doInsulinAbsorption(_this.onsetDelay, amount); }, this.onsetDelay);
+        log_1.log("Taking " + amount + " rapid");
+        timer_1.Interval.setTimeout(function () {
+            log_1.log('Starting absorption');
+            _this.doInsulinAbsorption(_this.onsetDelay, amount);
+        }, this.onsetDelay);
     };
     Insulin.prototype.doInsulinAbsorption = function (elapsedTime, amount) {
         var _this = this;
@@ -66,6 +70,7 @@ var Insulin = (function () {
             if (elapsedTime >= _this.duration - _this.onsetDelay) {
                 // insulin effect exhausted
                 timer_1.Interval.clearInterval(_loop);
+                log_1.log('Insulin effect exhausted');
                 return;
             }
             // == Do Insulin effect ==
