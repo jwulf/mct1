@@ -27,32 +27,9 @@ var Insulin = (function () {
         if (peak === void 0) { peak = false; }
         this.onsetDelay = onsetDelay;
         this.duration = duration;
-        this.peak = false; // Set to true for a saw-tooth acting insulin, false for a flat basal one
+        this.peak = peak; // Set to true for a saw-tooth acting insulin, false for a flat basal one
         this.power = power;
     }
-    // If peak is true, this applies the effect of the insulin in a saw-tooth curve,
-    // peaking at its maximum mid-way through the duration.
-    // the curve looks like this:  /\
-    // If peak is false, the insulin absorption curve is flat, like a long-acting basal
-    // insulin
-    Insulin.prototype.calculateInsulinEffect = function (elapsedTime) {
-        var _this = this;
-        if (!this.peak) {
-            return this.power;
-        }
-        var a = Math.atan(this.power / (this.duration * 0.5));
-        var getE = function () {
-            if (elapsedTime <= _this.duration / 2) {
-                return a * elapsedTime;
-            }
-            else {
-                return a * _this.duration - elapsedTime;
-            }
-        };
-        var e = getE();
-        var effect = e * a;
-        return effect;
-    };
     // When you take insulin, it sets up a timer loop that applies the effect of the insulin
     // until it runs out.
     Insulin.prototype.take = function (amount) {
@@ -67,6 +44,28 @@ var Insulin = (function () {
     Insulin.prototype.doInsulinAbsorption = function (elapsedTime, amount) {
         var _this = this;
         log_1.log('Absorption started');
+        // If peak is true, this applies the effect of the insulin in a saw-tooth curve,
+        // peaking at its maximum mid-way through the duration.
+        // the curve looks like this:  /\
+        // If peak is false, the insulin absorption curve is flat, like a long-acting basal
+        // insulin
+        var calculateInsulinEffect = (function (power, duration, peak) { return function (elapsedTime) {
+            if (!peak) {
+                return power;
+            }
+            var a = Math.atan(power / (duration * 0.5));
+            var getE = function () {
+                if (elapsedTime <= duration / 2) {
+                    return a * elapsedTime;
+                }
+                else {
+                    return a * duration - elapsedTime;
+                }
+            };
+            var e = getE();
+            var effect = e * a;
+            return effect;
+        }; })(this.power, this.duration, this.peak);
         var _loop = timer_1.Interval.setInterval(function () {
             log_1.log("Elapsed time: " + elapsedTime);
             log_1.log("Duration: " + (_this.duration - _this.onsetDelay));
@@ -79,7 +78,7 @@ var Insulin = (function () {
             // == Do Insulin effect ==
             // TODO: calculate insulin power
             log_1.log('Doing insulin effect');
-            var bglDelta = _this.calculateInsulinEffect(elapsedTime) * amount;
+            var bglDelta = calculateInsulinEffect(elapsedTime) * amount;
             log_1.log('Insulin bglDelta', bglDelta);
             State_1.changeBGL(bglDelta);
             elapsedTime += secondsPerTick;

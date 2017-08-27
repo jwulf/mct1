@@ -31,31 +31,11 @@ export class Insulin {
     constructor(onsetDelay, duration: number, power: number, peak = false) {
         this.onsetDelay = onsetDelay;
         this.duration = duration;
-        this.peak = false; // Set to true for a saw-tooth acting insulin, false for a flat basal one
+        this.peak = peak; // Set to true for a saw-tooth acting insulin, false for a flat basal one
         this.power = power;
     }
 
-    // If peak is true, this applies the effect of the insulin in a saw-tooth curve,
-    // peaking at its maximum mid-way through the duration.
-    // the curve looks like this:  /\
-    // If peak is false, the insulin absorption curve is flat, like a long-acting basal
-    // insulin
-    calculateInsulinEffect(elapsedTime: number) {
-        if (!this.peak) {
-            return this.power;
-        }
-        const a = Math.atan(this.power / (this.duration * 0.5));
-        const getE = () => {
-            if (elapsedTime <= this.duration / 2) {
-                return a * elapsedTime;
-            } else {
-                return a * this.duration - elapsedTime;
-            }
-        };
-        const e = getE();
-        const effect = e * a;
-        return effect;
-    }
+
 
     // When you take insulin, it sets up a timer loop that applies the effect of the insulin
     // until it runs out.
@@ -71,6 +51,28 @@ export class Insulin {
 
     doInsulinAbsorption(elapsedTime: number, amount: number) {
         log('Absorption started');
+        // If peak is true, this applies the effect of the insulin in a saw-tooth curve,
+        // peaking at its maximum mid-way through the duration.
+        // the curve looks like this:  /\
+        // If peak is false, the insulin absorption curve is flat, like a long-acting basal
+        // insulin
+        const calculateInsulinEffect = ((power, duration, peak) => (elapsedTime: number) => {
+            if (!peak) {
+                return power;
+            }
+            const a = Math.atan(power / (duration * 0.5));
+            const getE = () => {
+                if (elapsedTime <= duration / 2) {
+                    return a * elapsedTime;
+                } else {
+                    return a * duration - elapsedTime;
+                }
+            };
+            const e = getE();
+            const effect = e * a;
+            return effect;
+        })(this.power, this.duration, this.peak);
+
         let _loop = Interval.setInterval(
             () => {
                 log(`Elapsed time: ${elapsedTime}`);
@@ -84,7 +86,7 @@ export class Insulin {
                 // == Do Insulin effect ==
                 // TODO: calculate insulin power
                 log('Doing insulin effect');
-                const bglDelta = this.calculateInsulinEffect(elapsedTime) * amount;
+                const bglDelta = calculateInsulinEffect(elapsedTime) * amount;
                 log('Insulin bglDelta', bglDelta);
                 changeBGL(bglDelta);
                 elapsedTime += secondsPerTick;
