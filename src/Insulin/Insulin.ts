@@ -86,9 +86,8 @@ export class Insulin {
                 // == Do Insulin effect ==
                 // TODO: calculate insulin power
                 log('Doing insulin effect');
-                // const bglDelta = calculateInsulinEffect(elapsedTime) * amount;
-                const bglDelta = -0.1;
-                log('Insulin bglDelta', bglDelta);
+                const bglDelta = calculateInsulinEffect(elapsedTime) * amount;
+                log(`Insulin bglDelta ${bglDelta}`);
                 changeBGL(bglDelta);
                 elapsedTime += secondsPerTick;
             },
