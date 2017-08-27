@@ -16,6 +16,8 @@ describe('Test State Reducers', function () {
         expect(MCT1State.getState().BGL).toBe(4);
         MCT1State.changeBGL(2);
         expect(MCT1State.getState().BGL).toBe(6);
+        MCT1State.changeBGL(-2);
+        expect(MCT1State.getState().BGL).toBe(4);
     });
     test('Mutate Carbs', function () {
         expect(MCT1State.getState().carbsOnBoard).toBe(0);

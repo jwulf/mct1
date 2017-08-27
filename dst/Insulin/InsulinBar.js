@@ -21,7 +21,7 @@ function show() {
             exports.bar.textComponent(text);
         }
         if (previousState.rapidInsulinOnBoard !== state.rapidInsulinOnBoard) {
-            var amount_1 = Math.max(state.rapidInsulinOnBoard, 20);
+            var amount_1 = Math.min(state.rapidInsulinOnBoard, 20);
             exports.bar.progress(amount_1);
         }
         previousState = state;
