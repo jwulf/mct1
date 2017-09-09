@@ -31,7 +31,7 @@ function registerEvents() {
                 rapid_insulin_1.rapid.take(5);
                 return;
             }
-            log_1.log(event.getItem().getType().toString());
+            log_1.log(event.getItem().toString());
         }
     }));
 }
