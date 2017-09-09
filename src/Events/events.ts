@@ -13,7 +13,7 @@ export function registerEvents() {
         new EventCallback({
             callback: function (event) {
                 var username = event.player.playerListName;
-                magik.dixit(event.ItemStack);
+                magik.dixit(event);
                 magik.dixit(username);
             }
         }));
