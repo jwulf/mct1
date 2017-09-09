@@ -1,50 +1,48 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var events_1 = require("./Events/events");
-var MCT1State = require("./State/");
-var rapid_insulin_1 = require("./Insulin/rapid-insulin");
-var Carbohydrate_1 = require("./Carbs/Carbohydrate");
-var effects_1 = require("./Effects/effects");
-var log_1 = require("./util/log");
-var InsulinBar = require("./Insulin/InsulinBar");
-var BGLBar = require("./GlucoseMonitor/BGLBar");
-log_1.log('MCT1 loading...');
+var State = require("./State/");
+var Insulin = require("./lib/insulin");
+var effects_lib_1 = require("./Effects/effects-lib");
+var log = require("./util/log");
+var Food = require("./Carbs/Foods");
+var Bars = require("./lib/bars");
+log.info('MCT1 loading...');
 exports.verbose = false;
 function createGame() {
-    log_1.log('MCT1 starting');
-    BGLBar.init();
-    InsulinBar.init();
-    events_1.registerEvents();
+    Bars.BGL.init();
+    Bars.Insulin.init();
+    events_1.registerEventHandlers();
+    log.info('MCT1 started');
 }
 function eatCarbs() {
-    var apple = new Carbohydrate_1.Carbohydrate(20, 5, 5);
-    apple.eat();
+    Food.apple.eat();
 }
 function takeInsulin() {
-    log_1.log('Taking 1u of rapid insulin');
-    rapid_insulin_1.rapid.take(1);
+    log.info('Taking 1u of rapid insulin');
+    Insulin.rapid.take(1);
 }
 exports.takeInsulin = takeInsulin;
 function query() {
-    log_1.log(MCT1State.getState());
+    log.info(State.getState());
 }
 function logson() {
     exports.verbose = true;
-    log_1.log('Set logging on');
+    log.info('Set logging on');
 }
 function logsoff() {
     exports.verbose = false;
-    log_1.log('Set logging off');
+    log.info('Set logging off');
 }
-var _default = createGame;
 /**
 * MGK-006-compliant interface
 * See: https://github.com/Magikcraft/product-board/issues/6
 */
+var _default = createGame;
 exports.spells = {
     _default: _default,
     query: query,
-    applyEffect: effects_1.applyEffect,
+    applyEffect: effects_lib_1.applyEffect,
     eatCarbs: eatCarbs,
     takeInsulin: takeInsulin,
     logson: logson,

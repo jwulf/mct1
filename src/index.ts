@@ -1,54 +1,50 @@
-import { registerEvents } from './Events/events';
-import * as MCT1State from './State/';
-import { rapid } from './Insulin/rapid-insulin';
-import { Carbohydrate } from './Carbs/Carbohydrate';
-import { applyEffect } from './Effects/effects';
-import { log } from './util/log';
-import * as InsulinBar from './Insulin/InsulinBar';
-import * as BGLBar from './GlucoseMonitor/BGLBar';
-log('MCT1 loading...');
-
-import { EventEmitter } from 'events';
+import { registerEventHandlers } from './Events/events';
+import * as State from './State/';
+import * as Insulin from './lib/insulin';
+import { applyEffect } from './Effects/effects-lib';
+import * as log from './util/log';
+import * as Food from './Carbs/Foods';
+import * as Bars from './lib/bars';
+log.info('MCT1 loading...');
 
 export let verbose = false;
 
 function createGame() {
-    log('MCT1 starting');
-    BGLBar.init();
-    InsulinBar.init();
-    registerEvents();
+    Bars.BGL.init();
+    Bars.Insulin.init();
+    registerEventHandlers();
+    log.info('MCT1 started');
 }
 
 function eatCarbs() {
-    const apple = new Carbohydrate(20,5,5);
-    apple.eat();
+    Food.apple.eat();
 }
 
 export function takeInsulin() {
-    log('Taking 1u of rapid insulin');
-    rapid.take(1);
+    log.info('Taking 1u of rapid insulin');
+    Insulin.rapid.take(1);
 }
 
 function query() {
-    log(MCT1State.getState());
+    log.info(State.getState());
 }
 
 function logson() {
     verbose = true;
-    log('Set logging on');
+    log.info('Set logging on');
 }
 
 function logsoff(){
     verbose = false;
-    log('Set logging off');
+    log.info('Set logging off');
 }
-
-const _default = createGame;
 
 /**
 * MGK-006-compliant interface
 * See: https://github.com/Magikcraft/product-board/issues/6
 */
+const _default = createGame;
+
 export const spells = {
     _default,
     query,

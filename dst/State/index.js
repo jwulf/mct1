@@ -1,4 +1,5 @@
 "use strict";
+var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var NanoFlux = require('nanoflux-fusion');
 exports.fusionStore = NanoFlux.getFusionStore();
@@ -63,3 +64,4 @@ exports.changeCarbs = NanoFlux.getFusionActor("changeCarbs");
 exports.addEffectMutex = NanoFlux.getFusionActor("addEffectMutex");
 exports.removeEffectMutex = NanoFlux.getFusionActor("removeEffectMutex");
 exports.hasEffect = function (effect) { return (exports.getState().effects.indexOf(effect) != -1); };
+exports.subscribe = function (callback) { return exports.fusionStore.subscribe(_this, callback); };

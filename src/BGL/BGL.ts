@@ -1,5 +1,5 @@
-import { log } from '../util/log';
-import { applyEffect } from '../Effects/effects';
+import * as log from '../util/log';
+import { applyEffect } from '../Effects/effects-lib';
 import * as env from '../util/env';
 import { thresholds } from './bgl-alerts';
 enum BGLunits {
@@ -25,7 +25,7 @@ export class BGL {
 
     constructor() {
         this._bgl = BGL.InitialLevel;
-        this.effects = (env.isNode) ? log
+        this.effects = (env.isNode) ? log.info
             : applyEffect;
     }
 

@@ -1,10 +1,10 @@
-import { log } from '../util/log';
+import * as log from '../util/log';
 import * as Bar from 'magikcraft-lore-ui-bar';
-import * as MCT1State from '../State';
+import * as State from '../State';
 
-log('BGL Bar loading...');
+log.info('BGL Bar loading...');
 
-const initialState = MCT1State.getState();
+const initialState = State.getState();
 
 export let bar, subscription;
 
@@ -19,13 +19,15 @@ export function init() {
     if (!subscription){
         let previousState = initialState;
 
-        subscription = MCT1State.fusionStore.subscribe(this, function (state) {
+        subscription = State.subscribe(function(state) {
             if (previousState.BGL !== state.BGL) {
-                const bglNum = Math.min(20, state.BGL);
+                const bgl = state.BGL || 0;
+                const bglNum = Math.min(20, bgl);
                 const bglString = bglNum.toFixed(1);
                 previousState = state;
                 bar.progress(bglNum * 5);
                 bar.text(`BGL: ${bglString}`);
+                bar.color(getBGLColor(bgl));
             }
         });
     }

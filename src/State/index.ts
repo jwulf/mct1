@@ -72,3 +72,4 @@ export const changeCarbs = NanoFlux.getFusionActor("changeCarbs");
 export const addEffectMutex = NanoFlux.getFusionActor("addEffectMutex");
 export const removeEffectMutex = NanoFlux.getFusionActor("removeEffectMutex");
 export const hasEffect = (effect: string) => ((getState().effects as any).indexOf(effect) != -1);
+export const subscribe = (callback:(state: T1State) => void) => fusionStore.subscribe(this, callback);

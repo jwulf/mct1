@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var events_lib_1 = require("./events-lib");
 var _1 = require("../");
-var log_1 = require("../util/log");
+var log = require("../util/log");
 var Bukkit = require("../Bukkit/");
 var Food = require("../Carbs/Foods");
 function handleConsumeEvent(event) {
@@ -14,9 +14,9 @@ function handleConsumeEvent(event) {
         _1.takeInsulin();
         return;
     }
-    log_1.log(event.getItem().toString());
+    log.info(event.getItem().toString());
 }
-function registerEvents() {
+function registerEventHandlers() {
     events_lib_1.registerConsumeEventHandler(handleConsumeEvent);
 }
-exports.registerEvents = registerEvents;
+exports.registerEventHandlers = registerEventHandlers;

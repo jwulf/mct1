@@ -1,8 +1,8 @@
-import { debug, log } from '../util/log';
+import * as log from '../util/log';
 import * as Bar from 'magikcraft-lore-ui-bar';
 import * as MCT1State from '../State';
 
-log('Loading Insulin Bar...');
+log.info('Loading Insulin Bar...');
 
 const initialState = MCT1State.getState();
 const basal = initialState.basalInsulinOnBoard || 0;
@@ -22,14 +22,14 @@ export function init() {
     let previousState = initialState;
     if (!subscription) {
         subscription = MCT1State.fusionStore.subscribe(this, function (state) {
-            debug('Insulin Bar State Listener called');
-            debug(state);
+            log.debug('Insulin Bar State Listener called');
+            log.debug(state);
             if (previousState.basalInsulinOnBoard !== state.basalInsulinOnBoard) {
                 const text = getBasalMessage(state.basalInsulinOnBoard);
                 bar.textComponent(text);
             }
             if (previousState.rapidInsulinOnBoard !== state.rapidInsulinOnBoard) {
-                debug(`Insulin onboard: ${state.rapidInsulinOnBoard}`)
+                log.debug(`Insulin onboard: ${state.rapidInsulinOnBoard}`)
                 const amount = Math.min(state.rapidInsulinOnBoard, 20);
                 bar.progress(Math.min(amount, 100));
             }

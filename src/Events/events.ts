@@ -1,7 +1,6 @@
 import { registerConsumeEventHandler } from './events-lib';
 import { takeInsulin } from '../';
-import { rapid } from '../Insulin/rapid-insulin';
-import { log } from '../util/log';
+import * as log from '../util/log';
 import * as Bukkit from '../Bukkit/';
 import * as Food from '../Carbs/Foods';
 
@@ -14,9 +13,9 @@ function handleConsumeEvent(event) {
         takeInsulin();
         return;
     }
-    log(event.getItem().toString());
+    log.info(event.getItem().toString());
 }
 
-export function registerEvents() {
+export function registerEventHandlers() {
     registerConsumeEventHandler(handleConsumeEvent);
 }
