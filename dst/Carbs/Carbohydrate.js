@@ -10,7 +10,7 @@ var Carbohydrate = (function () {
     }
     Carbohydrate.prototype.digest = function () {
         var singleGramPerSecond = 1;
-        var digestionCoefficient = 0.01;
+        var digestionCoefficient = 0.001;
         // do Digestion
         // Convert some grams to bgl
         var digestedGlucose = Math.min(singleGramPerSecond, digestionCoefficient * this.grams * this.glycemicIndex);

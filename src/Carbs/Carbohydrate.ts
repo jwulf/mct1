@@ -16,7 +16,7 @@ export class Carbohydrate {
 
     digest(){
         const singleGramPerSecond = 1;
-        const digestionCoefficient = 0.01
+        const digestionCoefficient = 0.001
         // do Digestion
         // Convert some grams to bgl
         const digestedGlucose = Math.min(singleGramPerSecond, digestionCoefficient * this.grams * this.glycemicIndex);
