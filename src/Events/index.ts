@@ -2,7 +2,7 @@ import { registerConsumeEventHandler } from './events-lib';
 import { takeInsulin } from '../';
 import * as log from '../util/log';
 import * as Bukkit from '../lib/bukkit';
-import * as Food from '../Carbs/Foods';
+import { Food } from '../Carbs';
 
 function handleConsumeEvent(event) {
     if (event.getItem().getType() == Bukkit.Material.APPLE) {

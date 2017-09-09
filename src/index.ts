@@ -3,7 +3,7 @@ import * as State from './State/';
 import * as Insulin from './Insulin';
 import * as Effects from './Effects';
 import * as log from './util/log';
-import * as Food from './Carbs/Foods';
+import { Food } from './Carbs/';
 import * as Bars from './Bars';
 
 log.info('MCT1 loading...');

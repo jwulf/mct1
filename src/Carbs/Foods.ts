@@ -3,11 +3,13 @@ import { Carbohydrate } from './Carbohydrate';
 /**
  * Foods - Carbohydrate(grams, GI, GL);
  */
-export const apple = new Carbohydrate(15, 5, 5);
 
+const Foods: any = new Object({
+    get apple() {
+        return new Carbohydrate(15, 5, 5);
+    }
+});
 
-const Foods = {
-    APPLE: apple
-}
-export const getFood = (type) => {
+export const Food: {[key: string]: Carbohydrate} = {
+    apple: Foods.apple
 }

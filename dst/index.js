@@ -5,7 +5,7 @@ var State = require("./State/");
 var Insulin = require("./Insulin");
 var Effects = require("./Effects");
 var log = require("./util/log");
-var Food = require("./Carbs/Foods");
+var _1 = require("./Carbs/");
 var Bars = require("./Bars");
 log.info('MCT1 loading...');
 function createGame() {
@@ -15,7 +15,7 @@ function createGame() {
     log.info('MCT1 started');
 }
 function eatCarbs() {
-    Food.apple.eat();
+    _1.Food.apple.eat();
 }
 function takeInsulin() {
     log.info('Taking 1u of rapid insulin');
