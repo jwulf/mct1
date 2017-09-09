@@ -2,7 +2,7 @@ import { registerEvents } from './Events/events';
 import * as MCT1State from './State/';
 import { rapid } from './Insulin/rapid-insulin';
 import { Carbohydrate } from './Carbs/Carbohydrate';
-import { effects } from './Effects/effects';
+import { applyEffect } from './Effects/effects';
 import { log } from './util/log';
 import * as InsulinBar from './Insulin/InsulinBar';
 import * as BGLBar from './GlucoseMonitor/BGLBar';
@@ -14,8 +14,8 @@ export let verbose = false;
 
 function createGame() {
     log('MCT1 starting');
-    BGLBar.show();
-    InsulinBar.show();
+    BGLBar.init();
+    InsulinBar.init();
     registerEvents();
 }
 
@@ -52,7 +52,7 @@ const _default = createGame;
 export const spells = {
     _default,
     query,
-    effects,
+    applyEffect,
     eatCarbs,
     takeInsulin,
     logson,

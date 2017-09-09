@@ -5,12 +5,13 @@ import * as MCT1State from '../State';
 log('Loading Insulin Bar...');
 
 const initialState = MCT1State.getState();
-const textComponent = getBasalMessage(initialState.basalInsulinOnBoard);
-const amount = initialState.rapidInsulinOnBoard;
+const basal = initialState.basalInsulinOnBoard || 0;
+const textComponent = getBasalMessage(basal);
+const amount = initialState.rapidInsulinOnBoard || 0;
 
 export let bar, subscription;
 
-export function show() {
+export function init() {
     bar = Bar.bar()
         .textComponent(textComponent)
         .color(Bar.color.BLUE)

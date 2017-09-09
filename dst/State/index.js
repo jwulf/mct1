@@ -3,11 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var NanoFlux = require('nanoflux-fusion');
 exports.fusionStore = NanoFlux.getFusionStore();
 exports.getState = function () { return exports.fusionStore.getState(); };
-var subscription = exports.fusionStore.subscribe(this, function (state) {
-    // ... do something with the state
-    // state is also available via fusionStore.getState()
-    // console.log("Items:", state.items);
-});
 // the 'fusionator' is responsible for the state manipulation
 // it is called with two arguments, the previous state
 // and an arguments array containing the arguments passed on actor call.
@@ -35,6 +30,22 @@ NanoFlux.createFusionator({
         var delta = args[0];
         var newCarbsOnboard = carbsOnBoard + delta;
         return { carbsOnBoard: newCarbsOnboard };
+    },
+    addEffectMutex: function (previousState, args) {
+        var effects = previousState.effects;
+        var effect = args[0];
+        if (effects.indexOf(effect) != -1) {
+            return { effects: effects };
+        }
+        var newEffects = effects.slice(0);
+        newEffects.push(effect);
+        return { effects: newEffects };
+    },
+    removeEffectMutex: function (previousState, args) {
+        var effects = previousState.effects;
+        var effect = args[0];
+        var newEffects = effects.filter(function (eff) { return (eff != effect); });
+        return { effects: newEffects };
     }
 }, 
 // define an initial state!
@@ -42,9 +53,13 @@ NanoFlux.createFusionator({
     BGL: 4,
     rapidInsulinOnBoard: 0,
     basalInsulinOnBoard: 0,
-    carbsOnBoard: 0
+    carbsOnBoard: 0,
+    effects: ['NOTHING']
 });
 exports.changeBGL = NanoFlux.getFusionActor("changeBGL");
 exports.changeRapidInsulin = NanoFlux.getFusionActor("changeRapidInsulin");
 exports.changeBasalInsulin = NanoFlux.getFusionActor("changeBasalInsulin");
 exports.changeCarbs = NanoFlux.getFusionActor("changeCarbs");
+exports.addEffectMutex = NanoFlux.getFusionActor("addEffectMutex");
+exports.removeEffectMutex = NanoFlux.getFusionActor("removeEffectMutex");
+exports.hasEffect = function (effect) { return (exports.getState().effects.indexOf(effect) != -1); };

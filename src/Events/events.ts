@@ -1,43 +1,22 @@
+import { registerConsumeEventHandler } from './events-lib';
 import { takeInsulin } from '../';
 import { rapid } from '../Insulin/rapid-insulin';
 import { log } from '../util/log';
-import { Carbohydrate } from '../Carbs/Carbohydrate';
-const magik = magikcraft.io;
+import * as Bukkit from '../Bukkit/';
+import * as Food from '../Carbs/Foods';
 
-const EventPriority = magik.type("event.EventPriority");
-const PlayerItemConsumeEvent = magik.type("event.player.PlayerItemConsumeEvent");
-const PlayerQuitEvent = magik.type("event.player.PlayerQuitEvent");
-const EventCallback = Java.type("io.magikcraft.EventCallback");
-const Material = Java.type("org.bukkit.Material");
-const PotionMeta = Java.type("org.bukkit.inventory.meta.PotionMeta");
+function handleConsumeEvent(event) {
+    if (event.getItem().getType() == Bukkit.Material.APPLE) {
+        Food.apple.eat();
+        return;
+    }
+    if (event.getItem().getItemMeta() instanceof Bukkit.PotionMeta) {
+        takeInsulin();
+        return;
+    }
+    log(event.getItem().toString());
+}
 
 export function registerEvents() {
-    const me = magik.getSender();
-    magik.getPlugin().registerEvent(
-        PlayerItemConsumeEvent.class,
-        EventPriority.MONITOR,
-        true,
-        new EventCallback({
-            callback: function (event) {
-                var username = event.player.playerListName;
-                const isMe = (username == me.getName());
-                /**if (typeof event != "undefined") {
-                    magik.dixit(event.getItem().toString());
-                } **/
-                if (!isMe) {
-                    return;
-                }
-
-                if (event.getItem().getType() == Material.APPLE) {
-                    const apple = new Carbohydrate(15,5,5);
-                    apple.eat();
-                    return;
-                }
-                if (event.getItem().getItemMeta() instanceof PotionMeta) {
-                    takeInsulin();
-                    return;
-                }
-                log(event.getItem().toString());
-            }
-        }));
+    registerConsumeEventHandler(handleConsumeEvent);
 }

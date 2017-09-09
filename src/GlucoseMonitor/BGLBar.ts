@@ -8,12 +8,13 @@ const initialState = MCT1State.getState();
 
 export let bar, subscription;
 
-export function show() {
+export function init() {
+    const bgl = initialState.BGL || 4;
     bar = Bar.bar()
     .text(`BGL: ${initialState.BGL}`)
     .color(Bar.color.GREEN)
     .style(Bar.style.NOTCHED_20)
-    .progress(initialState.BGL)
+    .progress(bgl)
     .show();
     if (!subscription){
         let previousState = initialState;

@@ -5,9 +5,10 @@ var Bar = require("magikcraft-lore-ui-bar");
 var MCT1State = require("../State");
 log_1.log('Loading Insulin Bar...');
 var initialState = MCT1State.getState();
-var textComponent = getBasalMessage(initialState.basalInsulinOnBoard);
-var amount = initialState.rapidInsulinOnBoard;
-function show() {
+var basal = initialState.basalInsulinOnBoard || 0;
+var textComponent = getBasalMessage(basal);
+var amount = initialState.rapidInsulinOnBoard || 0;
+function init() {
     exports.bar = Bar.bar()
         .textComponent(textComponent)
         .color(Bar.color.BLUE)
@@ -32,7 +33,7 @@ function show() {
         });
     }
 }
-exports.show = show;
+exports.init = init;
 function getBasalMessage(basalInsulinOnBoard) {
     if (basalInsulinOnBoard > 0) {
         return Bar.ComponentBuilder("Insulin | ").append("Basal: Active").color(Bar.ChatColor.GREEN).create();

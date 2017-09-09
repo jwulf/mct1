@@ -12,8 +12,8 @@ log_1.log('MCT1 loading...');
 exports.verbose = false;
 function createGame() {
     log_1.log('MCT1 starting');
-    BGLBar.show();
-    InsulinBar.show();
+    BGLBar.init();
+    InsulinBar.init();
     events_1.registerEvents();
 }
 function eatCarbs() {
@@ -44,7 +44,7 @@ var _default = createGame;
 exports.spells = {
     _default: _default,
     query: query,
-    effects: effects_1.effects,
+    applyEffect: effects_1.applyEffect,
     eatCarbs: eatCarbs,
     takeInsulin: takeInsulin,
     logson: logson,

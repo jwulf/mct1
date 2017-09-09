@@ -21,7 +21,7 @@ var BGL = (function () {
     function BGL() {
         this._bgl = BGL.InitialLevel;
         this.effects = (env.isNode) ? log_1.log
-            : effects_1.effects;
+            : effects_1.applyEffect;
     }
     BGL.prototype.getBGL = function (units) {
         if (units === void 0) { units = BGLunits.mmolL; }

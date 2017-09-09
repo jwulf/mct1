@@ -1,30 +1,27 @@
-import { MCT1 } from '../types/mct1';
+import * as State from '../State';
 import * as env from '../util/env';
+import * as Bukkit from '../Bukkit/';
+const magik = magikcraft.io;
 
-export function effects(type: string, opts: any = {}) {
+export function applyEffect(effect: string, opts: any = {}) {
     if (env.isNode) {
-        return type;
+        return effect;
     }
 
-    const magik = magikcraft.io;
-    const PotionEffect = magik.type("potion.PotionEffect");
-    const PotionEffectType = magik.type("potion.PotionEffectType");
     const Color = magik.type("Color");
-    const mct1 = magik.global('mct1') as MCT1;
-
-    if (mct1.effect[type]) {
+    if (State.hasEffect(effect)) {
         return;
     }
 
-    mct1.effect[type] = true;
     const duration = opts.duration || 500;
     const amplifier = opts.amplifier || 1;
     const color = opts.color || "GREEN";
     const c = Color[color];
-    const l = PotionEffectType[type];
-    const effect = new PotionEffect(l, duration, amplifier, true, true, c);
-    magik.getSender().addPotionEffect(effect);
+    const l = Bukkit.PotionEffectType[effect];
+    const potionEffect = new Bukkit.PotionEffect(l, duration, amplifier, true, true, c);
+    magik.getSender().addPotionEffect(potionEffect);
+    State.addEffectMutex(effect);
     magik.setTimeout(() => {
-        mct1.effect[type] = false;
+        State.removeEffectMutex(effect);
     }, duration);
 }
