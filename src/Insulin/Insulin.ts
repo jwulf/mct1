@@ -1,5 +1,5 @@
 import { log } from '../util/log';
-import { changeBGL } from '../State';
+import { changeBGL, changeRapidInsulin } from '../State';
 import { Interval } from '../util/timer';
 
 const debug = log;
@@ -44,6 +44,7 @@ export class Insulin {
     take(amount: number) {
         // This timeout is the onset Delay of taking the insulin
         debug(`Taking ${amount} rapid`);
+        changeRapidInsulin(amount);
         Interval.setTimeout(() => {
             debug('Starting absorption');
             this.doInsulinAbsorption(this.onsetDelay, amount);
@@ -71,6 +72,14 @@ export class Insulin {
             };
             const e = getE();
             const effect = e * a;
+            // @TODO: Insulin is absorbed over a fixed period
+            // but the amounts absorbed / still in-system at any given time
+            // vary according to the absorption profile. Does it need some
+            // kind of integral calculus? The area under the absorption curve
+            // should equal the total amount, and the amount remaining in-system
+            // at any point should be the total minus whatever has been absorbed.
+            changeRapidInsulin(-a);
+
             return effect;
         })(this.power, this.duration, this.peak);
 
