@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var events_1 = require("./Events/events");
 var MCT1State = require("./State/");
 var rapid_insulin_1 = require("./Insulin/rapid-insulin");
 var Carbohydrate_1 = require("./Carbs/Carbohydrate");
@@ -13,10 +14,7 @@ function createGame() {
     log_1.log('MCT1 starting');
     BGLBar.show();
     InsulinBar.show();
-    /**
-     * MGK-006-compliant interface
-     * See: https://github.com/Magikcraft/product-board/issues/6
-     */
+    events_1.registerEvents();
 }
 function eatCarbs() {
     var apple = new Carbohydrate_1.Carbohydrate(15, 5, 5);
@@ -38,6 +36,10 @@ function logsoff() {
     log_1.log('Set logging off');
 }
 var _default = createGame;
+/**
+* MGK-006-compliant interface
+* See: https://github.com/Magikcraft/product-board/issues/6
+*/
 exports.spells = {
     _default: _default,
     query: query,

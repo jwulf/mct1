@@ -1,4 +1,5 @@
-import * as MCT1State from './State/'
+import { registerEvents } from './Events/events';
+import * as MCT1State from './State/';
 import { rapid } from './Insulin/rapid-insulin';
 import { Carbohydrate } from './Carbs/Carbohydrate';
 import { effects } from './Effects/effects';
@@ -15,10 +16,7 @@ function createGame() {
     log('MCT1 starting');
     BGLBar.show();
     InsulinBar.show();
-    /**
-     * MGK-006-compliant interface
-     * See: https://github.com/Magikcraft/product-board/issues/6
-     */
+    registerEvents();
 }
 
 function eatCarbs() {
@@ -47,6 +45,10 @@ function logsoff(){
 
 const _default = createGame;
 
+/**
+* MGK-006-compliant interface
+* See: https://github.com/Magikcraft/product-board/issues/6
+*/
 export const spells = {
     _default,
     query,

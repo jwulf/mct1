@@ -5,12 +5,13 @@ var EventPriority = magik.type("event.EventPriority");
 var PlayerItemConsumeEvent = magik.type("event.player.PlayerItemConsumeEvent");
 var PlayerQuitEvent = magik.type("event.player.PlayerQuitEvent");
 var EventCallback = Java.type("io.magikcraft.EventCallback");
-function events() {
+function registerEvents() {
     magik.getPlugin().registerEvent(PlayerItemConsumeEvent.class, EventPriority.MONITOR, true, new EventCallback({
         callback: function (event) {
             var username = event.player.playerListName;
             magik.dixit(event.ItemStack);
+            magik.dixit(username);
         }
     }));
 }
-exports.events = events;
+exports.registerEvents = registerEvents;

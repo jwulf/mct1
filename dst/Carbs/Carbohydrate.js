@@ -10,9 +10,10 @@ var Carbohydrate = (function () {
     }
     Carbohydrate.prototype.digest = function () {
         var singleGramPerSecond = 1;
+        var digestionCoefficient = 0.01;
         // do Digestion
         // Convert some grams to bgl
-        var digestedGlucose = Math.min(singleGramPerSecond, 0.1 * this.grams * this.glycemicIndex);
+        var digestedGlucose = Math.min(singleGramPerSecond, digestionCoefficient * this.grams * this.glycemicIndex);
         // decrement grams
         this.grams -= singleGramPerSecond; // 1gm/sec
         // impact player BGL
