@@ -1,6 +1,6 @@
 import { registerEventHandlers } from './Events/events';
 import * as State from './State/';
-import * as Insulin from './lib/insulin';
+import * as Insulin from './Insulin/insulins';
 import { applyEffect } from './Effects/effects-lib';
 import * as log from './util/log';
 import * as Food from './Carbs/Foods';

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var events_1 = require("./Events/events");
 var State = require("./State/");
-var Insulin = require("./lib/insulin");
+var Insulin = require("./Insulin/insulins");
 var effects_lib_1 = require("./Effects/effects-lib");
 var log = require("./util/log");
 var Food = require("./Carbs/Foods");
