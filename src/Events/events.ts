@@ -16,9 +16,9 @@ export function registerEvents() {
             callback: function (event) {
                 var username = event.player.playerListName;
                 const isMe = (username == me.getName());
-                if (typeof event != "undefined") {
+                /**if (typeof event != "undefined") {
                     magik.dixit(event.getItem().toString());
-                }
+                } **/
                 if (isMe) {
                     const apple = new Carbohydrate(15,5,5);
                     apple.eat();
