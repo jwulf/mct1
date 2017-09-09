@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var log_1 = require("../util/log");
-var State_1 = require("../State");
+var State = require("../State");
 var timer_1 = require("../util/timer");
 var debug = log_1.log;
 /**
@@ -37,7 +37,7 @@ var Insulin = (function () {
         var _this = this;
         // This timeout is the onset Delay of taking the insulin
         debug("Taking " + amount + " rapid");
-        State_1.changeRapidInsulin(amount);
+        State.changeRapidInsulin(amount);
         timer_1.Interval.setTimeout(function () {
             debug('Starting absorption');
             _this.doInsulinAbsorption(_this.onsetDelay, amount);
@@ -72,7 +72,7 @@ var Insulin = (function () {
             // kind of integral calculus? The area under the absorption curve
             // should equal the total amount, and the amount remaining in-system
             // at any point should be the total minus whatever has been absorbed.
-            State_1.changeRapidInsulin(-a);
+            State.changeRapidInsulin(-a);
             return effect;
         }; })(this.power, this.duration, this.peak);
         var _loop = timer_1.Interval.setInterval(function () {
@@ -89,7 +89,7 @@ var Insulin = (function () {
             debug('Doing insulin effect');
             var bglDelta = calculateInsulinEffect(elapsedTime) * amount;
             debug("Insulin bglDelta " + bglDelta);
-            State_1.changeBGL(0 - bglDelta);
+            State.changeBGL(0 - bglDelta);
             elapsedTime += secondsPerTick;
         }, secondsPerTick * 1000);
     };

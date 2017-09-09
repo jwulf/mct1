@@ -8,7 +8,7 @@ const initialState = MCT1State.getState();
 const textComponent = getBasalMessage(initialState.basalInsulinOnBoard);
 const amount = Math.max(initialState.rapidInsulinOnBoard, 20);
 
-export let bar;
+export let bar, subscription;
 
 export function show() {
     bar = Bar.bar()
@@ -19,17 +19,20 @@ export function show() {
         .show();
 
     let previousState = initialState;
-    const subscription = MCT1State.fusionStore.subscribe(this, function (state) {
-        if (previousState.basalInsulinOnBoard !== state.basalInsulinOnBoard) {
-            const text = getBasalMessage(state.basalInsulinOnBoard);
-            bar.textComponent(text);
-        }
-        if (previousState.rapidInsulinOnBoard !== state.rapidInsulinOnBoard) {
-            const amount = Math.min(state.rapidInsulinOnBoard, 20);
-            bar.progress(amount);
-        }
-        previousState = state;
-    });
+    if (!subscription) {
+        subscription = MCT1State.fusionStore.subscribe(this, function (state) {
+            if (previousState.basalInsulinOnBoard !== state.basalInsulinOnBoard) {
+                const text = getBasalMessage(state.basalInsulinOnBoard);
+                bar.textComponent(text);
+            }
+            if (previousState.rapidInsulinOnBoard !== state.rapidInsulinOnBoard) {
+                log(`Insulin onboard: ${state.rapidInsulinOnBoard}`)
+                const amount = Math.min(state.rapidInsulinOnBoard, 20);
+                bar.progress(amount);
+            }
+            previousState = state;
+        });
+    }
 }
 function getBasalMessage(basalInsulinOnBoard: number) {
     if (basalInsulinOnBoard > 0) {

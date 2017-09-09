@@ -15,17 +15,20 @@ function show() {
         .progress(amount)
         .show();
     var previousState = initialState;
-    var subscription = MCT1State.fusionStore.subscribe(this, function (state) {
-        if (previousState.basalInsulinOnBoard !== state.basalInsulinOnBoard) {
-            var text = getBasalMessage(state.basalInsulinOnBoard);
-            exports.bar.textComponent(text);
-        }
-        if (previousState.rapidInsulinOnBoard !== state.rapidInsulinOnBoard) {
-            var amount_1 = Math.min(state.rapidInsulinOnBoard, 20);
-            exports.bar.progress(amount_1);
-        }
-        previousState = state;
-    });
+    if (!exports.subscription) {
+        exports.subscription = MCT1State.fusionStore.subscribe(this, function (state) {
+            if (previousState.basalInsulinOnBoard !== state.basalInsulinOnBoard) {
+                var text = getBasalMessage(state.basalInsulinOnBoard);
+                exports.bar.textComponent(text);
+            }
+            if (previousState.rapidInsulinOnBoard !== state.rapidInsulinOnBoard) {
+                log_1.log("Insulin onboard: " + state.rapidInsulinOnBoard);
+                var amount_1 = Math.min(state.rapidInsulinOnBoard, 20);
+                exports.bar.progress(amount_1);
+            }
+            previousState = state;
+        });
+    }
 }
 exports.show = show;
 function getBasalMessage(basalInsulinOnBoard) {

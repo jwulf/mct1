@@ -1,5 +1,5 @@
 import { log } from '../util/log';
-import { changeBGL, changeRapidInsulin } from '../State';
+import * as State from '../State';
 import { Interval } from '../util/timer';
 
 const debug = log;
@@ -44,7 +44,7 @@ export class Insulin {
     take(amount: number) {
         // This timeout is the onset Delay of taking the insulin
         debug(`Taking ${amount} rapid`);
-        changeRapidInsulin(amount);
+        State.changeRapidInsulin(amount);
         Interval.setTimeout(() => {
             debug('Starting absorption');
             this.doInsulinAbsorption(this.onsetDelay, amount);
@@ -78,7 +78,7 @@ export class Insulin {
             // kind of integral calculus? The area under the absorption curve
             // should equal the total amount, and the amount remaining in-system
             // at any point should be the total minus whatever has been absorbed.
-            changeRapidInsulin(-a);
+            State.changeRapidInsulin(-a);
 
             return effect;
         })(this.power, this.duration, this.peak);
@@ -98,7 +98,7 @@ export class Insulin {
                 debug('Doing insulin effect');
                 const bglDelta = calculateInsulinEffect(elapsedTime) * amount;
                 debug(`Insulin bglDelta ${bglDelta}`);
-                changeBGL(0-bglDelta);
+                State.changeBGL(0-bglDelta);
                 elapsedTime += secondsPerTick;
             },
             secondsPerTick * 1000
