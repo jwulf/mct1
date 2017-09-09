@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var rapid_insulin_1 = require("../Insulin/rapid-insulin");
+var _1 = require("../");
 var log_1 = require("../util/log");
 var Carbohydrate_1 = require("../Carbs/Carbohydrate");
 var magik = magikcraft.io;
@@ -28,8 +28,7 @@ function registerEvents() {
                 return;
             }
             if (event.getItem().getItemMeta() instanceof PotionMeta) {
-                log_1.log('Taking 5u of rapid insulin');
-                rapid_insulin_1.rapid.take(5);
+                _1.takeInsulin();
                 return;
             }
             log_1.log(event.getItem().toString());

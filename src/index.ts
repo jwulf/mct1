@@ -20,12 +20,12 @@ function createGame() {
 }
 
 function eatCarbs() {
-    const apple = new Carbohydrate(15,5,5);
+    const apple = new Carbohydrate(20,5,5);
     apple.eat();
 }
 
-function takeInsulin() {
-    log('Taking 5u of rapid insulin');
+export function takeInsulin() {
+    log('Taking 1u of rapid insulin');
     rapid.take(5);
 }
 

@@ -1,3 +1,4 @@
+import { takeInsulin } from '../';
 import { rapid } from '../Insulin/rapid-insulin';
 import { log } from '../util/log';
 import { Carbohydrate } from '../Carbs/Carbohydrate';
@@ -33,8 +34,7 @@ export function registerEvents() {
                     return;
                 }
                 if (event.getItem().getItemMeta() instanceof PotionMeta) {
-                    log('Taking 5u of rapid insulin');
-                    rapid.take(5);
+                    takeInsulin();
                     return;
                 }
                 log(event.getItem().toString());

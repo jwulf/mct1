@@ -17,13 +17,14 @@ function createGame() {
     events_1.registerEvents();
 }
 function eatCarbs() {
-    var apple = new Carbohydrate_1.Carbohydrate(15, 5, 5);
+    var apple = new Carbohydrate_1.Carbohydrate(20, 5, 5);
     apple.eat();
 }
 function takeInsulin() {
-    log_1.log('Taking 5u of rapid insulin');
+    log_1.log('Taking 1u of rapid insulin');
     rapid_insulin_1.rapid.take(5);
 }
+exports.takeInsulin = takeInsulin;
 function query() {
     log_1.log(MCT1State.getState());
 }
