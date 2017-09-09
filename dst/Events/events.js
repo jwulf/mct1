@@ -14,7 +14,7 @@ function registerEvents() {
                 magik.dixit(event.toString());
             }
             magik.dixit(username);
-            magik.dixit("Is it me? ${username == me.getName()}");
+            magik.dixit("Is it me? " + (username == me.getName()));
         }
     }));
 }
