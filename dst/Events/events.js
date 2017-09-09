@@ -26,7 +26,7 @@ function registerEvents() {
                 apple.eat();
                 return;
             }
-            if (event.getItem().getType() == Material.WATER) {
+            if (event.getItem().getType() == Material.POTION) {
                 log_1.log('Taking 5u of rapid insulin');
                 rapid_insulin_1.rapid.take(5);
                 return;

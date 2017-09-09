@@ -31,7 +31,7 @@ export function registerEvents() {
                     apple.eat();
                     return;
                 }
-                if (event.getItem().getType() == Material.WATER) {
+                if (event.getItem().getType() == Material.POTION) {
                     log('Taking 5u of rapid insulin');
                     rapid.take(5);
                     return;
