@@ -1,18 +1,17 @@
-import { registerEventHandlers } from './Events/events';
+import * as Events from './Events/';
 import * as State from './State/';
-import * as Insulin from './Insulin/insulins';
-import { applyEffect } from './Effects/effects-lib';
+import * as Insulin from './Insulin';
+import * as Effects from './Effects';
 import * as log from './util/log';
 import * as Food from './Carbs/Foods';
-import * as Bars from './lib/bars';
-log.info('MCT1 loading...');
+import * as Bars from './Bars';
 
-export let verbose = false;
+log.info('MCT1 loading...');
 
 function createGame() {
     Bars.BGL.init();
     Bars.Insulin.init();
-    registerEventHandlers();
+    Events.registerEventHandlers();
     log.info('MCT1 started');
 }
 
@@ -30,12 +29,12 @@ function query() {
 }
 
 function logson() {
-    verbose = true;
+    log.verbose(true);
     log.info('Set logging on');
 }
 
 function logsoff(){
-    verbose = false;
+    log.verbose(false);
     log.info('Set logging off');
 }
 
@@ -48,7 +47,7 @@ const _default = createGame;
 export const spells = {
     _default,
     query,
-    applyEffect,
+    applyEffect: Effects.applyEffect,
     eatCarbs,
     takeInsulin,
     logson,

@@ -1,18 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var events_1 = require("./Events/events");
+var Events = require("./Events/");
 var State = require("./State/");
-var Insulin = require("./Insulin/insulins");
-var effects_lib_1 = require("./Effects/effects-lib");
+var Insulin = require("./Insulin");
+var Effects = require("./Effects");
 var log = require("./util/log");
 var Food = require("./Carbs/Foods");
-var Bars = require("./lib/bars");
+var Bars = require("./Bars");
 log.info('MCT1 loading...');
-exports.verbose = false;
 function createGame() {
     Bars.BGL.init();
     Bars.Insulin.init();
-    events_1.registerEventHandlers();
+    Events.registerEventHandlers();
     log.info('MCT1 started');
 }
 function eatCarbs() {
@@ -27,11 +26,11 @@ function query() {
     log.info(State.getState());
 }
 function logson() {
-    exports.verbose = true;
+    log.verbose(true);
     log.info('Set logging on');
 }
 function logsoff() {
-    exports.verbose = false;
+    log.verbose(false);
     log.info('Set logging off');
 }
 /**
@@ -42,7 +41,7 @@ var _default = createGame;
 exports.spells = {
     _default: _default,
     query: query,
-    applyEffect: effects_lib_1.applyEffect,
+    applyEffect: Effects.applyEffect,
     eatCarbs: eatCarbs,
     takeInsulin: takeInsulin,
     logson: logson,

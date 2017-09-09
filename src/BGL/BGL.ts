@@ -1,5 +1,10 @@
+/**
+ * @TODO: Currently not used. To be reimplemented.
+ *
+ *
+ */
 import * as log from '../util/log';
-import { applyEffect } from '../Effects/effects-lib';
+import { applyEffect } from '../Effects';
 import * as env from '../util/env';
 import { thresholds } from './bgl-alerts';
 enum BGLunits {

@@ -1,7 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * @TODO: Currently not used. To be reimplemented.
+ *
+ *
+ */
 var log = require("../util/log");
-var effects_lib_1 = require("../Effects/effects-lib");
+var Effects_1 = require("../Effects");
 var env = require("../util/env");
 var bgl_alerts_1 = require("./bgl-alerts");
 var BGLunits;
@@ -21,7 +26,7 @@ var BGL = (function () {
     function BGL() {
         this._bgl = BGL.InitialLevel;
         this.effects = (env.isNode) ? log.info
-            : effects_lib_1.applyEffect;
+            : Effects_1.applyEffect;
     }
     BGL.prototype.getBGL = function (units) {
         if (units === void 0) { units = BGLunits.mmolL; }

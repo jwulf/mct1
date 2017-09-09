@@ -1,9 +1,11 @@
 declare const console: any;
-
-import { verbose } from '../';
 import * as env from './env';
+
+let _verbose = false;
 
 export const info = (env.isNode) ? console.log
     : magikcraft.io.dixit;
 
-export const debug = (msg) => ((verbose) ? info(msg): undefined);
+export const debug = (msg) => ((_verbose) ? info(msg): undefined);
+
+export const verbose = (trueOrFalse: boolean) => _verbose = trueOrFalse;
