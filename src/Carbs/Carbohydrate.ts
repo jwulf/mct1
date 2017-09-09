@@ -1,4 +1,4 @@
-import { changeBGL } from '../State';
+import * as State from '../State';
 import { Interval } from '../util/timer';
 
 export class Carbohydrate {
@@ -15,15 +15,16 @@ export class Carbohydrate {
     }
 
     digest(){
-        const singleGramPerSecond = 1;
-        const digestionCoefficient = 0.001
+        const gramsPerSecond = 1;
+        const digestionCoefficient = 0.004;
         // do Digestion
         // Convert some grams to bgl
-        const digestedGlucose = Math.min(singleGramPerSecond, digestionCoefficient * this.grams * this.glycemicIndex);
+        const digestedGlucose = Math.min(gramsPerSecond, digestionCoefficient * this.grams * this.glycemicIndex);
         // decrement grams
-        this.grams -= singleGramPerSecond; // 1gm/sec
+        this.grams -= gramsPerSecond; // 1gm/sec
+        State.changeCarbs(-gramsPerSecond);
         // impact player BGL
-        changeBGL(digestedGlucose);
+        State.changeBGL(digestedGlucose);
         // if grams <= 0; stop digestion
         if (this.grams <= 0) {
             Interval.clearInterval(this.digestionLoop);
@@ -32,5 +33,6 @@ export class Carbohydrate {
 
     eat() {
         this.digestionLoop = Interval.setInterval(() => this.digest(), 1000);
+        State.changeCarbs(this.grams);
     }
 }

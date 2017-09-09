@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var State_1 = require("../State");
+var State = require("../State");
 var timer_1 = require("../util/timer");
 var Carbohydrate = (function () {
     function Carbohydrate(grams, glycemicIndex, glycemicLoad) {
@@ -9,15 +9,16 @@ var Carbohydrate = (function () {
         this.glycemicLoad = glycemicLoad;
     }
     Carbohydrate.prototype.digest = function () {
-        var singleGramPerSecond = 1;
-        var digestionCoefficient = 0.001;
+        var gramsPerSecond = 1;
+        var digestionCoefficient = 0.004;
         // do Digestion
         // Convert some grams to bgl
-        var digestedGlucose = Math.min(singleGramPerSecond, digestionCoefficient * this.grams * this.glycemicIndex);
+        var digestedGlucose = Math.min(gramsPerSecond, digestionCoefficient * this.grams * this.glycemicIndex);
         // decrement grams
-        this.grams -= singleGramPerSecond; // 1gm/sec
+        this.grams -= gramsPerSecond; // 1gm/sec
+        State.changeCarbs(-gramsPerSecond);
         // impact player BGL
-        State_1.changeBGL(digestedGlucose);
+        State.changeBGL(digestedGlucose);
         // if grams <= 0; stop digestion
         if (this.grams <= 0) {
             timer_1.Interval.clearInterval(this.digestionLoop);
@@ -26,6 +27,7 @@ var Carbohydrate = (function () {
     Carbohydrate.prototype.eat = function () {
         var _this = this;
         this.digestionLoop = timer_1.Interval.setInterval(function () { return _this.digest(); }, 1000);
+        State.changeCarbs(this.grams);
     };
     return Carbohydrate;
 }());
