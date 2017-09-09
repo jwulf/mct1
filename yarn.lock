@@ -1420,9 +1420,11 @@ magikcraft-lore-ui-bar@^1.0.14:
   version "1.0.14"
   resolved "https://registry.yarnpkg.com/magikcraft-lore-ui-bar/-/magikcraft-lore-ui-bar-1.0.14.tgz#9605fd8bdceec15c90cfaee367371b30272edda5"
 
-magikcraft.io@^0.9.8:
-  version "0.9.8"
-  resolved "https://registry.yarnpkg.com/magikcraft.io/-/magikcraft.io-0.9.8.tgz#a5bbdab110aa5c496e2f850c5dc4dc93b20341f2"
+magikcraft.io@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/magikcraft.io/-/magikcraft.io-1.2.6.tgz#833912124b7b85ae84ecea197c8861d9ffa35937"
+  dependencies:
+    husky "^0.14.3"
 
 makeerror@1.0.x:
   version "1.0.11"

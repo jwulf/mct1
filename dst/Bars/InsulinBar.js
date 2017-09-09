@@ -3,18 +3,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var log = require("../util/log");
 var Bar = require("magikcraft-lore-ui-bar");
 var MCT1State = require("../State");
+var magik = magikcraft.io;
 log.info('Loading Insulin Bar...');
+var INSULIN_BAR_KEY = 'mct.bar.insulin';
 var initialState = MCT1State.getState();
 var basal = initialState.basalInsulinOnBoard || 0;
 var textComponent = getBasalMessage(basal);
 var amount = initialState.rapidInsulinOnBoard || 0;
 function init() {
+    if (magik.playerMap.containsKey(INSULIN_BAR_KEY)) {
+        var _bar = magik.playerMap.get(INSULIN_BAR_KEY);
+        _bar.destroy();
+    }
     exports.bar = Bar.bar()
         .textComponent(textComponent)
         .color(Bar.color.BLUE)
         .style(Bar.style.NOTCHED_20)
         .progress(amount)
         .show();
+    magik.playerMap.put(INSULIN_BAR_KEY, exports.bar);
     var previousState = initialState;
     if (!exports.subscription) {
         exports.subscription = MCT1State.fusionStore.subscribe(this, function (state) {
