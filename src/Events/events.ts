@@ -19,8 +19,6 @@ export function registerEvents() {
                 if (typeof event != "undefined") {
                     magik.dixit(event.getItem().toString());
                 }
-                magik.dixit(username);
-                magik.dixit(`Is it me? ${isMe}`);
                 if (isMe) {
                     const apple = new Carbohydrate(15,5,5);
                     apple.eat();

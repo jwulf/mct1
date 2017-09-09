@@ -6,7 +6,7 @@ log('Loading Insulin Bar...');
 
 const initialState = MCT1State.getState();
 const textComponent = getBasalMessage(initialState.basalInsulinOnBoard);
-const amount = Math.max(initialState.rapidInsulinOnBoard, 20);
+const amount = initialState.rapidInsulinOnBoard;
 
 export let bar, subscription;
 
@@ -30,7 +30,7 @@ export function show() {
             if (previousState.rapidInsulinOnBoard !== state.rapidInsulinOnBoard) {
                 debug(`Insulin onboard: ${state.rapidInsulinOnBoard}`)
                 const amount = Math.min(state.rapidInsulinOnBoard, 20);
-                bar.progress(amount);
+                bar.progress(Math.min(amount, 100));
             }
             previousState = state;
         });

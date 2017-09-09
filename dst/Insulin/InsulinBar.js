@@ -6,7 +6,7 @@ var MCT1State = require("../State");
 log_1.log('Loading Insulin Bar...');
 var initialState = MCT1State.getState();
 var textComponent = getBasalMessage(initialState.basalInsulinOnBoard);
-var amount = Math.max(initialState.rapidInsulinOnBoard, 20);
+var amount = initialState.rapidInsulinOnBoard;
 function show() {
     exports.bar = Bar.bar()
         .textComponent(textComponent)
@@ -26,7 +26,7 @@ function show() {
             if (previousState.rapidInsulinOnBoard !== state.rapidInsulinOnBoard) {
                 log_1.debug("Insulin onboard: " + state.rapidInsulinOnBoard);
                 var amount_1 = Math.min(state.rapidInsulinOnBoard, 20);
-                exports.bar.progress(amount_1);
+                exports.bar.progress(Math.min(amount_1, 100));
             }
             previousState = state;
         });
