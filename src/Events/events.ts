@@ -15,7 +15,8 @@ export function registerEvents() {
             callback: function (event) {
                 var username = event.player.playerListName;
                 if (typeof event != "undefined") {
-                    magik.dixit(event.toString());
+                    magik.dixit(event.getItem().toString());
+
                 }
                 magik.dixit(username);
                 magik.dixit(`Is it me? ${username == me.getName()}`);
