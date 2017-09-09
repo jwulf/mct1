@@ -1,9 +1,9 @@
 import { Insulin } from './Insulin';
 
 /**
- * 5000ms onset delay
- * 240000ms effect duration
+ * 5s onset delay
+ * 300s effect duration
  * 2 power
  * false = flat response profile
  */
-export const basal = new Insulin(5000, 240000, 5, false);
+export const basal = new Insulin(5, 300, 2, false);
