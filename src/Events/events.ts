@@ -36,7 +36,7 @@ export function registerEvents() {
                     rapid.take(5);
                     return;
                 }
-                log(event.getItem().getType());
+                log(event.getItem().getType().toString());
             }
         }));
 }
