@@ -37,6 +37,7 @@ var Insulin = (function () {
         var _this = this;
         // This timeout is the onset Delay of taking the insulin
         debug("Taking " + amount + " rapid");
+        State_1.changeRapidInsulin(amount);
         timer_1.Interval.setTimeout(function () {
             debug('Starting absorption');
             _this.doInsulinAbsorption(_this.onsetDelay, amount);
@@ -65,6 +66,13 @@ var Insulin = (function () {
             };
             var e = getE();
             var effect = e * a;
+            // @TODO: Insulin is absorbed over a fixed period
+            // but the amounts absorbed / still in-system at any given time
+            // vary according to the absorption profile. Does it need some
+            // kind of integral calculus? The area under the absorption curve
+            // should equal the total amount, and the amount remaining in-system
+            // at any point should be the total minus whatever has been absorbed.
+            State_1.changeRapidInsulin(-a);
             return effect;
         }; })(this.power, this.duration, this.peak);
         var _loop = timer_1.Interval.setInterval(function () {
