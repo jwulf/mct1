@@ -36,8 +36,6 @@ export class Insulin {
         this.power = power;
     }
 
-
-
     // When you take insulin, it sets up a timer loop that applies the effect of the insulin
     // until it runs out.
 

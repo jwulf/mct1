@@ -21,6 +21,7 @@ export function show() {
     let previousState = initialState;
     if (!subscription) {
         subscription = MCT1State.fusionStore.subscribe(this, function (state) {
+            log('Insulin Bar State Listener called');
             if (previousState.basalInsulinOnBoard !== state.basalInsulinOnBoard) {
                 const text = getBasalMessage(state.basalInsulinOnBoard);
                 bar.textComponent(text);
