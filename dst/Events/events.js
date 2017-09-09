@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var Carbohydrate_1 = require("../Carbs/Carbohydrate");
 var magik = magikcraft.io;
 var EventPriority = magik.type("event.EventPriority");
 var PlayerItemConsumeEvent = magik.type("event.player.PlayerItemConsumeEvent");
@@ -10,11 +11,16 @@ function registerEvents() {
     magik.getPlugin().registerEvent(PlayerItemConsumeEvent.class, EventPriority.MONITOR, true, new EventCallback({
         callback: function (event) {
             var username = event.player.playerListName;
+            var isMe = (username == me.getName());
             if (typeof event != "undefined") {
                 magik.dixit(event.getItem().toString());
             }
             magik.dixit(username);
-            magik.dixit("Is it me? " + (username == me.getName()));
+            magik.dixit("Is it me? " + isMe);
+            if (isMe) {
+                var apple = new Carbohydrate_1.Carbohydrate(15, 5, 5);
+                apple.eat();
+            }
         }
     }));
 }

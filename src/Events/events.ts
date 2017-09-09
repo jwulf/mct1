@@ -1,3 +1,4 @@
+import { Carbohydrate } from '../Carbs/Carbohydrate';
 const magik = magikcraft.io;
 
 const EventPriority = magik.type("event.EventPriority");
@@ -14,12 +15,17 @@ export function registerEvents() {
         new EventCallback({
             callback: function (event) {
                 var username = event.player.playerListName;
+                const isMe = (username == me.getName());
                 if (typeof event != "undefined") {
                     magik.dixit(event.getItem().toString());
-
                 }
                 magik.dixit(username);
-                magik.dixit(`Is it me? ${username == me.getName()}`);
+                magik.dixit(`Is it me? ${isMe}`);
+                if (isMe) {
+                    const apple = new Carbohydrate(15,5,5);
+                    apple.eat();
+                }
+
             }
         }));
 }
