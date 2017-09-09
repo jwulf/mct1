@@ -9,6 +9,8 @@ log('MCT1 loading...');
 
 import { EventEmitter } from 'events';
 
+export let verbose = false;
+
 function createGame() {
     log('MCT1 starting');
     BGLBar.show();
@@ -33,6 +35,16 @@ function query() {
     log(MCT1State.getState());
 }
 
+function logson() {
+    verbose = true;
+    log('Set logging on');
+}
+
+function logsoff(){
+    verbose = false;
+    log('Set logging off');
+}
+
 const _default = createGame;
 
 export const spells = {
@@ -40,5 +52,7 @@ export const spells = {
     query,
     effects,
     eatCarbs,
-    takeInsulin
+    takeInsulin,
+    logson,
+    logsoff
 }

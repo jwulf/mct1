@@ -17,14 +17,14 @@ function show() {
     var previousState = initialState;
     if (!exports.subscription) {
         exports.subscription = MCT1State.fusionStore.subscribe(this, function (state) {
-            log_1.log('Insulin Bar State Listener called');
-            log_1.log(state);
+            log_1.debug('Insulin Bar State Listener called');
+            log_1.debug(state);
             if (previousState.basalInsulinOnBoard !== state.basalInsulinOnBoard) {
                 var text = getBasalMessage(state.basalInsulinOnBoard);
                 exports.bar.textComponent(text);
             }
             if (previousState.rapidInsulinOnBoard !== state.rapidInsulinOnBoard) {
-                log_1.log("Insulin onboard: " + state.rapidInsulinOnBoard);
+                log_1.debug("Insulin onboard: " + state.rapidInsulinOnBoard);
                 var amount_1 = Math.min(state.rapidInsulinOnBoard, 20);
                 exports.bar.progress(amount_1);
             }

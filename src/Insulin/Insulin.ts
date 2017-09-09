@@ -1,8 +1,7 @@
-import { log } from '../util/log';
+import { debug } from '../util/log';
 import * as State from '../State';
 import { Interval } from '../util/timer';
 
-const debug = log;
 /**
  * This is the Insulin class
  * Create a new instance of this class for basal and fast-acting insulins.
@@ -88,7 +87,7 @@ export class Insulin {
                 if (elapsedTime >= this.duration - this.onsetDelay) {
                     // insulin effect exhausted
                     Interval.clearInterval(_loop);
-                    log('Insulin effect exhausted');
+                    debug('Insulin effect exhausted');
                     return;
                 }
                 // == Do Insulin effect ==

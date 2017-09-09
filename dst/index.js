@@ -8,6 +8,7 @@ var log_1 = require("./util/log");
 var InsulinBar = require("./Insulin/InsulinBar");
 var BGLBar = require("./GlucoseMonitor/BGLBar");
 log_1.log('MCT1 loading...');
+exports.verbose = false;
 function createGame() {
     log_1.log('MCT1 starting');
     BGLBar.show();
@@ -28,11 +29,21 @@ function takeInsulin() {
 function query() {
     log_1.log(MCT1State.getState());
 }
+function logson() {
+    exports.verbose = true;
+    log_1.log('Set logging on');
+}
+function logsoff() {
+    exports.verbose = false;
+    log_1.log('Set logging off');
+}
 var _default = createGame;
 exports.spells = {
     _default: _default,
     query: query,
     effects: effects_1.effects,
     eatCarbs: eatCarbs,
-    takeInsulin: takeInsulin
+    takeInsulin: takeInsulin,
+    logson: logson,
+    logsoff: logsoff
 };
