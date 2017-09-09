@@ -26,7 +26,7 @@ function eatCarbs() {
 
 export function takeInsulin() {
     log('Taking 1u of rapid insulin');
-    rapid.take(5);
+    rapid.take(1);
 }
 
 function query() {

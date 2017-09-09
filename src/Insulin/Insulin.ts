@@ -45,7 +45,7 @@ export class Insulin {
         Interval.setTimeout(() => {
             debug('Starting absorption');
             this.doInsulinAbsorption(this.onsetDelay, amount);
-        }, this.onsetDelay);
+        }, this.onsetDelay * 1000);
     }
 
     doInsulinAbsorption(elapsedTime: number, amount: number) {

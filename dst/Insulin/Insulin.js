@@ -40,7 +40,7 @@ var Insulin = (function () {
         timer_1.Interval.setTimeout(function () {
             log_1.debug('Starting absorption');
             _this.doInsulinAbsorption(_this.onsetDelay, amount);
-        }, this.onsetDelay);
+        }, this.onsetDelay * 1000);
     };
     Insulin.prototype.doInsulinAbsorption = function (elapsedTime, amount) {
         var _this = this;
