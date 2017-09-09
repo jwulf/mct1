@@ -1,7 +1,7 @@
 import { registerConsumeEventHandler } from './events-lib';
 import { takeInsulin } from '../';
 import * as log from '../util/log';
-import * as Bukkit from '../Bukkit/';
+import * as Bukkit from '../lib/bukkit';
 import * as Food from '../Carbs/Foods';
 
 function handleConsumeEvent(event) {

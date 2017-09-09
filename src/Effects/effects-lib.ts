@@ -1,6 +1,6 @@
 import * as State from '../State';
 import * as env from '../util/env';
-import * as Bukkit from '../Bukkit/';
+import * as Bukkit from '../lib/bukkit';
 const magik = magikcraft.io;
 
 export function applyEffect(effect: string, opts: any = {}) {

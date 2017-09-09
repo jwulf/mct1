@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var events_lib_1 = require("./events-lib");
 var _1 = require("../");
 var log = require("../util/log");
-var Bukkit = require("../Bukkit/");
+var Bukkit = require("../lib/bukkit");
 var Food = require("../Carbs/Foods");
 function handleConsumeEvent(event) {
     if (event.getItem().getType() == Bukkit.Material.APPLE) {

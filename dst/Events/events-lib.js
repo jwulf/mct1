@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Bukkit = require("../Bukkit/");
+var Bukkit = require("../lib/bukkit");
 var magik = magikcraft.io;
 function registerConsumeEventHandler(callback) {
     var me = magik.getSender();

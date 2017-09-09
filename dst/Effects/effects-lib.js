@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var State = require("../State");
 var env = require("../util/env");
-var Bukkit = require("../Bukkit/");
+var Bukkit = require("../lib/bukkit");
 var magik = magikcraft.io;
 function applyEffect(effect, opts) {
     if (opts === void 0) { opts = {}; }

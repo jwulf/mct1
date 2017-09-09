@@ -1,5 +1,5 @@
 
-import * as Bukkit from '../Bukkit/';
+import * as Bukkit from '../lib/bukkit';
 const magik = magikcraft.io;
 
 export function registerConsumeEventHandler(callback: (event: any) => void): void {
