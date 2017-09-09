@@ -8,6 +8,7 @@ const PlayerItemConsumeEvent = magik.type("event.player.PlayerItemConsumeEvent")
 const PlayerQuitEvent = magik.type("event.player.PlayerQuitEvent");
 const EventCallback = Java.type("io.magikcraft.EventCallback");
 const Material = Java.type("org.bukkit.Material");
+const PotionMeta = Java.type("org.bukkit.inventory.meta.PotionMeta");
 
 export function registerEvents() {
     const me = magik.getSender();
@@ -31,7 +32,7 @@ export function registerEvents() {
                     apple.eat();
                     return;
                 }
-                if (event.getItem().getType() == Material.POTION) {
+                if (event.getItem().getItemMeta() instanceof PotionMeta) {
                     log('Taking 5u of rapid insulin');
                     rapid.take(5);
                     return;
