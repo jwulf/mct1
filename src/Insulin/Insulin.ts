@@ -100,7 +100,7 @@ export class Insulin {
                 debug('Doing insulin effect');
                 const bglDelta = calculateInsulinEffectWithPeak(elapsedTime) * amount;
                 const insulinAbsorbed = (bglDelta / (this.bglDeltaPerUnit * amount)) * amount;
-                debug(`bglDelta ${bglDelta}`);
+                this.doSideEffects(bglDelta, insulinAbsorbed);
                 elapsedTime += sample_rate;
             },
             sample_rate * 1000
@@ -109,9 +109,9 @@ export class Insulin {
 
     doSideEffects(bglDelta, insulinDelta) {
         if (isNode) {
-            console.log(bglDelta)
+            console.log('bglDelta:', bglDelta)
             this.test_bgl -= bglDelta;
-            console.log(insulinDelta);
+            console.log('insulinDelta', insulinDelta);
             this.test_insulinOnBoard -= insulinDelta;
         } else {
             State.changeBGL(0 - bglDelta);

@@ -90,15 +90,15 @@ var Insulin = (function () {
             log_1.debug('Doing insulin effect');
             var bglDelta = calculateInsulinEffectWithPeak(elapsedTime) * amount;
             var insulinAbsorbed = (bglDelta / (_this.bglDeltaPerUnit * amount)) * amount;
-            log_1.debug("bglDelta " + bglDelta);
+            _this.doSideEffects(bglDelta, insulinAbsorbed);
             elapsedTime += sample_rate;
         }, sample_rate * 1000);
     };
     Insulin.prototype.doSideEffects = function (bglDelta, insulinDelta) {
         if (env_1.isNode) {
-            console.log(bglDelta);
+            console.log('bglDelta:', bglDelta);
             this.test_bgl -= bglDelta;
-            console.log(insulinDelta);
+            console.log('insulinDelta', insulinDelta);
             this.test_insulinOnBoard -= insulinDelta;
         }
         else {

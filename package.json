@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "clean": "rm -rf dst/*",
-    "precommit": "tsc -p src"
+    "precommit": "tsc -p src",
+    "build": "tsc -p src"
   },
   "repository": {
     "type": "git",
