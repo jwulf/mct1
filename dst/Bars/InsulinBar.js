@@ -18,7 +18,7 @@ function init() {
     exports.bar = Bar.bar()
         .textComponent(textComponent)
         .color(Bar.color.BLUE)
-        .style(Bar.style.NOTCHED_20)
+        .style(Bar.style.NOTCHED_10)
         .progress(amount)
         .show();
     magik.playerMap.put(INSULIN_BAR_KEY, exports.bar);
