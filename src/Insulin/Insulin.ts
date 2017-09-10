@@ -1,3 +1,4 @@
+import { isNode } from '../util/env';
 import { debug } from '../util/log';
 import * as State from '../State';
 import { Interval } from '../util/timer';
@@ -12,27 +13,41 @@ import { Interval } from '../util/timer';
  * param {number} power - the effect of the insulin. This is the peak power for insulins with a peak response.
  */
 // const magik = magikcraft.io;
-const secondsPerTick = 1;
+const sample_rate = 1;
 
 export class Insulin {
     public onsetDelay: number;
     public duration: number;
     public peak: boolean;
-    public power: number;
+    public angle: number;
+    public bglDeltaPerUnit: number;
+    public test_bgl = 0;
+    public test_insulinOnBoard = 0;
+    private exhaustionListeners: (() => void)[] = [];
 
     /**
      * Creates an instance of Insulin.
-     * @param {any} onsetDelay - millisecond delay till insulin effect starts
-     * @param {number} duration - milliseconds of action
-     * @param {number} power - power factor (don't know the units yet)
+     * @param {any} onsetDelay - seconds delay till insulin effect starts
+     * @param {number} duration - seconds of action
+     * @param {number} bglDeltaPerUnit - power factor (how many mmol/l 1 unit will drop)
      * @param {boolean} [peak=false] set to true for a saw-tooth, false for flat response
      * @memberof Insulin
      */
-    constructor(onsetDelay, duration: number, power: number, peak = false) {
+    constructor(onsetDelay, duration: number, bglDeltaPerUnit: number, peak = false) {
         this.onsetDelay = onsetDelay;
         this.duration = duration;
         this.peak = peak; // Set to true for a saw-tooth acting insulin, false for a flat basal one
-        this.power = power;
+        this.bglDeltaPerUnit = bglDeltaPerUnit;
+
+        /**
+         * We treat the effect as an equilateral triangle.
+         * The area of the triangle is the total effect (bglDeltaPerUnit).
+         */
+        if (this.peak) {
+            const time = duration / sample_rate;
+            const height = (2 * bglDeltaPerUnit) / time;
+            this.angle = Math.atan(height / (0.5 * time));
+        }
     }
 
     // When you take insulin, it sets up a timer loop that applies the effect of the insulin
@@ -55,30 +70,21 @@ export class Insulin {
         // the curve looks like this:  /\
         // If peak is false, the insulin absorption curve is flat, like a long-acting basal
         // insulin
-        const calculateInsulinEffect = ((power, duration, peak) => (elapsedTime: number) => {
-            if (!peak) {
-                return power;
-            }
-            const a = Math.atan(power / (duration * 0.5));
-            const getE = () => {
-                if (elapsedTime <= duration / 2) {
-                    return a * elapsedTime;
-                } else {
-                    return a * duration - elapsedTime;
-                }
-            };
-            const e = getE();
-            const effect = e * a;
-            // @TODO: Insulin is absorbed over a fixed period
-            // but the amounts absorbed / still in-system at any given time
-            // vary according to the absorption profile. Does it need some
-            // kind of integral calculus? The area under the absorption curve
-            // should equal the total amount, and the amount remaining in-system
-            // at any point should be the total minus whatever has been absorbed.
-            State.changeRapidInsulin(-a);
 
+        /**
+         * Use trigonometry and discrete integration to calculate the effect.
+         * We do this by modelling the insulin absorption as an equilateral triangle
+         * and calculating a rectangular slice of the triangle at each sample time.
+         */
+        let effects: number[] = [];
+        const calculateInsulinEffectWithPeak = ((power, duration, peak) => (elapsedTime: number):number => {
+            if (elapsedTime >= duration / 2) {
+                return (effects.pop() as number);
+            }
+            const effect = sample_rate*elapsedTime*Math.tan(Math.atan(4*this.bglDeltaPerUnit/duration)/duration);
+            effects.push(effect);
             return effect;
-        })(this.power, this.duration, this.peak);
+        })(this.bglDeltaPerUnit, this.duration, this.peak);
 
         let _loop = Interval.setInterval(
             () => {
@@ -88,17 +94,38 @@ export class Insulin {
                     // insulin effect exhausted
                     Interval.clearInterval(_loop);
                     debug('Insulin effect exhausted');
+                    this.doExhaustion();
                     return;
                 }
-                // == Do Insulin effect ==
-                // TODO: calculate insulin power
                 debug('Doing insulin effect');
-                const bglDelta = calculateInsulinEffect(elapsedTime) * amount;
-                debug(`Insulin bglDelta ${bglDelta}`);
-                State.changeBGL(0-bglDelta);
-                elapsedTime += secondsPerTick;
+                const bglDelta = calculateInsulinEffectWithPeak(elapsedTime) * amount;
+                const insulinAbsorbed = (bglDelta / (this.bglDeltaPerUnit * amount)) * amount;
+                debug(`bglDelta ${bglDelta}`);
+                elapsedTime += sample_rate;
             },
-            secondsPerTick * 1000
+            sample_rate * 1000
         );
+    }
+
+    doSideEffects(bglDelta, insulinDelta) {
+        if (isNode) {
+            console.log(bglDelta)
+            this.test_bgl -= bglDelta;
+            console.log(insulinDelta);
+            this.test_insulinOnBoard -= insulinDelta;
+        } else {
+            State.changeBGL(0 - bglDelta);
+            State.changeRapidInsulin(0 - insulinDelta);
+        }
+    }
+
+    onExhaustion(callback: () => void){
+        this.exhaustionListeners.push(callback);
+    }
+
+    private doExhaustion() {
+        if (this.exhaustionListeners) {
+            this.exhaustionListeners.forEach(fn => fn());
+        }
     }
 }
