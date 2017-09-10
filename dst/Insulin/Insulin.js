@@ -14,7 +14,7 @@ var timer_1 = require("../util/timer");
  * param {number} power - the effect of the insulin. This is the peak power for insulins with a peak response.
  */
 // const magik = magikcraft.io;
-var sample_rate = 1;
+var sample_rate = 1; // seconds/sample
 var milliseconds = 1000;
 var Insulin = (function () {
     /**
@@ -39,9 +39,9 @@ var Insulin = (function () {
          * The area of the triangle is the total effect (bglDeltaPerUnit).
          */
         if (this.peak) {
-            var time = duration / sample_rate;
-            var height = (2 * bglDeltaPerUnit) / time;
-            this.angle = Math.atan(height / (0.5 * time));
+            var time = (duration - onsetDelay) / sample_rate;
+            var height = (bglDeltaPerUnit * 2) / time;
+            this.angle = Math.atan(height / (time / 2));
         }
     }
     // When you take insulin, it sets up a timer loop that applies the effect of the insulin
