@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "clean": "rm -rf dst/*",
-    "precommit": "tsc"
+    "precommit": "tsc -w -p src"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,11 @@
     "url": "https://github.com/mc-t1/mct1/issues"
   },
   "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "src/tsconfig.json"
+      }
+    },
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
