@@ -1,7 +1,12 @@
-import { effects } from '../Effects/effects';
+/**
+ * @TODO: Currently not used. To be reimplemented.
+ *
+ *
+ */
+import * as log from '../util/log';
+import { applyEffect } from '../Effects';
 import * as env from '../util/env';
 import { thresholds } from './bgl-alerts';
-
 enum BGLunits {
     'mmolL',
     'mgdl'
@@ -12,8 +17,6 @@ enum BGLunits {
  * The BGL class manages the player's Blood Glucose Level
  * Internally it stores the BGL in mmol/L, and provides a getter that
  * can return the value in mg/dl.
- *
- * say and effects are injected to facilitate unit testing
  *
  * @class BGL
  */
@@ -27,10 +30,8 @@ export class BGL {
 
     constructor() {
         this._bgl = BGL.InitialLevel;
-        this.say = (env.isNode) ? console.log
-            : magikcraft.io.dixit;
-        this.effects = (env.isNode) ? console.log
-            : effects;
+        this.effects = (env.isNode) ? log.info
+            : applyEffect;
     }
 
     getBGL(units: BGLunits = BGLunits.mmolL): number {

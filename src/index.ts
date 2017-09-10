@@ -1,37 +1,55 @@
-magikcraft.io.dixit('MCT1 loading...');
-import { log } from './util/log';
-import { BGLBarGlucoseMonitor } from './GlucoseMonitor/BGLBarGlucoseMonitor/BGLBarGlucoseMonitor';
-import { mct1 } from './util/mct1';
-import { T1Player } from './Player/T1Player';
+import * as Events from './Events/';
+import * as State from './State/';
+import * as Insulin from './Insulin';
+import * as Effects from './Effects';
+import * as log from './util/log';
+import { Food } from './Carbs/';
+import * as Bars from './Bars';
 
-mct1.version = '1.3.0';
-log(`MCT1 version ${mct1.version}`);
+log.info('MCT1 loading...');
 
-function _default() {
-    if (!mct1.initialised) {
-        initialise();
-    }
+function createGame() {
+    Bars.BGL.init();
+    Bars.Insulin.init();
+    Events.registerEventHandlers();
+    log.info('MCT1 started');
 }
 
-/**
- * MGK-006-compliant interface
- * See: https://github.com/Magikcraft/product-board/issues/6
- */
-export const spells = {
-    _default,
-    query
+function eatCarbs() {
+    Food.apple.eat();
+}
+
+export function takeInsulin() {
+    log.info('Taking 1u of rapid insulin');
+    Insulin.rapid.take(1);
 }
 
 function query() {
-    log(`BGL: ${mct1.T1Player.BGL.getBGL}`);
+    log.info(State.getState());
 }
 
-function initialise(callback?: () => void) {
-    log('Initialising...');
-    const player = new T1Player();
-    mct1.BGLBar = new BGLBarGlucoseMonitor(player, 1000);
-    mct1.T1Player = player;
-    mct1.initialised = true;
-    mct1.running = false;
-    callback && callback();
+function logson() {
+    log.verbose(true);
+    log.info('Set logging on');
+}
+
+function logsoff(){
+    log.verbose(false);
+    log.info('Set logging off');
+}
+
+/**
+* MGK-006-compliant interface
+* See: https://github.com/Magikcraft/product-board/issues/6
+*/
+const _default = createGame;
+
+export const spells = {
+    _default,
+    query,
+    applyEffect: Effects.applyEffect,
+    eatCarbs,
+    takeInsulin,
+    logson,
+    logsoff
 }

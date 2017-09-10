@@ -33,6 +33,10 @@
   dependencies:
     "@types/babel-types" "*"
 
+"@types/node@^8.0.20":
+  version "8.0.20"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.20.tgz#65c7375255c24b184c215a5d0b63247c32f01c91"
+
 abab@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.3.tgz#b81de5f7274ec4e756d797cd834f303642724e5d"
@@ -580,6 +584,10 @@ estraverse@^1.9.1:
 esutils@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/esutils/-/esutils-2.0.2.tgz#0abf4f1caa5bcb1f7a9d8acc6dea4faaa04bac9b"
+
+events@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
 
 exec-sh@^0.2.0:
   version "0.2.0"
@@ -1408,9 +1416,15 @@ lru-cache@^4.0.1:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
-magikcraft.io@^0.9.8:
-  version "0.9.8"
-  resolved "https://registry.yarnpkg.com/magikcraft.io/-/magikcraft.io-0.9.8.tgz#a5bbdab110aa5c496e2f850c5dc4dc93b20341f2"
+magikcraft-lore-ui-bar@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/magikcraft-lore-ui-bar/-/magikcraft-lore-ui-bar-1.0.14.tgz#9605fd8bdceec15c90cfaee367371b30272edda5"
+
+magikcraft.io@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/magikcraft.io/-/magikcraft.io-1.2.6.tgz#833912124b7b85ae84ecea197c8861d9ffa35937"
+  dependencies:
+    husky "^0.14.3"
 
 makeerror@1.0.x:
   version "1.0.11"
@@ -1487,6 +1501,16 @@ mkdirp@^0.5.1:
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
+
+nanoflux-fusion@^0.6.0-beta:
+  version "0.6.0-beta"
+  resolved "https://registry.yarnpkg.com/nanoflux-fusion/-/nanoflux-fusion-0.6.0-beta.tgz#7af30570fc61315b699789bae4b3596edc0ac59b"
+  dependencies:
+    nanoflux latest
+
+nanoflux@latest:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/nanoflux/-/nanoflux-1.1.1.tgz#3da4c1fd3244884e60bd7efaf85a2ffb1e2f46f0"
 
 natural-compare@^1.4.0:
   version "1.4.0"

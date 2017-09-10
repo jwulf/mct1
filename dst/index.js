@@ -1,34 +1,49 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-magikcraft.io.dixit('MCT1 loading...');
-var log_1 = require("./util/log");
-var BGLBarGlucoseMonitor_1 = require("./GlucoseMonitor/BGLBarGlucoseMonitor/BGLBarGlucoseMonitor");
-var mct1_1 = require("./util/mct1");
-var T1Player_1 = require("./Player/T1Player");
-mct1_1.mct1.version = '1.3.0';
-log_1.log("MCT1 version " + mct1_1.mct1.version);
-function _default() {
-    if (!mct1_1.mct1.initialised) {
-        initialise();
-    }
+var Events = require("./Events/");
+var State = require("./State/");
+var Insulin = require("./Insulin");
+var Effects = require("./Effects");
+var log = require("./util/log");
+var _1 = require("./Carbs/");
+var Bars = require("./Bars");
+log.info('MCT1 loading...');
+function createGame() {
+    Bars.BGL.init();
+    Bars.Insulin.init();
+    Events.registerEventHandlers();
+    log.info('MCT1 started');
+}
+function eatCarbs() {
+    _1.Food.apple.eat();
+}
+function takeInsulin() {
+    log.info('Taking 1u of rapid insulin');
+    Insulin.rapid.take(1);
+}
+exports.takeInsulin = takeInsulin;
+function query() {
+    log.info(State.getState());
+}
+function logson() {
+    log.verbose(true);
+    log.info('Set logging on');
+}
+function logsoff() {
+    log.verbose(false);
+    log.info('Set logging off');
 }
 /**
- * MGK-006-compliant interface
- * See: https://github.com/Magikcraft/product-board/issues/6
- */
+* MGK-006-compliant interface
+* See: https://github.com/Magikcraft/product-board/issues/6
+*/
+var _default = createGame;
 exports.spells = {
     _default: _default,
-    query: query
+    query: query,
+    applyEffect: Effects.applyEffect,
+    eatCarbs: eatCarbs,
+    takeInsulin: takeInsulin,
+    logson: logson,
+    logsoff: logsoff
 };
-function query() {
-    log_1.log("BGL: " + mct1_1.mct1.T1Player.BGL.getBGL);
-}
-function initialise(callback) {
-    log_1.log('Initialising...');
-    var player = new T1Player_1.T1Player();
-    mct1_1.mct1.BGLBar = new BGLBarGlucoseMonitor_1.BGLBarGlucoseMonitor(player, 1000);
-    mct1_1.mct1.T1Player = player;
-    mct1_1.mct1.initialised = true;
-    mct1_1.mct1.running = false;
-    callback && callback();
-}

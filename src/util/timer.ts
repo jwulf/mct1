@@ -1,3 +1,5 @@
+declare const setInterval: any, clearInterval: any, setTimeout: any;
+
 import * as env from './env';
 
 export interface Timer {

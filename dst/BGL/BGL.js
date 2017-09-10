@@ -1,6 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var effects_1 = require("../Effects/effects");
+/**
+ * @TODO: Currently not used. To be reimplemented.
+ *
+ *
+ */
+var log = require("../util/log");
+var Effects_1 = require("../Effects");
 var env = require("../util/env");
 var bgl_alerts_1 = require("./bgl-alerts");
 var BGLunits;
@@ -14,17 +20,13 @@ var BGLunits;
  * Internally it stores the BGL in mmol/L, and provides a getter that
  * can return the value in mg/dl.
  *
- * say and effects are injected to facilitate unit testing
- *
  * @class BGL
  */
 var BGL = (function () {
     function BGL() {
         this._bgl = BGL.InitialLevel;
-        this.say = (env.isNode) ? console.log
-            : magikcraft.io.dixit;
-        this.effects = (env.isNode) ? console.log
-            : effects_1.effects;
+        this.effects = (env.isNode) ? log.info
+            : Effects_1.applyEffect;
     }
     BGL.prototype.getBGL = function (units) {
         if (units === void 0) { units = BGLunits.mmolL; }
