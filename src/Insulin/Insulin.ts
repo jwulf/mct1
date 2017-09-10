@@ -14,7 +14,7 @@ import { Interval } from '../util/timer';
  */
 // const magik = magikcraft.io;
 const sample_rate = 1;
-
+const milliseconds = 1000;
 export class Insulin {
     public onsetDelay: number;
     public duration: number;
@@ -54,43 +54,46 @@ export class Insulin {
     // until it runs out.
 
     take(amount: number) {
-        // This timeout is the onset Delay of taking the insulin
         debug(`Taking ${amount} rapid`);
         State.changeRapidInsulin(amount);
+
+        // This timeout is the onset Delay of taking the insulin
         Interval.setTimeout(() => {
             debug('Starting absorption');
-            this.doInsulinAbsorption(this.onsetDelay, amount);
-        }, this.onsetDelay * 1000);
+            this.doInsulinAbsorption(amount);
+        }, this.onsetDelay * milliseconds);
     }
 
-    doInsulinAbsorption(elapsedTime: number, amount: number) {
+    doInsulinAbsorption(amount: number) {
+        const dose = amount;
         debug('Absorption started');
-        // If peak is true, this applies the effect of the insulin in a saw-tooth curve,
-        // peaking at its maximum mid-way through the duration.
-        // the curve looks like this:  /\
-        // If peak is false, the insulin absorption curve is flat, like a long-acting basal
-        // insulin
+        let elapsedTime = 0;
 
-        /**
-         * Use trigonometry and discrete integration to calculate the effect.
-         * We do this by modelling the insulin absorption as an equilateral triangle
-         * and calculating a rectangular slice of the triangle at each sample time.
-         */
         let effects: number[] = [];
-        const calculateInsulinEffectWithPeak = ((power, duration, peak) => (elapsedTime: number):number => {
-            if (elapsedTime >= duration / 2) {
+
+        const calculateInsulinEffectWithPeak = (power, duration) => elapsedTime => {
+            if (elapsedTime > duration / 2) {
                 return (effects.pop() as number);
             }
-            const effect = sample_rate*elapsedTime*Math.tan(Math.atan(4*this.bglDeltaPerUnit/duration)/duration);
+            const effect = sample_rate*elapsedTime*Math.tan(Math.atan(4*power/duration)/duration);
             effects.push(effect);
             return effect;
-        })(this.bglDeltaPerUnit, this.duration, this.peak);
+        };
+
+        const calculateInsulinEffectWithoutPeak = (power, duration) => elapsedTime => {
+            return power / duration;
+        }
+
+        const activeEffectTime = this.duration - this.onsetDelay;
+
+        const calculateInsulinEffect = (this.peak) ? calculateInsulinEffectWithPeak(this.bglDeltaPerUnit, activeEffectTime) : calculateInsulinEffectWithoutPeak(this.bglDeltaPerUnit, activeEffectTime);
 
         let _loop = Interval.setInterval(
             () => {
+                elapsedTime += sample_rate;
                 debug(`Elapsed time: ${elapsedTime}`);
-                debug(`Duration: ${this.duration - this.onsetDelay}`);
-                if (elapsedTime >= this.duration - this.onsetDelay) {
+                debug(`Duration: ${activeEffectTime}`);
+                if (elapsedTime >= activeEffectTime) {
                     // insulin effect exhausted
                     Interval.clearInterval(_loop);
                     debug('Insulin effect exhausted');
@@ -98,20 +101,18 @@ export class Insulin {
                     return;
                 }
                 debug('Doing insulin effect');
-                const bglDelta = calculateInsulinEffectWithPeak(elapsedTime) * amount;
-                const insulinAbsorbed = (bglDelta / (this.bglDeltaPerUnit * amount)) * amount;
+                const bglDelta = (amount > 0)? calculateInsulinEffect(elapsedTime) * dose : 0;
+                const insulinAbsorbed = (amount > 0) ?  Math.min(amount, (bglDelta / (this.bglDeltaPerUnit * dose)) * dose): 0;
+                amount -= insulinAbsorbed;
                 this.doSideEffects(bglDelta, insulinAbsorbed);
-                elapsedTime += sample_rate;
             },
-            sample_rate * 1000
+            sample_rate * milliseconds
         );
     }
 
     doSideEffects(bglDelta, insulinDelta) {
         if (isNode) {
-            console.log('bglDelta:', bglDelta)
             this.test_bgl -= bglDelta;
-            console.log('insulinDelta', insulinDelta);
             this.test_insulinOnBoard -= insulinDelta;
         } else {
             State.changeBGL(0 - bglDelta);
