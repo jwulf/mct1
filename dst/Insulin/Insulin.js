@@ -5,15 +5,8 @@ var log_1 = require("../util/log");
 var State = require("../State");
 var timer_1 = require("../util/timer");
 /**
- * This is the Insulin class
- * Create a new instance of this class for basal and fast-acting insulins.
- *
- *  param {number} onsetDelay - the number of seconds before the insulin effect kicks instance.
- *  param {number} duration - the number of seconds of the total effective duration of this insulin.
- *  param {number} peak - whether this is a ramp-up, ramp-down or flat-response insulin. Set to 0 for a flat (consistent) effect. Set to true for a bell curve (more a saw tooth) centered on the peak.
- * param {number} power - the effect of the insulin. This is the peak power for insulins with a peak response.
+ * See: https://github.com/mc-t1/mct1/issues/35
  */
-// const magik = magikcraft.io;
 var sample_rate = 1; // seconds/sample
 var milliseconds = 1000;
 var Insulin = (function () {
@@ -34,18 +27,12 @@ var Insulin = (function () {
         this.duration = duration;
         this.peak = peak; // Set to true for a saw-tooth acting insulin, false for a flat basal one
         this.bglDeltaPerUnit = bglDeltaPerUnit;
-        /**
-         * We treat the effect as an equilateral triangle.
-         * The area of the triangle is the total effect (bglDeltaPerUnit).
-         */
         if (this.peak) {
             var time = (duration - onsetDelay) / sample_rate;
             var height = (bglDeltaPerUnit * 2) / time;
             this.angle = Math.atan(height / (time / 2));
         }
     }
-    // When you take insulin, it sets up a timer loop that applies the effect of the insulin
-    // until it runs out.
     Insulin.prototype.take = function (amount) {
         var _this = this;
         log_1.debug("Taking " + amount + " rapid");
