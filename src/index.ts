@@ -5,6 +5,7 @@ import * as Effects from './Effects';
 import * as log from './util/log';
 import { Food } from './Carbs/';
 import * as Bars from './Bars';
+import { getInsulinPotion } from './Insulin/ObtainInsulin';
 
 log.info('MCT1 loading...');
 
@@ -12,6 +13,8 @@ function createGame() {
     Bars.BGL.init();
     Bars.Insulin.init();
     Events.registerEventHandlers();
+    getInsulinPotion(15);
+
     log.info('MCT1 started');
 }
 

@@ -46,13 +46,13 @@
   },
   "homepage": "https://www.mct1.io",
   "dependencies": {
-    "@types/node": "^8.0.20",
     "events": "^1.1.1",
     "magikcraft-lore-ui-bar": "^1.0.14",
     "nanoflux-fusion": "^0.6.0-beta",
     "only": "0.0.2"
   },
   "devDependencies": {
+    "@types/node": "^8.0.20",
     "husky": "^0.14.3",
     "jest": "^20.0.4",
     "magikcraft.io": "^1.2.6",

@@ -85,11 +85,11 @@ function call(module, spell = '_default') {
 
 You can use one of the following servers to run MC-T1:
 
-* au.open.magikcraft.io
+* magikcraft.io
 
-If you have the Magikcraft client, click on "Connect to other servers". If you do not see an entry for "Australia", then follow the instructions below for the Minecraft.net client.
+If you have the Magikcraft client, click on "Connect to other servers". If you do not see an entry for "magikcraft.io", then follow the instructions below for the Minecraft.net client.
 
-If you are using the Minecraft.net client, then click on Add Server, and enter one of the above server addresses into the name and server address fields.
+If you are using the Minecraft.net client, then click on Add Server, and enter `magikcraft.io` into the name and server address fields.
 
 Connect to the server. When you appear in the Minecraft world, type `/spellbook`. You get a link in your console. Press 'T' to activate chat, then click on the link. Open the link in your web browser. This will connect your spellbook with your Minecraft account and allow you to run MC-T1.
 

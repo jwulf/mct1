@@ -7,11 +7,13 @@ var Effects = require("./Effects");
 var log = require("./util/log");
 var _1 = require("./Carbs/");
 var Bars = require("./Bars");
+var ObtainInsulin_1 = require("./Insulin/ObtainInsulin");
 log.info('MCT1 loading...');
 function createGame() {
     Bars.BGL.init();
     Bars.Insulin.init();
     Events.registerEventHandlers();
+    ObtainInsulin_1.getInsulinPotion(15);
     log.info('MCT1 started');
 }
 function eatCarbs() {

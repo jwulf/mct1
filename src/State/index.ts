@@ -11,6 +11,9 @@ interface T1State {
     BGL?: number;
     effects?: string[];
 }
+
+// magikcraft.io.durablePlayerMap.put();
+
 // the 'fusionator' is responsible for the state manipulation
 // it is called with two arguments, the previous state
 // and an arguments array containing the arguments passed on actor call.
