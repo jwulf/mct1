@@ -117,4 +117,10 @@ To run your own version of the code, change your `package.json` in the "Manage P
 },
 ```
 
+## Building
 
+Run `npm run build`
+
+## Tests
+
+Run `npm test`

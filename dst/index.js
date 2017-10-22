@@ -13,7 +13,7 @@ function createGame() {
     Bars.BGL.init();
     Bars.Insulin.init();
     Events.registerEventHandlers();
-    ObtainInsulin_1.getInsulinPotion(15);
+    ObtainInsulin_1.giveInsulinPotion(15);
     log.info('MCT1 started');
 }
 function eatCarbs() {

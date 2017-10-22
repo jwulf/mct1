@@ -4,6 +4,8 @@ import * as log from '../util/log';
 import * as Bukkit from '../lib/bukkit';
 import { Food } from '../Carbs';
 
+const magik = magikcraft.io;
+
 function handleConsumeEvent(event) {
     if (event.getItem().getType() == Bukkit.Material.APPLE) {
         Food.apple.eat();
@@ -17,5 +19,6 @@ function handleConsumeEvent(event) {
 }
 
 export function registerEventHandlers() {
-    registerConsumeEventHandler(handleConsumeEvent);
+    magik.Events.on('PlayerItemConsumeEvent', handleConsumeEvent);
+    // registerConsumeEventHandler(handleConsumeEvent);
 }
