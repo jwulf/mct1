@@ -17,7 +17,7 @@ function createGame() {
     Bars.Insulin.init();
     Events.registerEventHandlers();
     giveInsulinPotions(15);
-    giveFood('APPLE', 10);
+    giveFood(10);
     magik.getSender().setFoodLevel(halfFoodBar);
 
     log.info('MCT1 started');
