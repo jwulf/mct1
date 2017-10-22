@@ -4,11 +4,8 @@ var timer_1 = require("../util/timer");
 var log_1 = require("../util/log");
 var env_1 = require("../util/env");
 var State = require("../State");
-/**
-* See: https://github.com/mc-t1/mct1/issues/35
-*/
 var milliseconds = 1000;
-var sample_rate = 1; // seconds/sample
+var sample_rate = 1;
 var Dose = (function () {
     function Dose(onsetDelay, duration, peak, bglDeltaPerUnit, onExhaustion) {
         if (onExhaustion === void 0) { onExhaustion = function () { }; }
@@ -22,7 +19,6 @@ var Dose = (function () {
     }
     Dose.prototype.take = function (amount) {
         var _this = this;
-        // This timeout is the onset Delay of taking the insulin
         timer_1.Interval.setTimeout(function () {
             log_1.debug('Starting absorption');
             _this.startInsulinAbsorption(amount);
@@ -52,7 +48,6 @@ var Dose = (function () {
             log_1.debug("Elapsed time: " + elapsedTime);
             log_1.debug("Duration: " + activeEffectTime);
             if (elapsedTime >= activeEffectTime) {
-                // insulin effect exhausted
                 timer_1.Interval.clearInterval(_loop);
                 log_1.debug('Insulin effect exhausted');
                 _this.onExhaustion();

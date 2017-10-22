@@ -1,10 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * @TODO: Currently not used. To be reimplemented.
- *
- *
- */
 var log = require("../util/log");
 var Effects_1 = require("../Effects");
 var env = require("../util/env");
@@ -14,14 +9,6 @@ var BGLunits;
     BGLunits[BGLunits["mmolL"] = 0] = "mmolL";
     BGLunits[BGLunits["mgdl"] = 1] = "mgdl";
 })(BGLunits || (BGLunits = {}));
-/**
- *
- * The BGL class manages the player's Blood Glucose Level
- * Internally it stores the BGL in mmol/L, and provides a getter that
- * can return the value in mg/dl.
- *
- * @class BGL
- */
 var BGL = (function () {
     function BGL() {
         this._bgl = BGL.InitialLevel;
@@ -50,11 +37,9 @@ var BGL = (function () {
         return Math.round(bgl / 18);
     };
     BGL.prototype.applyBGLchange = function (delta) {
-        // The following keeps newBGL 0 - 30
         var newBGL = (function (bgl) { return Math.min(bgl, 30); })(Math.max(this._bgl + delta, 0));
         this._bgl = newBGL;
         this.bglDelta = delta;
-        // Should alerts be moved out to a glucose monitor?
         if (this.BGLFallingFast()) {
             this.say('ALERT: BGL Falling fast');
         }
@@ -66,7 +51,6 @@ var BGL = (function () {
                 this.say('WARNING: Dropping to a low!');
             }
         }
-        // Effects
         if (!this.BGLinRange()) {
             if (this.BGLIsLow()) {
                 this.effects('CONFUSION');
@@ -76,7 +60,7 @@ var BGL = (function () {
             }
         }
         if (newBGL === 0) {
-            this.say("Aaaarrrggh!"); // kill player
+            this.say("Aaaarrrggh!");
         }
     };
     BGL.prototype.BGLRisingFast = function () {

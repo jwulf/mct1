@@ -16,7 +16,7 @@ function createGame() {
     Bars.Insulin.init();
     Events.registerEventHandlers();
     ObtainInsulin_1.giveInsulinPotions(15);
-    _1.giveFood(10); // @TODO: giving apple doesn't work yet
+    _1.giveFood(10);
     magik.getSender().setFoodLevel(halfFoodBar);
     log.info('MCT1 started');
 }
@@ -39,10 +39,6 @@ function logsoff() {
     log.verbose(false);
     log.info('Set logging off');
 }
-/**
-* MGK-006-compliant interface
-* See: https://github.com/Magikcraft/product-board/issues/6
-*/
 var _default = createGame;
 exports.spells = {
     _default: _default,

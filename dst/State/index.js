@@ -4,10 +4,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var NanoFlux = require('nanoflux-fusion');
 exports.fusionStore = NanoFlux.getFusionStore();
 exports.getState = function () { return exports.fusionStore.getState(); };
-// magikcraft.io.durablePlayerMap.put();
-// the 'fusionator' is responsible for the state manipulation
-// it is called with two arguments, the previous state
-// and an arguments array containing the arguments passed on actor call.
 NanoFlux.createFusionator({
     changeBGL: function (previousState, args) {
         var BGL = previousState.BGL;
@@ -49,9 +45,7 @@ NanoFlux.createFusionator({
         var newEffects = effects.filter(function (eff) { return (eff != effect); });
         return { effects: newEffects };
     }
-}, 
-// define an initial state!
-{
+}, {
     BGL: 4,
     rapidInsulinOnBoard: 0,
     basalInsulinOnBoard: 0,
