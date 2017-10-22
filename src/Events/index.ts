@@ -1,4 +1,3 @@
-import { registerConsumeEventHandler } from './events-lib';
 import { takeInsulin } from '../';
 import * as log from '../util/log';
 import * as Bukkit from '../lib/bukkit';
@@ -20,5 +19,4 @@ function handleConsumeEvent(event) {
 
 export function registerEventHandlers() {
     magik.Events.on('PlayerItemConsumeEvent', handleConsumeEvent);
-    // registerConsumeEventHandler(handleConsumeEvent);
 }

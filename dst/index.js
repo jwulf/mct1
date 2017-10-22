@@ -8,12 +8,16 @@ var log = require("./util/log");
 var _1 = require("./Carbs/");
 var Bars = require("./Bars");
 var ObtainInsulin_1 = require("./Insulin/ObtainInsulin");
+var magik = magikcraft.io;
 log.info('MCT1 loading...');
 function createGame() {
+    var halfFoodBar = 10;
     Bars.BGL.init();
     Bars.Insulin.init();
     Events.registerEventHandlers();
-    ObtainInsulin_1.giveInsulinPotion(15);
+    ObtainInsulin_1.giveInsulinPotions(15);
+    _1.giveFood('APPLE', 10);
+    magik.getSender().setFoodLevel(halfFoodBar);
     log.info('MCT1 started');
 }
 function eatCarbs() {

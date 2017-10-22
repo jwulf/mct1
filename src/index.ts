@@ -3,17 +3,22 @@ import * as State from './State/';
 import * as Insulin from './Insulin';
 import * as Effects from './Effects';
 import * as log from './util/log';
-import { Food } from './Carbs/';
+import { Food, giveFood } from './Carbs/';
 import * as Bars from './Bars';
-import { giveInsulinPotion } from './Insulin/ObtainInsulin';
+import { giveInsulinPotions } from './Insulin/ObtainInsulin';
+
+const magik = magikcraft.io;
 
 log.info('MCT1 loading...');
 
 function createGame() {
+    const halfFoodBar = 10;
     Bars.BGL.init();
     Bars.Insulin.init();
     Events.registerEventHandlers();
-    giveInsulinPotion(15);
+    giveInsulinPotions(15);
+    giveFood('APPLE', 10);
+    magik.getSender().setFoodLevel(halfFoodBar);
 
     log.info('MCT1 started');
 }

@@ -18,6 +18,5 @@ function handleConsumeEvent(event) {
 }
 function registerEventHandlers() {
     magik.Events.on('PlayerItemConsumeEvent', handleConsumeEvent);
-    // registerConsumeEventHandler(handleConsumeEvent);
 }
 exports.registerEventHandlers = registerEventHandlers;
